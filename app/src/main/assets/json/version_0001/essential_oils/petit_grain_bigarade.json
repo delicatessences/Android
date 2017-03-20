@@ -1,0 +1,17 @@
+{
+  "mId" : 20,
+      "mName" : "Petit grain bigarade",
+      "mBotanicalName" : "Citrus aurantium ssp. amara",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "linalol, acétate de linalyle",
+      "mDescription" : "Cette huile essentielle apporte calme et détente, favorise le sommeil et possède des propriétés régénérantes cellulaires pour la peau.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser chez l'enfant de moins de 3 ans.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "bigarade",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/petit-grain-bigaradier-81.html",
+       "mColor" : "#51552e",    
+  "properties" : [25,132,137,16,66,122,43],
+  "indications" : [204,134,77,3,166,20,18,207,191],
+  "administrations" : [1,2,3]
+}

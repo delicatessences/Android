@@ -1,0 +1,17 @@
+{
+  "mId" : 14,
+      "mName" : "Lavande aspic",
+      "mBotanicalName" : "Lavandula spica",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "1,8 cinéole, linalol, cétone",
+      "mDescription" : "Souvent considérée comme miraculeuse, cette huile essentielle est l'une des plus intéressantes sur le plan de la santé et particulièrement pour les brûlures et piqûres d'insectes.",
+      "mPrecautions" : "Ne pas utiliser dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser pour le nourrisson de moins de 3 mois.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "lavande_aspic",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/lavande-aspic-57.html",
+       "mColor" : "#606485",    
+  "properties" : [10,4,2,47,49,146],
+  "indications" : [33,179,154,156,183,77,215],
+  "administrations" : [2]
+}

@@ -1,0 +1,17 @@
+{
+  "mId" : 11,
+      "mName" : "Hélichryse italienne",
+      "mBotanicalName" : "Helichrysum italicum ssp serotinum",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "acétate de néryle, italidione",
+      "mDescription" : "Sans doute l'huile essentielle la plus précieuse pour le soin de la peau, l'helichryse italienne (ou Immortelle) fait de véritables miracles sur les bleus et hématomes grâce à son activité anti-hématome puissante.",
+      "mPrecautions" : "Déconseillée chez la femme enceinte ou allaitante et chez l'enfant de moins de six ans.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "immortelle",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/helichryse-italienne-45.html",
+       "mColor" : "#9aa368",    
+  "properties" : [21,37,54,66],
+  "indications" : [106,176,163,221,54],
+  "administrations" : [2]
+}

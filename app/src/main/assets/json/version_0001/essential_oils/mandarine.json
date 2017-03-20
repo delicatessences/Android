@@ -1,0 +1,17 @@
+{
+  "mId" : 16,
+      "mName" : "Mandarine",
+      "mBotanicalName" : "Citrus reticulata",
+      "mDistilledOrgan" : "Zeste",
+      "mChemotype" : "limonène, y-terpinène",
+      "mDescription" : "L'huile essentielle de mandarine est très appréciée pour son odeur parfumée et sucrée. Elle sera une grande alliée pour toute la famille pour lutter contre le stress et l'anxiété.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Dermocaustique, ne pas appliquer avant exposition au soleil.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "mandarine",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/mandarine-65.html",
+       "mColor" : "#737261",    
+  "properties" : [42,58,137,132],
+  "indications" : [204,14,7,134,37,115,166,191],
+  "administrations" : [1,2,3]
+}

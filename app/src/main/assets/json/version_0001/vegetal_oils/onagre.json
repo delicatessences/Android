@@ -1,0 +1,12 @@
+{
+  "mId" : 10,
+  "mName" : "Onagre",
+      "mDescription" : "Les graines d'onagre sont très riches en acide linoléique, ce qui confère à l'huile obtenue des propriétés hydratantes très intéressantes pour tout type de peau.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "onagre",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/onagre-42.html",
+      "mColor" : "#4a6252",
+  "properties" : [19,12,24],
+  "indications" : [41,48]
+}

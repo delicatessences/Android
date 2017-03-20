@@ -1,0 +1,17 @@
+{
+  "mId" : 7,
+      "mName" : "Eucalyptus citronné",
+      "mBotanicalName" : "Eucalyptus citriodora",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "citronnellal, citronnellol",
+      "mDescription" : "L'huile essentielle d'eucalyptus citronné est principalement utilisée en aromathérapie pour ses propriétés anti-inflammatoire et pour repousser les moustiques.",
+      "mPrecautions" : "Déconseillée dans les trois premiers mois de la grossesse et chez l'enfant de moins de 12 ans. Irritante pour les peaux sensibles et potentiellement allergisante. Ne pas utiliser pure sur la peau sauf sur de petites surfaces (piqûre d'insecte).",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "eucalyptus_citronne",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/eucalyptus-citronne-29.html",
+       "mColor" : "#855579",    
+  "properties" : [4,50,25,94,43,135],
+  "indications" : [18,207,197,154,229,63,61,218,187,179],
+  "administrations" : [1,2]
+}

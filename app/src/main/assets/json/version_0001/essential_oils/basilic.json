@@ -1,0 +1,17 @@
+{
+      "mId" : 1,
+      "mName" : "Basilic tropical",
+      "mBotanicalName" : "Ocimum basilicum var. basilicum",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "Chavicol M.E.",
+      "mDescription" : "Le basilic tropical, aussi appelé basilic exotique, a une odeur fraîche avec une note anisée. L'huile essentielle obtenue à partir de ses sommités fleuries est connue pour être un antispasmodique puissant.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez l'enfant de moins de 12 ans. Dermocaustique, ne doit pas être appliquée pure sur la peau. Son utilisation sur de longues périodes est également déconseillée.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/basilic-tropical-5.html",
+      "mImage" : "basilic",
+       "mColor" : "#9e5160",
+  "properties" : [43,4,25,131,157,156],
+  "indications" : [200,57,58,112,18,191,207,158,6,185,90,64,202,15,134,38],
+  "administrations" : [2,3]
+}

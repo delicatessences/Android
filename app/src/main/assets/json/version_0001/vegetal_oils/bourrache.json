@@ -1,0 +1,12 @@
+{
+  "mId" : 4,
+  "mName" : "Bourrache",
+      "mDescription" : "L'huile de bourrache est une excellente régénératrice des tissus cutanés, c'est pourquoi elle est utilisée en cosmétique pour redonner à la peau souplesse et élasticité.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "bourrache",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/bourrache-18.html",
+      "mColor" : "#6287c0",
+  "properties" : [24,12],
+  "indications" : [41,16,45]
+}

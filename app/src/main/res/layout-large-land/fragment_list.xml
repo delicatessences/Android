@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.125"
+            android:background="@color/list_background_color"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:scrollbars="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.75"
+            android:layout_height="match_parent"
+            android:background="@drawable/listview_border"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.125"
+            android:background="@color/list_background_color"
+            android:layout_height="match_parent" />
+
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/list_is_empty"
+        android:gravity="center"
+        android:paddingLeft="@dimen/empty_view_padding"
+        android:paddingRight="@dimen/empty_view_padding"
+        android:visibility="gone"/>
+
+</FrameLayout>

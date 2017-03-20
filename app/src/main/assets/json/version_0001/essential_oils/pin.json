@@ -1,0 +1,17 @@
+{
+  "mId" : 21,
+      "mName" : "Pin sylvestre",
+      "mBotanicalName" : "Pinus sylvestris",
+      "mDistilledOrgan" : "Aiguilles",
+      "mChemotype" : "pinènes, limonène",
+      "mDescription" : "Huile essentielle aux propriétés tonifiantes et antiseptiques respiratoires. Elle est également dite cortisone-mimétique car elle exerce un effet sur les glandes surrénales proche de celui de la cortisone.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser chez l'enfant de moins de 6 ans. Dermocaustique, ne pas utiliser pure sur la peau. Ne pas utiliser chez les personnes souffrant d'insuffisance rénale.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "pin",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/pin-sylvestre-85.html",
+       "mColor" : "#7ea82a",    
+  "properties" : [157,42,24,71,68],
+  "indications" : [233,234,32,199,211,140,117,191],
+  "administrations" : [1,2]
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="edit_activity_horizontal_margin">24dp</dimen>
+    <dimen name="edit_activity_vertical_margin">32dp</dimen>
+    <dimen name="fab_margin">32dp</dimen>
+</resources>

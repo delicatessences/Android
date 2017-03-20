@@ -1,0 +1,12 @@
+{
+  "mId" : 6,
+  "mName" : "Calophylle",
+      "mDescription" : "L'huile végétale de calophylle est obtenue par pression à froid des amandes du fruit séché. Elle favorise la circulation sanguine et lymphatique.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "calophylle",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/calophylle-26.html",
+      "mColor" : "#bdc94f",
+  "properties" : [21,16],
+  "indications" : [14,15]
+}

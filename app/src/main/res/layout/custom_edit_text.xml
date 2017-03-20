@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:paddingLeft="4dp"/>
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_action_remove"/>
+
+
+</LinearLayout>

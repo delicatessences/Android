@@ -1,0 +1,12 @@
+{
+  "mId" : 2,
+  "mName" : "Amande douce",
+      "mDescription" : "L'amande douce est une huile aux nombreuses vertus : adoucissante, émoliante, assouplissante et fortifiante. Elle très utilisée en aromathérapie car elle est très bien tolérée par la peau et on la trouve facilement dans le commerce.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "amande",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/amande-douce-10.html",
+       "mColor" : "#aea57e",
+  "properties" : [24,1,11,17],
+  "indications" : [42,41,10,20,54]
+}

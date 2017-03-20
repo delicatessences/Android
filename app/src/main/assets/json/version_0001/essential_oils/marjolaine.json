@@ -1,0 +1,17 @@
+{
+  "mId" : 17,
+      "mName" : "Marjolaine à coquilles",
+      "mBotanicalName" : "Origanum majorana",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "terpinene-4-ol, monoterpénol",
+      "mDescription" : "L'huile essentielle de marjolaine possède de nombreuses vertus médicinales et sera particulièrement indiquée pour lutter contre les maladies nerveuses (stress, anxiété, agitation) grâce à ses propriétés calmantes du système nerveux central.",
+      "mPrecautions" : "Déconseillée chez la femme enceinte.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "marjolaine",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/marjolaine-a-coquilles-69.html",
+       "mColor" : "#5e344e",    
+  "properties" : [10,59,137,43],
+  "indications" : [32,199,190,14,64,138,115,166,57,49,144,191,197],
+  "administrations" : [2,3]
+}

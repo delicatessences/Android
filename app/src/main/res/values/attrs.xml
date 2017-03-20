@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="decoration">
+        <flag name="comma_separated" value="1" />
+        <flag name="list" value="2" />
+    </attr>
+
+    <attr name="unit">
+        <flag name="none" value="1" />
+        <flag name="currency" value="2" />
+        <flag name="volume" value="3" />
+    </attr>
+
+
+    <declare-styleable name="CustomEditText">
+        <attr name="android:inputType"/>
+        <attr name="android:hint"/>
+        <attr name="clearEnabled" format="boolean"/>
+        <attr name="unit"/>
+    </declare-styleable>
+
+    <declare-styleable name="MembershipView">
+        <attr name="android:hint"/>
+        <attr name="decoration"/>
+    </declare-styleable>
+
+    <declare-styleable name="SpinnerWithHint">
+        <attr name="android:hint"/>
+    </declare-styleable>
+</resources>

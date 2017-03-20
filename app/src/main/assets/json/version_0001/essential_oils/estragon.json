@@ -1,0 +1,17 @@
+{
+  "mId" : 6,
+      "mName" : "Estragon",
+      "mBotanicalName" : "Artemisia dracunculus",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "Estragole",
+      "mDescription" : "L'huile essentielle d'estragon est reconnue pour sa polyvalence : elle permet notamment de lutter contre les allergies, les troubles digestifs et les règles douloureuses.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse. Dermocaustique, ne doit pas être appliquée pure sur la peau.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "estragon",
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/estragon-25.html",
+       "mColor" : "#4a4c59",    
+  "properties" : [43,5,25,19],
+  "indications" : [200,44,6,202,9,49,57,74,185,201,158,227,149],
+  "administrations" : [2,3]
+}

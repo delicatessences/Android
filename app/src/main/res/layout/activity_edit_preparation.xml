@@ -1,0 +1,21 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent_color"
+        android:textSize="@dimen/edit_section_text_size"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left"
+        android:paddingTop="@dimen/section_padding_top"
+        android:text="@string/preparation"/>
+
+    <fr.delicatessences.delicatessences.editor.CustomEditText
+        android:id="@+id/preparation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+        android:hint="@string/preparation"/>
+
+</merge>

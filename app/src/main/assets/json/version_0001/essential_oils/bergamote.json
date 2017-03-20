@@ -1,0 +1,17 @@
+{
+  "mId" : 2,
+      "mName" : "Bergamote",
+      "mBotanicalName" : "Citrus bergamia",
+      "mDistilledOrgan" : "Zeste",
+      "mChemotype" : "linalol, limonène, acétate de linalyle",
+      "mDescription" : "Son odeur subtile et fruitée est très agréable : en diffusion elle est appréciée de tous, on la retrouve souvent en parfumerie.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez l'enfant de moins de trois ans. Dermocaustique, ne doit pas être appliquée pure sur la peau. Photosensibilisante, ne doit pas être appliquée avant exposition au soleil.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "bergamote",
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/bergamote-9.html",
+       "mColor" : "#2e5627",    
+  "properties" : [43,58,137],
+  "indications" : [204,15,64,134,77,3,183],
+  "administrations" : [1,2]
+}

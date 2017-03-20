@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/administrations.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/categories.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/essential_indications.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/essential_properties.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/uses.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/vegetal_indications.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/vegetal_properties.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/version_0001/essential_oils/camomille_noble.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/version_0001/vegetal_oils/amande_douce.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/json/version_0001/vegetal_oils/argan.json" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

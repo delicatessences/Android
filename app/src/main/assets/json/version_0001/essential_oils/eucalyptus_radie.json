@@ -1,0 +1,17 @@
+{
+  "mId" : 8,
+      "mName" : "Eucalyptus radié",
+      "mBotanicalName" : "Eucalyptus radiata",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "1,8 cinéole, alpha-terpinéol",
+      "mDescription" : "L'huile essentielle d'eucalyptus radié est l'un des antiseptiques les plus efficaces. Elle est une incontournable de votre aromathèque pour traverser l'hiver sans encombre : particulièrement indiquée contre les rhumes, bronchites et grippes, elle vous protègera également de manière préventive.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse. Elle est contre-indiquée chez les asthmatiques.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "eucalyptus_radie",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/eucalyptus-radie-33.html",
+       "mColor" : "#b27a92",    
+  "properties" : [10,25,49,146,90,97],
+  "indications" : [32,199,105,84,194,165],
+  "administrations" : [1,2,3]
+}

@@ -1,0 +1,17 @@
+{
+  "mId" : 5,
+      "mName" : "Citron",
+      "mBotanicalName" : "Citrus limon",
+      "mDistilledOrgan" : "Zeste",
+      "mChemotype" : "Limonène",
+      "mDescription" : "L'huile essentielle de citron possède des propriétés antibactérienne, antivirale et antiseptique qui sont particulièrement indiquées pour assainir l'air lors d'épidémies hivernales. Ses nombreux atouts en font une incourtournable de l'aromathérapie.",
+      "mPrecautions" : "Dermocaustique, ne doit pas être appliquée pure sur la peau. Photosensibilisante, ne doit pas être appliquée avant exposition au soleil.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "citron",
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/citron-21.html",
+       "mColor" : "#eecf06",    
+  "properties" : [42,10,49,156],
+  "indications" : [231,232,88,54,176,108,3,223,45,89],
+  "administrations" : [1,2,3]
+}

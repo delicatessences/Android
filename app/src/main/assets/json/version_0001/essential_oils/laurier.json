@@ -1,0 +1,17 @@
+{
+  "mId" : 13,
+      "mName" : "Laurier noble",
+      "mBotanicalName" : "Laurus nobilis",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "1-8 cinéole, linalol, eugénol",
+      "mDescription" : "L'huile essentielle de laurier noble est particulièrement indiquée pour traiter les maladies respiratoires et les affections bucco-dentaires et cutanées. Elle aurait également la vertu de stimuler le cuir chevelu.",
+      "mPrecautions" : "Ne pas utiliser pendant les trois premiers mois de la grossesse. Sensibilisante de type allergique possible, faire un test de sensibilisation cutanée avant emploi.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "laurier",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/laurier-noble-53.html",
+       "mColor" : "#63602a",    
+  "properties" : [20,49,10,4,33,112,150],
+  "indications" : [17,1,103,32,199,105,154,18,191,161],
+  "administrations" : [2,3]
+}

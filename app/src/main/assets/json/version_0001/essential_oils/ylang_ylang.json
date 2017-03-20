@@ -1,0 +1,17 @@
+{
+  "mId" : 24,
+      "mName" : "Ylang-ylang",
+      "mBotanicalName" : "Cananga odorata",
+      "mDistilledOrgan" : "Fleurs",
+      "mChemotype" : "germacrène",
+      "mDescription" : "L'huile essentielle d'ylang-ylang est généralement utilisée pour ses propriétés relaxantes et anti-stress.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser chez l'enfant de moins de 6 ans.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "ylang_ylang",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/ylang-ylang-97.html",
+       "mColor" : "#758a22",    
+  "properties" : [16,132,137,161,43,102],
+  "indications" : [115,166,96,204,14,15,134,201],
+  "administrations" : [1,2]
+}

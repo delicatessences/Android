@@ -1,0 +1,40 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/properties"
+        android:textSize="@dimen/edit_activity_text_size"
+        android:textColor="@color/primary_text_color"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left"
+        android:paddingTop="@dimen/section_padding_top" />
+
+    <fr.delicatessences.delicatessences.editor.MembershipView
+        android:id="@+id/properties_view"
+        android:layout_marginTop="@dimen/edit_activity_properties_margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/properties"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/indications"
+        android:textSize="@dimen/edit_activity_text_size"
+        android:textColor="@color/primary_text_color"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left"
+        android:paddingTop="@dimen/section_padding_top" />
+
+    <fr.delicatessences.delicatessences.editor.MembershipView
+        android:id="@+id/indications_view"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/edit_activity_properties_margin_top"
+        android:layout_height="wrap_content"
+        android:hint="@string/indications"
+        />
+
+
+</merge>

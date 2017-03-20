@@ -1,0 +1,505 @@
+[
+    {
+              "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Acné",
+              
+              "category" : 1,
+              "mPreparation" : "Dans un roll-on, mélanger à parts égales de l'huile essentielle de lavande vraie et de l'huile essentielle de tea tree. Appliquer localement matin et soir jusqu'à disparition du bouton d'acné.",
+              "use" : 7,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/acne-7.html",
+        "essential_oils":[15,23],
+        "vegetal_oils":[]
+    },
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Peau grasse",
+              
+              "category" : 1,
+              "mPreparation" : "Dans une noisette de votre crème hydratante, mélanger 1 goutte de géranium rosat, 1 goutte de lavande vraie et et 1 goutte de mandarine que vous appliquerez sur votre visage comme habituellement.",
+              "use" : 2,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/peau-grasse-11.html",
+        "essential_oils":[10,15,16],
+        "vegetal_oils":[]
+    },
+    {
+        "mAuthor" : "Dominique Baudoux",
+              "mName" : "Cellulite",
+              
+              "category" : 1,
+              "mPreparation" : "Diluer 2 gouttes de citron, 2 gouttes d'eucalyptus radié, 2 gouttes de gaulthérie et 2 gouttes d'hélichryse italienne dans une cuillère à soupe d'huile végétale de rose musquée. Masser les zones concernées 2 fois par jour.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/cellulite-15.html",
+        "essential_oils":[5,8,9,11],
+        "vegetal_oils":[11]
+    },
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Chute de cheveux",
+              
+              "category" : 1,
+              "mPreparation" : "Pour réaliser cette lotion capillaire, mélanger 3 ml de bois de rose, 3 ml de géranium rosat, 3 ml de laurier noble et 3 ml de lavande aspic dans 30 ml d'huile végétale de jojoba. Massez-vous quotidiennement le cuir chevelu avec 10 gouttes de cette préparation.",
+              "use" : 2,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/chute-cheveux-19.html",
+              "mFavorite" : false,
+        "essential_oils":[3,10,13,14],
+        "vegetal_oils":[8]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Ongles cassants",
+              
+              "category" : 1,
+              "mPreparation" : "Diluer 3 gouttes d'essence de citron dans 2 gouttes d'huile végétale d'amande douce ou dans une autre huile végétale de votre choix. Appliquer ce baume sur vos ongles quotidiennement.",
+              "use" : 2,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/ongles-cassants-23.html",
+        "essential_oils":[5],
+        "vegetal_oils":[2]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Shampoing anti-pellicules",
+              
+              "category" : 1,
+              "mPreparation" : "Dans une dose de votre shampoing habituel, ajouter 2 gouttes de géranium rosat et 2 gouttes de tea tree pour lutter contre les pellicules.",
+              "use" : 2,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/pellicules-27.html",
+        "essential_oils":[10,23],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Soin régénérant",
+              
+              "category" : 1,
+              "mPreparation" : "Préparer une synergie composée de 3 ml de bois de rose, 1,8 ml de katafray et 0,2 ml d'ylang-ylang. Diluer deux gouttes de ce mélange dans 10 ml d'eau pure ou dans votre crème de soin.",
+              "use" : 2,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/soin-regenerant-31.html",
+        "essential_oils":[3,12,24],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Angoisse",
+              
+              "category" : 2,
+              "mPreparation" : "Sur un comprimer neutre, verser 1 goutte d'huile essentielle de géranium rosat et 1 goutte d'huile essentielle de ravintsara. Comprimé à sucer 2 fois par jour pendant 15 jours.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/angoisse-35.html",
+        "essential_oils":[10,22],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Anxiété",
+              
+              "category" : 2,
+              "mPreparation" : "Dans 9 ml d'huile végétale de calophylle, ajouter 2 ml de camomille noble, 2 ml de petit grain bigarade et 2 ml d'ylang-ylang. Faites-vous masser le dos avec quelques gouttes de ce mélange.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/anxiete-39.html",
+        "essential_oils":[4,20,24],
+        "vegetal_oils":[6]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Baby blues",
+              
+              "category" : 2,
+              "mPreparation" : "Mélanger 5 gouttes d'huile essentielle de géranium rosat et 5 gouttes d'essence de mandarine dans une cuillère à soupe de l'huile végétale de votre choix (calophylle par exemple). Massez vous le corps ou le dos matin et soir avec cette préparation.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/baby-blues-43.html",
+        "essential_oils":[10,16],
+        "vegetal_oils":[6]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Concentration",
+              
+              "category" : 2,
+              "mPreparation" : "Diffuser 3 fois 10 minutes dans la journée l'essence de citron à l'aide d'un diffuseur pour favoriser la concentration.",
+              "use" : 3,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/concentration-47.html",
+        "essential_oils":[5],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Dépression post-partum",
+              
+              "category" : 2,
+              "mPreparation" : "Verser une goutte d'huile essentielle de camommille noble sur un comprimé neutre ou dans une cuillère à café de miel. Laisser fondre ce mélange sous la langue 2 fois par jour.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/depression-post-partum-51.html",
+        "essential_oils":[4],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Fatigue",
+              
+              "category" : 2,
+              "mPreparation" : "Dans 10 ml d'huile végétale de votre choix (calophylle par exemple), ajouter 10 gouttes d'huile essentielle de bois de rose et 10 gouttes d'huile essentielle de tea tree. Masser le ventre, le sternum et le pli du coude matin et soir avec quelques gouttes de cette préparation jusqu'à amélioration.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/fatigue-55.html",
+        "essential_oils":[3,23],
+        "vegetal_oils":[6]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Insomnie",
+              
+              "category" : 2,
+              "mPreparation" : "Dans une cuillère à soupe de base pour le bain (bicarbonate de sodium par exemple), verser 5 gouttes de lavande vraie, 5 gouttes de marjolaine à coquilles et 2 gouttes d'ylang-ylang. Avant le coucher, pour favoriser l'endormissement, prenez un bain d'environ un quart d'heure dans lequel vous aurez versé ce mélange.",
+              "use" : 1,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/insomnie-59.html",
+        "essential_oils":[15,17,24],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Dominique Baudoux",
+              "mName" : "Libido",
+              
+              "category" : 2,
+              "mPreparation" : "Dans une cuillère à soupe d'une huile végétale de votre choix (jojoba par exemple), verser 1 goutte d'huile essentielle de bois de rose et 1 goutte d'huile essentielle d'ylang-ylang et masser le bas du dos et/ou tout le corps.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/libido-63.html",
+        "essential_oils":[3,24],
+        "vegetal_oils":[8]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Mal des transports",
+              
+              "category" : 2,
+              "mPreparation" : "Verser une goutte d'essence de citron sur un comprimé neutre ou un petit morceau de sucre et laisser fondre sous la langue. Jusqu'à 4 prises maximum pendant le trajet.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/mal-transports-67.html",
+        "essential_oils":[5],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Dominique Baudoux",
+              "mName" : "Concentration",
+              
+              "category" : 2,
+              "mPreparation" : "Préparer un mélange composé de 2 ml de basilic tropical, 2 ml de menthe poivrée et 1 ml de pin sylvestre. Verser 4 gouttes de ce mélange dans une cuillère à café de miel ou sur un petit morceau de sucre. A prendre 2 fois par jour pendant les repas.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/concentration-oral-71.html",
+        "essential_oils":[1,18,21],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Relaxation",
+              
+              "category" : 2,
+              "mPreparation" : "Dans une cuillère à soupe de base pour le bain (bicarbonate de sodium par exemple), verser 10 gouttes d'huile essentielle de lavande vraie et 5 gouttes d'huile essentielle de petit grain bigarade. Ajoutez ce mélange à l'eau de votre bain et appréciez un moment de détente pendant 20 minutes environ.",
+              "use" : 1,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/relaxation-bain-75.html",
+        "essential_oils":[15,20],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Relaxation",
+              
+              "category" : 2,
+              "mPreparation" : "Dans un flacon de 30 ml, mélanger 1 ml de camomille noble, 5 ml de lavande vraie et 1 ml d'ylang-ylang dans 23 ml d'une huile végétale de votre choix (amande douce par exemple). Faites-vous masser le dos avec une dizaine de gouttes de cette préparation.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/relaxation-massage-79.html",
+        "essential_oils":[4,15,24],
+        "vegetal_oils":[2]
+    }
+    ,
+    {
+        "mAuthor" : "Jean-Michel Morel",
+              "mName" : "Sommeil (enfants)",
+              
+              "category" : 2,
+              "mPreparation" : "Pour favoriser l'endormissement des enfants de plus de 7 ans, diffuser dans leur chambre de l'huile essentielle de mandarine à l'aide d'un diffuseur électrique, un quart d'heure avant le coucher.",
+              "use" : 3,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/sommeil-enfant-83.html",
+        "essential_oils":[16],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Digestion",
+              
+              "category" : 2,
+              "mPreparation" : "Préparer une tisane, laisser infuser 10 minutes. Verser ensuite 1 goutte d'huile essentielle de basilic tropical ou de menthe poivrée dans une cuillère à café de miel que vous disperserez dans l'infusion. Après le repas, cette tisane favorisera la digestion.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/tisane-digestion-87.html",
+        "essential_oils":[1,18],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Sommeil",
+              
+              "category" : 2,
+              "mPreparation" : "Préparer une tisane, laisser infuser 10 minutes. Verser ensuite 1 goutte d'huile essentielle de mandarine ou de lavande vraie dans une cuillère à café de miel que vous disperserez dans l'infusion. Avant le coucher, cette tisane favorisera l'endormissement.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/tisane-sommeil-91.html",
+        "essential_oils":[15,16],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Brûlure",
+              
+              "category" : 3,
+              "mPreparation" : "Appliquer localement 2 gouttes d'huile essentielle de lavande aspic toutes les 15 minutes pendant 1 heure. Si la zone atteinte est peu étendue, appliquer 2 gouttes de lavande aspic 3 fois par jour pendant les 5 jours suivants. Si la zone atteinte est assez étendue, diluer 4 gouttes de lavande aspic dans une cuillère d'huile végétale puis appliquer localement ce mélange. En cas de brûlure, le premier geste doit être de refroidir la zone atteinte en la passant sous l'eau froide pendant 5 à 10 minutes. Cela évitera que la brûlure ne soit plus profonde. Si la brûlure est importante ou étendue, consulter immédiatement un médecin.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/brulure-95.html",
+        "essential_oils":[14],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Coup de soleil",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 5 gouttes d'huile essentielle de lavande aspic dans 1/2 cuillère à café d'huile végétale de calendula. Appliquer ce mélange 5 à 6 fois le jour d'exposition sur la zone atteinte. Bien hydrater votre peau après un coup de soleil, afin d'accélerer la restauration du tissu cutané. Les huiles végétales de carotte, de calendula, d'avocat ou de millepertuis sont bien indiquées dans ce cas.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/coup-soleil-99.html",
+        "essential_oils":[14],
+        "vegetal_oils":[5]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Epidémies virales",
+              
+              "category" : 3,
+              "mPreparation" : "Pour lutter contre les épidémies virales (gastro-entérite, grippe, rhume), utiliser cette préparation en prévention ou dès l'apparition des premiers symptômes. Diffuser un mélange de citron, d'eucalyptus radié et de ravintsara ensembles dans les mêmes proportions ou séparément, 10 minutes toutes les 2 heures.",
+              "use" : 3,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/epidemies-virales-103.html",
+        "essential_oils":[5,8,22],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Gastro-entérite",
+              
+              "category" : 3,
+              "mPreparation" : "Verser 1 goutte d'huile essentielle de ravintsara sur un comprimé neutre, répéter 5 ou 6 fois par jour. Il peut être intéressant d'ajouter 1 goutte d'huile essentielle d'estragon pour réduire les nausées et vomissements (3 fois par jour).",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/gastro-enterite-107.html",
+        "essential_oils":[6,22],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Grippe",
+              
+              "category" : 3,
+              "mPreparation" : "Frictionner le thorax, le dos et la voûte plantaire avec un mélange composé de 2 gouttes d'eucalyptus radié, 2 gouttes de laurier noble et 2 gouttes de ravintsara dans 5 gouttes de l'huile végétale de votre choix (amande coude par exemple). 6 fois par jour pendant 3 jours puis 3 fois par jour pendant 3 jours.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/grippe-111.html",
+        "essential_oils":[8,13,22],
+        "vegetal_oils":[2]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Herpès labial",
+              
+              "category" : 3,
+              "mPreparation" : "Dans un roll-on, mélanger à parts égales les huiles essentielles de lavande aspic, de ravintsara et de tea tree. Appliquer localement 8 à 10 fois par jour dès les premiers symptômes.",
+              "use" : 7,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/herpes-labial-115.html",
+        "essential_oils":[14,22,23],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Indigestion",
+              
+              "category" : 3,
+              "mPreparation" : "Sur un comprimer neutre, verser 1 goutte de citron, 1 goutte d'estragon et 1 goutte de menthe poivrée. Comprimé à avaler 3 fois par jour pendant maximum 3 jours.",
+              "use" : 6,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/indigestion-119.html",
+        "essential_oils":[5,6,18],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Lotion anti-poux",
+              
+              "category" : 3,
+              "mPreparation" : "Dans 100 ml d'huile d'olive, ajouter 25 gouttes d'huile essentielle de lavande vraie et 25 gouttes d'huile essentielle de tea tree. Appliquer cette lotion capillaire pendant 2 heures puis rincer abondamment.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/anti-poux-123.html",
+        "essential_oils":[15,23],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Dominique Baudoux",
+              "mName" : "Lumbago",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 2 gouttes d'eucalyptus citronné, 2 gouttes de gaulthérie, 2 gouttes d'hélichryse italienne et 2 gouttes de katafray dans une cuillère à soupe d'huile végétale de calophylle. Frictionner la zone lombaire avec ce mélange 3 fois par jour pendant 5 jours pour soulager ce mal de dos.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/lumbago-127.html",
+        "essential_oils":[7,9,11,12],
+        "vegetal_oils":[6]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Mal de tête",
+              
+              "category" : 3,
+              "mPreparation" : "Dans un roll-on, mélanger à parts égales l'huile essentielle de gaulthérie et l'huile essentielle de menthe poivrée. Appliquez localement, à l'endroit de la douleur (tempes, front et/ou nuque) 1 à 3 fois par jour.",
+              "use" : 7,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/mal-de-tete-131.html",
+        "essential_oils":[9,18],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Nez qui coule",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 1 goutte d'huile essentielle de niaouli et 1 goutte d'huile essentielle de marjolaine à coquilles dans 2 gouttes d'une huile végétale de votre choix et masser le sternum, les sinus frontaux et la nuque.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/nez-qui-coule-135.html",
+        "essential_oils":[19,17],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Otite",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 2 gouttes d'huile essentielle d'eucalyptus radié et 2 gouttes d'huile essentielle de niaouli dans 4 gouttes d'une huile végétale de votre choix. Appliquer 3 fois par jour en onctions périauriculaires (autour de l'oreille) pendant 5 jours.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/otite-139.html",
+        "essential_oils":[8,19],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Piqure d'insecte",
+              
+              "category" : 3,
+              "mPreparation" : "En cas de piqure (moustique, guêpe, abeille, etc.), appliquer localement 2 gouttes d'huile essentielle de lavande aspic toutes les 15 secondes pendant 3 minutes, puis toutes les 15 minutes pendant 2 heures.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/piqure-143.html",
+        "essential_oils":[14],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Psoriasis",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 2 gouttes de camomille noble, 2 gouttes de lavande aspic et 2 gouttes de lavande vraie dans 10 gouttes d'huile végétale de rose musquée. Appliquer quelques gouttes de ce mélange sur les zones atteintes 2 à 3 fois par jour jusqu'à amélioration.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/psoriasis-147.html",
+        "essential_oils":[4,14,15],
+        "vegetal_oils":[11]
+    }
+    ,
+    {
+        "mAuthor" : "Dominique Baudoux",
+              "mName" : "Règles douloureuses",
+              
+              "category" : 3,
+              "mPreparation" : "Diluer 2 gouttes de camomille noble, 2 gouttes d'estragon et 2 gouttes d'ylang-ylang dans une cuillère à soupe d'huile végétale de votre choix (argan par exemple). Se masser le ventre 4 fois par jour jusqu'à disparition de la douleur.",
+              "use" : 5,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/regles-douloureuses-151.html",
+        "essential_oils":[4,6,24],
+        "vegetal_oils":[3]
+    }
+    ,
+    {
+        "mAuthor" : "Isabelle Pacchioni",
+              "mName" : "Rhume",
+              
+              "category" : 3,
+              "mPreparation" : "Pour réaliser cette inhalation, verser dans un bol d'eau frémissante 3 gouttes d'eucalyptus radié, 3 gouttes de menthe poivrée et 3 gouttes de niaouli. Respirer pendant quelques minutes les vapeurs chaudes. Idéal pour dégager les voies respiratoires, à pratiquer dès l'apparition des premiers symptômes du rhume.",
+              "use" : 4,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/rhume-155.html",
+        "essential_oils":[8,18,19],
+        "vegetal_oils":[]
+    }
+    ,
+    {
+        "mAuthor" : "Danièle Festy",
+              "mName" : "Verrue",
+              
+              "category" : 3,
+              "mPreparation" : "Dans un roll-on, mélanger à parts égales l'essence de citron et l'huile essentielle de tea tree. Appliquer localement matin et soir jusqu'à disparition de la verrue.",
+              "use" : 7,
+              "mFavorite" : false,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/verrue-159.html",
+        "essential_oils":[5,23],
+        "vegetal_oils":[]
+    }
+]

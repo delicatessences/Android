@@ -1,0 +1,12 @@
+{
+  "mId" : 3,
+  "mName" : "Argan",
+      "mDescription" : "Véritable trésor de beauté grâce à sa composition riche en vitamine E et en antioxydants, elle s'utilise sur le visage et le corps pour préserver la souplesse de la peau et sur les cheveux pour leur redonner éclat et brillance.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "argan",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/argan-14.html",
+      "mColor" : "#e3ce35",
+  "properties" : [24,20,12,6,27],
+  "indications" : [26,29,48,5,6]
+}

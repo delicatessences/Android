@@ -1,0 +1,12 @@
+{
+  "mId" : 11,
+  "mName" : "Rose musquée",
+      "mDescription" : "Sa composition riche en acides gras polyinsaturés et en provitamine A lui confèrent des propriétés dermaucosmétiques interessantes. A la fois régénérante, revitalisante et cicatrisante, elle fera des merveilles sur les peaux irritées ou abîmées",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "rose_musquee",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/rose-musquee-46.html",
+      "mColor" : "#d9384b",
+  "properties" : [24,20,12,6,27],
+  "indications" : [29,26,48,9,54,5,6,1,16,45]
+}

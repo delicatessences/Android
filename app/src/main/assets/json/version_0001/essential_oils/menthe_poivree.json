@@ -1,0 +1,17 @@
+{
+  "mId" : 18,
+      "mName" : "Menthe poivrée",
+      "mBotanicalName" : "Mentha x piperita",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "menthol, menthone",
+      "mDescription" : "Indiquée principalement contre les désordres digestifs, l'huile essentielle de menthe poivrée possède également des vertus antalgiques et peut soulager maux de têtes et petites douleurs du quotidien.",
+      "mPrecautions" : "Déconseillée pour les enfants de moins de 7 ans et chez la femme enceinte ou allaitante.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "menthe_poivree",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/menthe-poivree-73.html",
+       "mColor" : "#787468",    
+   "properties" : [3,2,25,10,49,157,142],
+  "indications" : [191,207,22,23,38,3,77],
+  "administrations" : [2,3]
+}

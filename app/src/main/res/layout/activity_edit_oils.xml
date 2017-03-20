@@ -1,0 +1,50 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent_color"
+        android:textSize="@dimen/edit_section_text_size"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left"
+        android:paddingTop="@dimen/edit_recipe_activity_section_spacing"
+        android:paddingBottom="@dimen/edit_recip_activity_text_spacing"
+        android:text="@string/composition"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/essential_oils"
+        android:textSize="@dimen/edit_activity_text_size"
+        android:textColor="@color/primary_text_color"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left" />
+
+    <fr.delicatessences.delicatessences.editor.MembershipView
+        android:id="@+id/essential_oils_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/essential_oils"
+        custom:decoration="comma_separated"
+        android:layout_marginTop="@dimen/edit_activity_properties_margin_top"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vegetal_oils"
+        android:textSize="@dimen/edit_activity_text_size"
+        android:textColor="@color/primary_text_color"
+        android:paddingLeft="@dimen/edit_activity_section_padding_left"
+        android:paddingTop="@dimen/edit_recip_activity_text_spacing" />
+
+    <fr.delicatessences.delicatessences.editor.MembershipView
+        android:id="@+id/vegetal_oils_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/vegetal_oils"
+        android:layout_marginTop="@dimen/edit_activity_properties_margin_top"
+        custom:decoration="comma_separated" />
+
+</merge>

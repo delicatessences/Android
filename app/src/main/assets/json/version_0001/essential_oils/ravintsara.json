@@ -1,0 +1,17 @@
+{
+  "mId" : 22,
+      "mName" : "Ravintsara",
+      "mBotanicalName" : "Cinnamomum camphora",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "abinène, 1-8 cinéole, α-terpinéol",
+      "mDescription" : "Puissante antivirale et immuno-stimulante, c'est une huile essentielle de choix pour lutter contre les épidémies virales pendant la période hivernale.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse. Très bien tolérée.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "ravintsara",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/ravintsara-89.html",
+       "mColor" : "#7a9023",    
+  "properties" : [49,146,90,115],
+  "indications" : [133,90,91,32,190,199,194,134,64],
+  "administrations" : [1,2,3]
+}

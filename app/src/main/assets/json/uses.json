@@ -1,0 +1,9 @@
+[
+  {"mName":"Bain", "mImage":"ic_bath"},
+  {"mName":"Cosmétique", "mImage":"ic_cosmetic"},
+  {"mName":"Diffusion", "mImage":"ic_diffusion"},
+  {"mName":"Inhalation", "mImage":"ic_inhalation"},
+  {"mName":"Massage", "mImage":"ic_massage"},
+  {"mName":"Oral", "mImage":"ic_oral_use"},
+  {"mName":"Roll-on", "mImage":"ic_roll_on"}
+]

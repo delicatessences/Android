@@ -1,0 +1,17 @@
+{
+  "mId" : 12,
+      "mName" : "Katafray",
+      "mBotanicalName" : "Cedrlopsis grevei",
+      "mDistilledOrgan" : "Ecorce",
+      "mChemotype" : "ishwarane",
+      "mDescription" : "L'huile essentielle de Katafray possède des propriétés anti-inflammatoires et décongestionnantes intéressantes pour les troubles de la peau (acné, allergies, eczéma, psoriasis).",
+      "mPrecautions" : "Huile essentielle déconseillée dans les 3 premiers mois de la grossesse.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "katafray",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/katafray-49.html",
+       "mColor" : "#a09184",    
+  "properties" : [4,25,75],
+  "indications" : [37,173,191,19,18,207,77,220,163,139],
+  "administrations" : [2]
+}

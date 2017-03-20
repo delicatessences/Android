@@ -1,0 +1,12 @@
+{
+  "mId" : 8,
+  "mName" : "Jojoba",
+      "mDescription" : "L'huile de jojoba est connue pour ses excellentes propriétés hydratantes. L'huile et ses dérivés sont en effet couramment utilisés dans les produits cosmétiques pour le soin de la peau et des cheveux.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "jojoba",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/jojoba-34.html",
+      "mColor" : "#95aba0",
+  "properties" : [19,12],
+  "indications" : [41,48,29,50]
+}

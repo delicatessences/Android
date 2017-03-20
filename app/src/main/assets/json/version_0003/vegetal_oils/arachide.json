@@ -1,0 +1,12 @@
+{
+  "mId" : 1000001,
+  "mName" : "Arachide",
+      "mDescription" : "Véritable trésor de beauté grâce à sa composition riche en vitamine E et en antioxydants, elle s'utilise sur le visage et le corps pour préserver la souplesse de la peau et sur les cheveux pour leur redonner éclat et brillance.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "abricot",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/arachide-86.html",
+      "mColor" : "#f5a005",
+  "properties" : [30,20,19,1,12,28],
+  "indications" : [43,32,35]
+}

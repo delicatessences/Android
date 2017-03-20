@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="fr.delicatessences.delicatessences.activities.EditEOActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/edit_activity_vertical_margin"
+            android:paddingLeft="@dimen/edit_activity_horizontal_margin"
+            android:paddingRight="@dimen/edit_activity_horizontal_margin"
+            android:paddingTop="@dimen/edit_activity_vertical_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/edit_section_text_size"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/edit_activity_section_padding_left"
+                android:text="@string/general"/>
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="@string/name"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"
+                custom:clearEnabled="false" />
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/botanical_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"
+                android:hint="@string/botanical_name" />
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/distilled_organ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"
+                android:hint="@string/distilled_organ" />
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/chemotype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"
+                android:hint="@string/chemotype" />
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"
+                android:hint="@string/description" />
+
+            <include layout="@layout/activity_edit_properties" />
+
+            <include layout="@layout/activity_edit_administrations" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/edit_section_text_size"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/edit_activity_section_padding_left"
+                android:paddingTop="@dimen/section_padding_top"
+                android:text="@string/precautions"/>
+
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/precautions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+                android:hint="@string/precautions" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,12 @@
+{
+  "mId" : 5,
+  "mName" : "Calendula",
+      "mDescription" : "Ses vertus protectrices et apaisantes de la peau sont reconnues et souvent utilisées en crème de soin.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "calendula",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/calendula-22.html",
+      "mColor" : "#eb772b",
+  "properties" : [19,11,1],
+  "indications" : [26,20,10,1,16,45,9,49]
+}

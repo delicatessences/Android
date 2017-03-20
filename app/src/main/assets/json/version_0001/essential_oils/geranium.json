@@ -1,0 +1,17 @@
+{
+  "mId" : 10,
+      "mName" : "Géranium rosat",
+      "mBotanicalName" : "Pelargonium x asperum",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "citronnellol, géraniol, formiate de citronnellyle",
+      "mDescription" : "Très utilisée en parfumerie et en cosmétique, l'huile essentielle de géranium rosat, également appelé Géranium Bourbon ou odorant possède un parfum doux, suave et sucré qui rappelle celui de la rose.",
+      "mPrecautions" : "Ne pas utiliser chez la femme enceinte ou allaitante et chez l'enfant de moins de six ans.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "geranium",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/geranium-rosat-41.html",
+       "mColor" : "#a15082",    
+  "properties" : [10,4,25,96,157],
+  "indications" : [233,234,235,191,187,183,77,3,120],
+  "administrations" : [1,2]
+}

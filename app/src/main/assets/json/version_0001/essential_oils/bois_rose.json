@@ -1,0 +1,17 @@
+{
+  "mId" : 3,
+      "mName" : "Bois de rose",
+      "mBotanicalName" : "Aniba rosaeodora var. amazonica",
+      "mDistilledOrgan" : "Bois",
+      "mChemotype" : "linalol",
+      "mDescription" : "L'huile essentielle de bois de rose est très utilisée en parfumerie pour ses notes rappelant celles de la rose. Ses propriétés de régénération tissulaire en font une des huiles essentielles les plus utilisées en cosmétique car elle raffermit la peau en même temps qu'elle l'adoucit.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "bois_rose",
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/bois-de-rose-13.html",
+       "mColor" : "#928864",    
+  "properties" : [42,10,20,49,120,155,54],
+  "indications" : [23,64,89,3,230,173,126,129,218],
+  "administrations" : [2]
+}

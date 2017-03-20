@@ -1,0 +1,17 @@
+{
+  "mId" : 4,
+      "mName" : "Camomille noble",
+      "mBotanicalName" : "Chamaemelum nobile",
+      "mDistilledOrgan" : "Fleurs",
+      "mChemotype" : "angélate d'isobutyle, angélate d'isoamyle",
+      "mDescription" : "L'huile essentielle de camomille noble a un pouvoir calmant remarquable qui fera merveille sur le stress, l'anxiété et les peaux irritées.",
+      "mPrecautions" : "Ne pas utiliser dans les 3 premiers mois de la grossesse et chez les enfants de moins de 6 ans.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "camomille",
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/camomille-noble-17.html",
+      "mColor" : "#979f32",
+  "properties" : [4,2,25,43,59,156],
+  "indications" : [158,227,204,15,134,77,183,3,54],
+  "administrations" : [2,3]
+}

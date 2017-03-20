@@ -1,0 +1,17 @@
+{
+  "mId" : 15,
+      "mName" : "Lavande vraie",
+      "mBotanicalName" : "Lavandula angustifolia",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "acétate de linalyle, linalol",
+      "mDescription" : "C'est une huile essentielle très utilisée en aromathérapie : inoffensive, efficace et polyvalente, elle sera utile au quotidien pour toute la famille. Ses propriétés calmantes et relaxantes vous aideront à gérer le stress et l'anxiété, ainsi qu'à lutter contre les troubles du sommeil.",
+      "mPrecautions" : "Huile essentielle déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser chez le nourrisson de moins de 3 mois.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "lavande_vraie",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/lavande-vraie-61.html",
+       "mColor" : "#736dbc",    
+  "properties" : [43,58,137,66,122,76],
+  "indications" : [204,15,7,134,77,3,183,33,191],
+  "administrations" : [1,2,3]
+}

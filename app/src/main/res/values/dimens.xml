@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="navigation_drawer_width">304dp</dimen>
+    <dimen name="list_text_size">17sp</dimen>
+    <dimen name="list_subtext_size">14sp</dimen>
+    <dimen name="edit_activity_horizontal_margin">16dp</dimen>
+    <dimen name="edit_activity_vertical_margin">24dp</dimen>
+
+
+    <dimen name="list_item_padding_left">12dp</dimen>
+    <dimen name="list_item_padding_right">16dp</dimen>
+    <dimen name="favorite_list_item_padding_right">2dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="list_item_avatar_icon_size">48dp</dimen>
+    <dimen name="list_item_avatar_shape_size">40dp</dimen>
+    <dimen name="recipe_list_item_padding_left">16dp</dimen>
+    <dimen name="list_item_star_size">48dp</dimen>
+    <dimen name="tab_height">40dp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+    <dimen name="action_bar_text_size">20sp</dimen>
+    <dimen name="list_item_avatar_shape_text_size">24sp</dimen>
+    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="navigation_drawer_margin">56dp</dimen>
+    <dimen name="navigation_drawer_list_item_height">48dp</dimen>
+    <dimen name="navigation_drawer_list_item_padding_left">14dp</dimen>
+    <dimen name="navigation_drawer_item_avatar_icon_size">24dp</dimen>
+    <dimen name="navigation_drawer_list_item_padding_right">16dp</dimen>
+    <dimen name="navigation_drawer_text_size">16sp</dimen>
+    <dimen name="navigation_drawer_padding_top">8dp</dimen>
+    <dimen name="navigation_drawer_text_padding_left">24dp</dimen>
+    <dimen name="navigation_drawer_title_size">20sp</dimen>
+    <dimen name="navigation_drawer_logo_size">48dp</dimen>
+    <dimen name="navigation_drawer_logo_padding_left">10dp</dimen>
+    <dimen name="navigation_drawer_title_padding_left">8dp</dimen>
+    <dimen name="section_padding_top">28dp</dimen>
+    <dimen name="section_padding_bottom">4dp</dimen>
+    <dimen name="content_padding_top">4dp</dimen>
+    <dimen name="body_text_size">16sp</dimen>
+    <dimen name="spinner_text_size">16sp</dimen>
+    <dimen name="empty_view_padding">48dp</dimen>
+    <dimen name="view_padding_horizontal">28dp</dimen>
+    <dimen name="way_size">32dp</dimen>
+    <dimen name="way_margin_top">8dp</dimen>
+    <dimen name="way_margin_left">6dp</dimen>
+    <dimen name="view_text_size">15sp</dimen>
+    <dimen name="description_padding_top">18dp</dimen>
+    <dimen name="description_padding_bottom">14dp</dimen>
+    <dimen name="view_rubber_height">10dp</dimen>
+    <dimen name="view_padding_vertical">20dp</dimen>
+    <dimen name="view_vertical_spacing">20dp</dimen>
+    <dimen name="card_view_margin_top">16dp</dimen>
+    <dimen name="card_view_corner_radius">2dp</dimen>
+    <dimen name="card_view_image_height">250dp</dimen>
+    <dimen name="card_view_padding_top">16dp</dimen>
+    <dimen name="card_view_padding_horizontal">24dp</dimen>
+    <dimen name="card_view_title_font_size">18sp</dimen>
+    <dimen name="card_view_text_font_size">15sp</dimen>
+    <dimen name="card_view_content_padding_bottom">2dp</dimen>
+    <dimen name="card_view_content_padding_top">8dp</dimen>
+    <dimen name="card_view_padding_bottom">16dp</dimen>
+    <dimen name="edit_activity_text_size">16sp</dimen>
+    <dimen name="edit_section_text_size">14sp</dimen>
+    <dimen name="edit_activity_section_padding_left">4dp</dimen>
+    <dimen name="edit_activity_section_padding_bottom">6dp</dimen>
+    <dimen name="edit_activity_properties_margin_top">-10dp</dimen>
+    <dimen name="edit_activity_text_spacing">4dp</dimen>
+    <dimen name="edit_recipe_activity_section_spacing">20dp</dimen>
+    <dimen name="edit_recip_activity_text_spacing">8dp</dimen>
+    <dimen name="view_padding_bottom">36dp</dimen>
+    <dimen name="rubber_padding_top">18dp</dimen>
+    <dimen name="rubber_padding_bottom">8dp</dimen>
+    <dimen name="rubber_image_margin">5dp</dimen>
+    <dimen name="paragraph_line_spacing">3dp</dimen>
+    <dimen name="popup_item_padding">16dp</dimen>
+    <dimen name="popup_item_height">48dp</dimen>
+    <dimen name="spinner_item_padding_top">12dp</dimen>
+    <dimen name="spinner_height">48dp</dimen>
+    <item name="image_ratio" format="float" type="dimen">0.4</item>
+    <item name="text_ratio" format="float" type="dimen">0.6</item>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_view_list_item_height">60dp</dimen>
+    <dimen name="card_list_item_text_size">16sp</dimen>
+    <dimen name="avatar_size">64dp</dimen>
+    <dimen name="avatar_margin_top">90dp</dimen>
+    <dimen name="bottle_title_margin_top">235dp</dimen>
+    <dimen name="bottle_title_text_size">28sp</dimen>
+    <dimen name="bottle_quality_size">60dp</dimen>
+    <dimen name="bottle_quality_spacing">3dp</dimen>
+    <dimen name="bottle_property_size">24dp</dimen>
+    <dimen name="bottle_image_size">300dp</dimen>
+</resources>

@@ -1,0 +1,124 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    tools:context="fr.delicatessences.delicatessences.DetailVOFragment">
+
+    <com.manuelpeinado.fadingactionbar.view.ObservableScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@android:color/white">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/header"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:id="@+id/rubber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/view_rubber_height"
+                    android:paddingLeft="@dimen/view_padding_horizontal"
+                    android:paddingRight="@dimen/view_padding_horizontal">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:paddingTop="@dimen/description_padding_top"
+                        android:paddingBottom="@dimen/description_padding_bottom"
+                        android:textSize="@dimen/view_text_size"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@android:color/white"/>
+
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/view_padding_horizontal"
+                    android:paddingRight="@dimen/view_padding_horizontal"
+                    android:paddingTop="@dimen/view_padding_vertical"
+                    android:paddingBottom="@dimen/view_padding_bottom">
+
+                    <TextView
+                        android:id="@+id/properties_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/properties"
+                        android:visibility="gone"
+                        android:textSize="@dimen/view_text_size"/>
+
+                    <TextView
+                        android:id="@+id/properties"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:textSize="@dimen/view_text_size"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="@dimen/view_vertical_spacing"/>
+
+                    <TextView
+                        android:id="@+id/indications_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/indications"
+                        android:visibility="gone"
+                        android:textSize="@dimen/view_text_size"/>
+
+                    <TextView
+                        android:id="@+id/indications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:textSize="@dimen/view_text_size"
+                        android:textColor="@android:color/black"
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="235dp"
+                android:layout_marginLeft="@dimen/view_padding_horizontal"
+                android:textSize="28sp"
+                android:visibility="gone"
+                android:textColor="@android:color/white" />
+
+
+        </FrameLayout>
+
+
+
+
+    </com.manuelpeinado.fadingactionbar.view.ObservableScrollView>
+
+
+
+</FrameLayout>

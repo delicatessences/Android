@@ -1,0 +1,12 @@
+{
+  "mId" : 7,
+  "mName" : "Germes de blé",
+      "mDescription" : "L'huile de germes de blé est une excellente source de vitamines A, D, E et K avec un fort pouvoir régénérateur cutané.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "germes_ble",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/germes-ble-30.html",
+      "mColor" : "#947b38",
+  "properties" : [24,12,1],
+  "indications" : [54,41,26]
+}

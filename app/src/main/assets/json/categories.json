@@ -1,0 +1,6 @@
+[
+  {"mName":"Beauté", "mImage":"ic_beauty"},
+  {"mName":"Bien-être", "mImage":"ic_wellness"},
+  {"mName":"Santé", "mImage":"ic_health"},
+  {"mName":"Cuisine", "mImage":"ic_cooking"}
+]

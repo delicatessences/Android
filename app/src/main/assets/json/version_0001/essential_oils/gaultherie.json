@@ -1,0 +1,17 @@
+{
+  "mId" : 9,
+      "mName" : "Gaulthérie couchée",
+      "mBotanicalName" : "Gaultheria procumbens",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "salicylate de méthyle",
+      "mDescription" : "Principalement composée de salicylate de méthyle (99%), substance qui a la même action antalgique que l’aspirine, l'huile essentielle de gaulthérie est un anti-douleur remarquable. Elle est très utile en traitement des douleurs musculaires et articulaires.",
+      "mPrecautions" : "Déconseillée chez la femme enceinte et allaitante. Ne pas utiliser sur les enfants de moins de 6 ans et chez les personnes allergiques à l'aspirine. Possiblement irritante pour la peau (dermocaustique), il est conseillé de diluer l'huile essentielle de gaulthérie dans une huile végétale.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "gaultherie",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/gaultherie-37.html",
+       "mColor" : "#b93440",    
+  "properties" : [4,25,40],
+  "indications" : [18,207,191,57,49,144,210,148,92],
+  "administrations" : [2]
+}

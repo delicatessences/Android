@@ -1,0 +1,5 @@
+[
+  {"mName":"Voie respiratoire", "mImage":"ic_airway"},
+   {"mName":"Voie cutanée", "mImage":"ic_dermal"},
+    {"mName":"Voie orale", "mImage":"ic_oral"}
+]

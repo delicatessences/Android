@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="fr.delicatessences.delicatessences.activities.EditBottleActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/edit_activity_vertical_margin"
+            android:paddingLeft="@dimen/edit_activity_horizontal_margin"
+            android:paddingRight="@dimen/edit_activity_horizontal_margin"
+            android:paddingTop="@dimen/edit_activity_vertical_margin"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/edit_section_text_size"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/edit_activity_section_padding_left"
+                android:text="@string/general"/>
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="@string/brand"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"/>
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:hint="@string/price"
+                custom:unit="currency"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"/>
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/capacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/volume"
+                custom:unit="volume"
+                android:layout_marginBottom="@dimen/edit_activity_text_spacing"/>
+
+            <fr.delicatessences.delicatessences.editor.CustomEditText
+                android:id="@+id/origin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="@string/origin"
+                android:layout_marginBottom="@dimen/edit_activity_vertical_margin"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expiration_date"
+                android:textSize="@dimen/edit_activity_text_size"
+                android:textColor="@color/primary_text_color"
+                android:paddingLeft="@dimen/edit_activity_section_padding_left" />
+
+
+            <fr.delicatessences.delicatessences.editor.DateView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_activity_properties_margin_top"
+                android:hint="@string/expiration_date"
+                />
+
+
+            <include layout="@layout/activity_edit_qualities" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

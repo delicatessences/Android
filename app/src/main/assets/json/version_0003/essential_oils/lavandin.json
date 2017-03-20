@@ -1,0 +1,17 @@
+{
+      "mId" : 1000001,
+      "mName" : "Lavandin Super",
+      "mBotanicalName" : "Lavandula hybrida Reverchon clone super",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "acétate de linalyle, linalol, camphre",
+      "mDescription" : "Le lavandin super est un hybride de la lavande vraie et de la lavande aspic. Huile essentielle principalement utilisée pour ses vertus calmantes et décontractantes, elle est aussi un anti-inflammatoire efficace et un anti-spasmodique puissant.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez l'enfant de moins de 7 ans. Déconseillée chez les sujets à risque épileptique.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mUrl" : "http://www.delicatessences.fr/articles/carnet/lavandin-101.html",
+      "mImage" : "lavandin",
+       "mColor" : "#6d4452",
+  "properties" : [43,76,25,4,109,55,38,42,66,170,58,137,132],
+  "indications" : [57,151,67,87,33,179,160,134,14,205],
+  "administrations" : [1,2]
+}

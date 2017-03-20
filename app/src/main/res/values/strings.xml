@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Delicatessences</string>
+    <string name="title_new_eo">Ajouter une huile essentielle</string>
+    <string name="title_new_vo">Ajouter une huile végétale</string>
+    <string name="title_new_recipe">Ajouter une recette</string>
+    <string name="title_new_bottle">Ajouter un flacon</string>
+    <string name="title_edit_eo">Modifier l\'huile essentielle</string>
+    <string name="title_edit_vo">Modifier l\'huile végétale</string>
+    <string name="title_edit_recipe">Modifier la recette</string>
+    <string name="title_edit_bottle">Modifier le flacon</string>
+    <string name="properties">Propriétés</string>
+
+    <string-array name="navigation_drawer_images_white">
+        <item>@drawable/ic_book_white</item>
+        <item>@drawable/ic_recipe_white</item>
+        <item>@drawable/ic_bottle_nav_white</item>
+        <item>@drawable/ic_essential_oil_white</item>
+        <item>@drawable/ic_vegetal_oil_white</item>
+        <item>@drawable/ic_star_nav_white</item>
+        <item>@drawable/ic_discover</item>
+        <item>@drawable/ic_website_white</item>
+    </string-array>
+
+    <string-array name="drawer_items">
+        <item>Mon Carnet</item>
+        <item>Mes Recettes</item>
+        <item>Mes Flacons</item>
+        <item>Huiles Essentielles</item>
+        <item>Huiles Végétales</item>
+        <item>Favoris</item>
+        <item>Explorer Delicatessences</item>
+        <item>Site web</item>
+    </string-array>
+
+    <string-array name="favorites">
+        <item>Recettes</item>
+        <item>Huiles essentielles</item>
+        <item>Huiles végétales</item>
+    </string-array>
+
+    <string-array name="tutorial_titles">
+        <item>@string/tuto1_title</item>
+        <item>@string/tuto2_title</item>
+        <item>@string/tuto3_title</item>
+        <item>@string/tuto4_title</item>
+    </string-array>
+
+    <string-array name="tutorial_contents">
+        <item>@string/tuto1_content</item>
+        <item>@string/tuto2_content</item>
+        <item>@string/tuto3_content</item>
+        <item>@string/tuto4_content</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_edit">Editer</string>
+    <string name="action_favorite">Marquer comme favorite</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="name">Nom</string>
+    <string name="description">Description</string>
+    <string name="indications">Indications</string>
+    <string name="save_vegetal_oil">Huile végétale enregistrée</string>
+    <string name="edit_vegetal_oil">Huile végétale modifiée</string>
+    <string name="delete_vegetal_oil">Huile végétale supprimée</string>
+    <string name="delete_vegetal_oil_warning">Cette huile végétale sera supprimée.\n\nRemarque :
+        cette opération modifiera également les recettes composées de cette huile végétale.</string>
+    <string name="save_failed">La sauvegarde a échoué</string>
+    <string name="delete_failed">La suppression a échoué</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="without_name">(Sans nom)</string>
+    <string name="botanical_name">Nom botanique</string>
+    <string name="distilled_organ">Partie distillée</string>
+    <string name="chemotype">Principale(s) molécule(s)</string>
+    <string name="precautions">Précautions d\'emploi</string>
+    <string name="administrations">Voies d\'administration</string>
+    <string name="author">Auteur</string>
+    <string name="preparation">Préparation</string>
+    <string name="composition">Composition</string>
+    <string name="essential_oils">Huiles essentielles</string>
+    <string name="vegetal_oils">Huiles végétales</string>
+    <string name="brand">Marque</string>
+    <string name="price">Prix</string>
+    <string name="currency">€</string>
+    <string name="volume_unit">ml</string>
+    <string name="volume">Volume</string>
+    <string name="origin">Origine</string>
+    <string name="pure">100% pure et naturelle</string>
+    <string name="bio">Bio</string>
+    <string name="hebbd">HEBBD (Huile Essentielle Biologiquement et Biochimiquement Définie)</string>
+    <string name="hect">HECT (Huile Essentielle ChemoTypée)</string>
+    <string name="expiration_date">Date d\'expiration</string>
+    <string name="quality">Qualité</string>
+    <string name="save_essential_oil">Huile essentielle enregistrée</string>
+    <string name="edit_essential_oil">Huile essentielle modifiée</string>
+    <string name="delete_essential_oil">Huile essentielle supprimée</string>
+    <string name="delete_essential_oil_warning">Cette huile essentielle sera supprimée.\n\nRemarque :
+        cette opération supprimera également les flacons correspondants et modifiera les recettes
+        composées de cette huile essentielle.</string>
+    <string name="category">Catégorie</string>
+    <string name="use">Utilisation</string>
+    <string name="save_recipe">Recette enregistrée</string>
+    <string name="edit_recipe">Recette modifiée</string>
+    <string name="delete_recipe_warning">Cette recette sera supprimée</string>
+    <string name="delete_recipe">Recette supprimée</string>
+    <string name="save_bottle">Flacon enregistré</string>
+    <string name="edit_bottle">Flacon modifié</string>
+    <string name="delete_bottle">Flacon supprimé</string>
+    <string name="pick_essential_oil">Choisir une huile essentielle</string>
+    <string name="without_brand">(Sans marque)</string>
+    <string name="unknown">\?</string>
+    <string name="delete_bottle_warning">Ce flacon sera supprimé</string>
+    <string name="expire">expire</string>
+    <string name="all">Toutes</string>
+    <string name="undefined">(non défini)</string>
+    <string name="no_essential_oil">Aucune huile essentielle</string>
+    <string name="how_to_add_essential_oil">Pour ajouter une huile essentielle, appuyez sur le bouton + ci-dessous.</string>
+    <string name="list_is_empty">La liste est vide</string>
+    <string name="no_favorite">Aucun favori</string>
+    <string name="how_to_add_essential_oil_favorite">Pour ajouter une huile essentielle à vos favoris, appuyez sur l\'étoile située à coté de son nom.</string>
+    <string name="no_vegetal_oil">Aucune huile végétale</string>
+    <string name="how_to_add_vegetal_oil">Pour ajouter une huile végétale, appuyez sur le bouton + ci-dessous.</string>
+    <string name="how_to_add_vegetal_oil_favorite">Pour ajouter une huile végétale à vos favoris, appuyez sur l\'étoile située à coté de son nom.</string>
+    <string name="no_recipe">Aucune recette</string>
+    <string name="how_to_add_recipe">Pour ajouter une recette, appuyez sur le bouton + ci-dessous.</string>
+    <string name="how_to_add_recipe_favorite">Pour ajouter une recette à vos favoris, appuyez sur l\'étoile située à coté de son nom.</string>
+    <string name="how_to_add_categorized_recipe">Pour ajouter une recette dans cette catégorie, appuyez sur le bouton + ci-dessous puis choisissez la catégorie dans la liste.</string>
+    <string name="no_bottle">Aucun flacon</string>
+    <string name="how_to_add_bottle">Pour ajouter un flacon, appuyez sur le bouton + ci-dessous.</string>
+    <string name="how_to_add_bottle_when_no_essential_oil">Pour ajouter un flacon, il faut au préalable avoir ajouté au moins une huile essentielle. Pour ajouter une huile essentielle, ouvrez la section Huiles Essentielles puis appuyez sur le bouton +.</string>
+    <string name="welcome_card_title">Bienvenue dans Delicatessences</string>
+    <string name="welcome_card_content">Véritable carnet personnel, cette application est conçue pour vous faciliter l\'aromathérapie au quotidien. Vous y trouverez des fiches d\'huiles essentielles et végétales ainsi qu\'une sélection de recettes. Mais l\'essence même de cette application est de devenir la vôtre : ajoutez vos recettes préférées, les flacons que vous possédez ou encore des informations sur les huiles que vous aimez.</string>
+    <string name="welcome_card_button_text">Compris</string>
+    <string name="about_card_title">A Propos</string>
+    <string name="about_card_content">Vous est-il déjà arrivé de trouver une bonne recette dans un livre, un magazine ou sur le net et de ne pas réussir à remettre la main dessus? Nous oui, et c\'est pourquoi nous avons imaginé cette application pour saisir nos recettes favorites dans un carnet numérique et par la même occasion gérer notre aromathèque plus simplement.</string>
+    <string name="helpus_card_title">Aidez-nous!</string>
+    <string name="helpus_card_content">Cette application a été pensée initialement pour répondre à nos besoins, mais peut être ne répond-elle pas à vos attentes? Dans ce cas, n\'hésitez pas à nous le dire, cela nous aidera à améliorer Delicatessences.</string>
+    <string name="about_card_button_text">Visiter le site web</string>
+    <string name="helpus_card_button_text">Réagir par mail</string>
+    <string name="oil_card_button_text">Voir la fiche</string>
+    <string name="tuto_card_button_text">Autres astuces</string>
+    <string name="tuto1_title">Ajouter des recettes</string>
+    <string name="tuto2_title">Ajouter des flacons</string>
+    <string name="tuto3_title">Ajouter des huiles</string>
+    <string name="tuto4_title">Voies d\'administrations</string>
+    <string name="tuto1_content">Vous pouvez ajouter des recettes à celles déjà présentes dans Delicatessences. Pour chaque nouvelle recette, renseignez les huiles qui la composent ainsi que le mode de préparation. Précisez la catégorie (santé, bien-être, beauté, etc.) et le mode d\'utilisation (bain, massage, diffusion, etc.) pour la retrouver facilement.</string>
+    <string name="tuto2_content">Pour bien gérer votre aromathèque, ajoutez les flacons que vous possédez dans Delicatessences. Cela vous permettra par exemple de voir en un clin d\'oeil les flacons que vous possédez et donc les recettes que vous pouvez faire. L\'application vous indique également lorsqu\'un de vos flacons expire. Enfin, toutes les informations de vos flacons peuvent être saisies (marque, prix, volume, qualité, etc.) ce qui est utile pour s\'y retrouver.</string>
+    <string name="tuto4_content">Pour chaque huile essentielle, il y a des voies d\'administrations privilégiées. Retrouvez-les sous forme de pictogramme sur chaque fiche.</string>
+    <string name="tuto3_content">Il existe des centaines d\'huiles essentielles, il est donc possible que celles que vous utilisez ne soient pas présentes dans l\'application. Si c\'est le cas, vous pouvez l\'enrichir en créant aisément de nouvelles fiches à partir des informations disponibles sur internet ou dans les ouvrages spécialisés.</string>
+    <string name="recipe_card_title">Dernières recettes</string>
+    <string name="general">Général</string>
+    <string name="mail_action">Envoyer un email</string>
+    <string name="email_no_client">Aucune application mail installée.</string>
+    <string name="browser_no_client">Aucun navigateur web installé</string>
+    <string name="message_read_only_essential_oil">Cette huile essentielle ne peut être supprimée</string>
+    <string name="message_read_only_vegetal_oil">Cette huile végétale ne peut être supprimée</string>
+    <string name="zoom_on">Zoom sur ...</string>
+    <string name="recipes">Recettes</string>
+    <string name="cancel_modifications">Annuler les modifications?</string>
+    <string name="administration_ways">Voies d\'administration :</string>
+    <string name="open_helper_classname">fr.delicatessences.delicatessences.model.DatabaseHelper</string>
+</resources>

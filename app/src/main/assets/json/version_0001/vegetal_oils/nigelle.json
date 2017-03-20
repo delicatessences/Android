@@ -1,0 +1,12 @@
+{
+  "mId" : 9,
+  "mName" : "Nigelle",
+      "mDescription" : "L'huile de nigelle possède des propriétés thérapeutiques et cosmétiques intéressantes. Très nourrissante, elle peut notamment être utilisée sur des peaux et cheveux fatigués.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "nigelle",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/nigelle-38.html",
+      "mColor" : "#5755a0",
+  "properties" : [30,29,24,20],
+  "indications" : [42,37,7,44,46]
+}

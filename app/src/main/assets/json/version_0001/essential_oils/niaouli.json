@@ -1,0 +1,17 @@
+{
+  "mId" : 19,
+      "mName" : "Niaouli",
+      "mBotanicalName" : "Melaleuca quinquenervia",
+      "mDistilledOrgan" : "Feuilles",
+      "mChemotype" : "1,8 cinéole, viridiflorol",
+      "mDescription" : "Alliée de choix en cosmétique : elle soigne et protége la peau tout en la respectant. Parmi ses autres indications notables, on peut citer son efficacité pour assainir l'air ambiant en diffusion.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez la femme allaitante. Ne pas utiliser chez l'enfant de moins de 3 ans. Riche en terpènes, respecter les doses indiquées et ne pas prolonger son utilisation sans avis médical afin d'éviter les interactions médicamenteuses.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "niaouli",
+  "mUrl" : "http://www.delicatessences.fr/articles/carnet/niaouli-77.html",
+       "mColor" : "#d53e4f",    
+  "properties" : [10,49,90,74,31,155],
+  "indications" : [129,229,110,220,108,3,183],
+  "administrations" : [1,2,3]
+}
