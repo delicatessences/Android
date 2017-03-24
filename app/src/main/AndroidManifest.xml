@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.delicatessences.delicatessences"
-    android:versionCode="4"
-    android:versionName="1.1.0">
+    package="fr.delicatessences.delicatessences">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Delicatessences">
 
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
         <activity
-            android:name="fr.delicatessences.delicatessences.activities.MainActivity">
+            android:name="fr.delicatessences.delicatessences.activities.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="http"
+                    android:host="www.delicatessences.fr"
+                    android:pathPrefix="/articles/carnet"/>
+                <data
+                    android:scheme="https"
                     android:host="www.delicatessences.fr"
                     android:pathPrefix="/articles/carnet"/>
             </intent-filter>
@@ -68,6 +70,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
         </activity>
+        <service android:name="fr.delicatessences.delicatessences.model.index.AppIndexingService"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.APPINDEXING">
+            <intent-filter>
+                <action android:name="com.google.firebase.appindexing.UPDATE_INDEX" />
+            </intent-filter>
+        </service>
 
 
     </application>

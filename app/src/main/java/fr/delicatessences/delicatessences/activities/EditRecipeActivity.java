@@ -1,15 +1,13 @@
 package fr.delicatessences.delicatessences.activities;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.google.firebase.appindexing.FirebaseAppIndex;
+import com.google.firebase.appindexing.Indexable;
+import com.google.firebase.appindexing.builders.Indexables;
 import com.j256.ormlite.android.AndroidDatabaseResults;
 import com.j256.ormlite.dao.CloseableIterator;
 import com.j256.ormlite.dao.Dao;
@@ -18,7 +16,6 @@ import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.UpdateBuilder;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,13 +27,13 @@ import fr.delicatessences.delicatessences.editor.CustomEditText;
 import fr.delicatessences.delicatessences.editor.MembershipView;
 import fr.delicatessences.delicatessences.editor.SpinnerWithHint;
 import fr.delicatessences.delicatessences.model.Category;
+import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.Use;
-import fr.delicatessences.delicatessences.model.VegetalOil;
-import fr.delicatessences.delicatessences.model.DatabaseHelper;
-import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.VORecipe;
+import fr.delicatessences.delicatessences.model.VegetalOil;
 
 public class EditRecipeActivity extends EditActivity {
 
@@ -277,7 +274,45 @@ public class EditRecipeActivity extends EditActivity {
                         return null;
                     }
                 });
+
+        addToIndex(recipe);
     }
+
+
+    private void addToIndex(Recipe recipe) {
+        Indexable indexable = Indexables.noteDigitalDocumentBuilder()
+                .setName(getIndexableName(recipe.getName(), recipe.getAuthor()))
+                .setText(recipe.getPreparation())
+                .setUrl(recipe.getUrl())
+                .build();
+
+        FirebaseAppIndex.getInstance().update(indexable);
+    }
+
+
+    private String getIndexableName(String name, String author){
+        StringBuilder sb = new StringBuilder();
+        Resources resources = getResources();
+        sb.append(resources.getString(R.string.recipe_of));
+        sb.append(name);
+        if (author != null && author.length() > 0){
+            sb.append(" (");
+            sb.append(author);
+            sb.append(")");
+        }
+        return sb.toString();
+    }
+
+
+    private void updateIndex(String name, String author, String preparation) {
+        Indexable indexable = Indexables.noteDigitalDocumentBuilder()
+                .setName(getIndexableName(name, author))
+                .setText(preparation)
+                .setUrl(mRecipe.getUrl())
+                .build();
+    }
+
+
 
     @Override
     protected boolean hasChanged() {
@@ -400,7 +435,7 @@ public class EditRecipeActivity extends EditActivity {
 
 
         setFeedbackMessage(R.string.edit_recipe);
-
+        updateIndex(mNameText.getText().toString(), mAuthorText.getText().toString(), mPreparationText.getText().toString());
 
     }
 

@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import fr.delicatessences.delicatessences.fragments.ViewType;
+
 @DatabaseTable(tableName = DatabaseHelper.RECIPE_TABLE_NAME)
 public class Recipe {
 
@@ -24,6 +26,7 @@ public class Recipe {
     public static final String CREATION_DATE_FIELD_NAME = "creation";
     public static final String THEME_FIELD_NAME = "theme";
     public static final String URL_FIELD_NAME = "url";
+    private static final String RECIPE_URL = "recipe";
 
     @DatabaseField(columnName = ID_FIELD_NAME, generatedId = true)
 	private int mId;
@@ -155,9 +158,14 @@ public class Recipe {
         return vegetal_oils;
     }
 
-	public String getUrl() {
-		return mUrl;
-	}
+    public String getUrl() {
+        if (mUrl != null){
+            return mUrl;
+        } else {
+            int urlId = (mId << 2) | ViewType.RECIPES.getInt();
+            return DatabaseHelper.URL_PATTERN + RECIPE_URL + "-" + urlId + DatabaseHelper.URL_EXTENSION;
+        }
+    }
 
 
     int getInternalUse(){

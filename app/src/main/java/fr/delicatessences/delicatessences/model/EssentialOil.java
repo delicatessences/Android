@@ -7,6 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.List;
 
+import fr.delicatessences.delicatessences.fragments.ViewType;
+
 @DatabaseTable(tableName = DatabaseHelper.ESSENTIAL_OIL_TABLE_NAME)
 public class EssentialOil{
 
@@ -25,8 +27,9 @@ public class EssentialOil{
     private static final String COLOR_FIELD_NAME = "color";
     private static final String DEFAULT_COLOR = "#264961";
     private static final String DEFAULT_IMAGE = "default";
+	private static final String ESSENTIAL_OIL_URL = "essential-oil";
 
-    @DatabaseField(columnName = ID_FIELD_NAME, generatedId = true, allowGeneratedIdInsert=true)
+	@DatabaseField(columnName = ID_FIELD_NAME, generatedId = true, allowGeneratedIdInsert=true)
 	private int mId;
 	
 	@DatabaseField(columnName = NAME_FIELD_NAME)
@@ -151,9 +154,13 @@ public class EssentialOil{
     }
 
     public String getUrl() {
-        return mUrl;
+        if (mUrl != null){
+            return mUrl;
+        } else {
+            int urlId = (mId << 2) | ViewType.ESSENTIAL_OILS.getInt();
+            return DatabaseHelper.URL_PATTERN + ESSENTIAL_OIL_URL + "-" + urlId + DatabaseHelper.URL_EXTENSION;
+        }
     }
-
     @SuppressWarnings("StringBufferReplaceableByString")
 	@Override
 	public String toString() {

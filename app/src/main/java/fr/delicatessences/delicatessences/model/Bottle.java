@@ -7,12 +7,15 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
 import java.util.Random;
 
+import fr.delicatessences.delicatessences.fragments.ViewType;
+
 @DatabaseTable(tableName = DatabaseHelper.BOTTLE_TABLE_NAME)
 public class Bottle{
 
     private static final Theme[] themes = {new Theme("bottle1", "#636b90"), new Theme("bottle2", "#edb242"),
             new Theme("bottle3", "#555a53"), new Theme("bottle4", "#6fa938")};
 
+    private static final String BOTTLE_URL = "bottle";
 	public static final String HEBBD_FIELD_NAME = "hebbd";
 	public static final String HECT_FIELD_NAME = "hect";
 	public static final String PURE_FIELD_NAME = "pure";
@@ -64,7 +67,6 @@ public class Bottle{
     private EssentialOil mEssentialOil;
 
 
-	
 	public Bottle() {}
 	
 	
@@ -237,4 +239,10 @@ public class Bottle{
 	public int hashCode() {
 		return mId;
 	}
+
+    public String getUrl() {
+        int urlId = (mId << 2) | ViewType.BOTTLES.getInt();
+        return DatabaseHelper.URL_PATTERN + BOTTLE_URL + "-" + urlId + DatabaseHelper.URL_EXTENSION;
+
+    }
 }

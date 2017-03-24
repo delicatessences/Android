@@ -1,23 +1,18 @@
 package fr.delicatessences.delicatessences.activities;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
+import com.google.firebase.appindexing.FirebaseAppIndex;
+import com.google.firebase.appindexing.Indexable;
+import com.google.firebase.appindexing.builders.Indexables;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.stmt.UpdateBuilder;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -27,8 +22,8 @@ import fr.delicatessences.delicatessences.editor.CustomCheckBox;
 import fr.delicatessences.delicatessences.editor.CustomEditText;
 import fr.delicatessences.delicatessences.editor.DateView;
 import fr.delicatessences.delicatessences.model.Bottle;
-import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.EssentialOil;
 
 public class EditBottleActivity extends EditActivity
         implements DatePickerDialog.OnDateSetListener {
@@ -59,7 +54,6 @@ public class EditBottleActivity extends EditActivity
     private CustomCheckBox mHECTCheck;
     private int mEssentialOilId;
     private Bottle mBottle;
-
 
     @Override
     protected int getLayout() {
@@ -208,6 +202,41 @@ public class EditBottleActivity extends EditActivity
         Dao<Bottle, Integer> dao = helper.getBottleDao();
         dao.create(bottle);
 
+        addToIndex(bottle, essentialOil);
+
+    }
+
+    private void addToIndex(Bottle bottle, EssentialOil essentialOil) {
+        Indexable indexable = Indexables.noteDigitalDocumentBuilder()
+                .setName(getIndexableName(essentialOil.getName(), bottle.getBrand()))
+                .setText(essentialOil.getDescription())
+                .setUrl(bottle.getUrl())
+                .build();
+
+        FirebaseAppIndex.getInstance().update(indexable);
+    }
+
+    private String getIndexableName(String name, String brand){
+        StringBuilder sb = new StringBuilder();
+        Resources resources = getResources();
+        String withoutBrand = resources.getString(R.string.without_brand);
+        sb.append(resources.getString(R.string.bottle_of));
+        sb.append(name);
+        sb.append(" " + ((brand != null && brand.length() > 0) ? "(" + brand + ")" : withoutBrand));
+        return sb.toString();
+    }
+
+
+
+    private void updateIndex(EssentialOil essentialOil, String brand){
+
+        Indexable indexable = Indexables.noteDigitalDocumentBuilder()
+                .setName(getIndexableName(essentialOil.getName(), brand))
+                .setText(essentialOil.getDescription())
+                .setUrl(mBottle.getUrl())
+                .build();
+
+        FirebaseAppIndex.getInstance().update(indexable);
     }
 
 
@@ -273,6 +302,9 @@ public class EditBottleActivity extends EditActivity
 
         setFeedbackMessage(R.string.edit_bottle);
 
+        Dao<EssentialOil, Integer> essentialOilDao = helper.getEssentialOilDao();
+        EssentialOil essentialOil = essentialOilDao.queryForId(mEssentialOilId);
+        updateIndex(essentialOil, mBrandText.getText().toString());
 
     }
 

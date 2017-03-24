@@ -5,6 +5,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.List;
 
+import fr.delicatessences.delicatessences.fragments.ViewType;
+
 @DatabaseTable(tableName = "vegetal_oils")
 public class VegetalOil{
 
@@ -18,8 +20,9 @@ public class VegetalOil{
     private static final String DEFAULT_COLOR = "#264961";
     private static final String DEFAULT_IMAGE = "default";
 	public static final String URL_FIELD_NAME = "url";
+	private static final String VEGETAL_OIL_URL = "vegetal-oil";
 
-    @DatabaseField(columnName = ID_FIELD_NAME, generatedId = true, allowGeneratedIdInsert=true)
+	@DatabaseField(columnName = ID_FIELD_NAME, generatedId = true, allowGeneratedIdInsert=true)
 	private int mId;
 
 	@DatabaseField(columnName = NAME_FIELD_NAME)
@@ -60,7 +63,6 @@ public class VegetalOil{
 		this.mFavorite = false;
 		this.mReadOnly = false;
         this.mColor = DEFAULT_COLOR;
-
 	}
 
 
@@ -101,7 +103,12 @@ public class VegetalOil{
     }
 
     public String getUrl() {
-        return mUrl;
+        if (mUrl != null){
+            return mUrl;
+        } else {
+            int urlId = (mId << 2) | ViewType.VEGETAL_OILS.getInt();
+            return DatabaseHelper.URL_PATTERN + VEGETAL_OIL_URL + "-" + urlId + DatabaseHelper.URL_EXTENSION;
+        }
     }
 
     @SuppressWarnings("StringBufferReplaceableByString")

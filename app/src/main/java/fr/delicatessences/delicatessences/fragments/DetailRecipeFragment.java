@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.appindexing.FirebaseAppIndex;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -37,13 +40,13 @@ import fr.delicatessences.delicatessences.adapters.SheetAdapter;
 import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.loaders.FavoriteWorkerTask;
 import fr.delicatessences.delicatessences.model.Category;
+import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.Use;
-import fr.delicatessences.delicatessences.model.VegetalOil;
-import fr.delicatessences.delicatessences.model.DatabaseHelper;
-import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.VORecipe;
+import fr.delicatessences.delicatessences.model.VegetalOil;
 
 public class DetailRecipeFragment extends DetailFragment {
 
@@ -200,6 +203,8 @@ public class DetailRecipeFragment extends DetailFragment {
                     }
 
                 });
+
+        FirebaseAppIndex.getInstance().remove(mIndexedURL);
     }
 
     @Override
@@ -216,11 +221,11 @@ public class DetailRecipeFragment extends DetailFragment {
                     int mId = getmId();
                     Recipe recipe = oilDao.queryForId(mId);
                     if (recipe != null) {
-                        if (recipe.getUrl() != null) {
-                            mIndexedURL = Uri.parse(recipe.getUrl());
-                            mIndexedTitle = recipe.getName();
-                            mIndexedDescription = recipe.getPreparation();
-                        }
+
+                        mIndexedURL = recipe.getUrl();
+                        mIndexedName = recipe.getName() + " - " + recipe.getAuthor();
+                        mIndexedText = recipe.getPreparation();
+
                         Dao<Category, Integer> categoryDao = helper.getCategoryDao();
                         Category category = null;
                         if (recipe.getCategory() != null){
@@ -256,6 +261,35 @@ public class DetailRecipeFragment extends DetailFragment {
         };
     }
 
+
+    @Override
+    protected Action getAction() {
+        Thing object = new Thing.Builder()
+                .setName(mIndexedName)
+                .setUrl(Uri.parse(mIndexedURL))
+                .build();
+
+
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .build();
+    }
+
+    private void prepareIndex(Recipe recipe) {
+        mIndexedURL = recipe.getUrl();
+        StringBuilder sb = new StringBuilder();
+        Resources resources = getResources();
+        sb.append(resources.getString(R.string.recipe_of));
+        sb.append(recipe.getName());
+        String author = recipe.getAuthor();
+        if (author != null && author.length() > 0){
+            sb.append(" (");
+            sb.append(author);
+            sb.append(")");
+        }
+        mIndexedName = sb.toString();
+        mIndexedText = recipe.getPreparation();
+    }
 
     @Override
     public void onLoadFinished(Loader<Object> loader, Object o) {

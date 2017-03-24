@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
@@ -18,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.appindexing.FirebaseAppIndex;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 
@@ -34,8 +38,8 @@ import fr.delicatessences.delicatessences.adapters.BottleSheetAdapter;
 import fr.delicatessences.delicatessences.adapters.SheetAdapter;
 import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.model.Bottle;
-import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.EssentialOil;
 
 public class DetailBottleFragment extends DetailFragment {
 
@@ -174,6 +178,8 @@ public class DetailBottleFragment extends DetailFragment {
         deleteBuilder.where().eq(Bottle.ID_FIELD_NAME, mId);
         deleteBuilder.delete();
 
+        FirebaseAppIndex.getInstance().remove(mIndexedURL);
+
     }
 
 
@@ -194,6 +200,7 @@ public class DetailBottleFragment extends DetailFragment {
                         Dao<EssentialOil, Integer> essentialOilDao = helper.getEssentialOilDao();
                         EssentialOil essentialOil = essentialOilDao.queryForId(bottle.getEssentialOil().getId());
                         if (essentialOil != null) {
+                            prepareIndex(bottle, essentialOil);
                             adapter = new BottleSheetAdapter(bottle.getBrand(), bottle.getPrice(), bottle.getCapacity(),
                                     bottle.getExpiration(), bottle.getOrigin(), bottle.isBio(), bottle.isPure(),
                                     bottle.isHect(), bottle.isHebbd(), bottle.getImage(), Color.parseColor(bottle.getColor()),
@@ -210,6 +217,29 @@ public class DetailBottleFragment extends DetailFragment {
     }
 
 
+    private void prepareIndex(Bottle bottle, EssentialOil essentialOil){
+        mIndexedURL = bottle.getUrl();
+        String brand = bottle.getBrand();
+        Resources resources = getResources();
+        String withoutBrand = resources.getString(R.string.without_brand);
+        String namePrefix = resources.getString(R.string.bottle_of);
+        String nameSuffix = " " + ((brand != null && brand.length() > 0) ? "(" + brand + ")" : withoutBrand);
+        mIndexedName = namePrefix + essentialOil.getName() + nameSuffix;
+        mIndexedText = essentialOil.getDescription();
+    }
+
+    @Override
+    protected Action getAction() {
+        Thing object = new Thing.Builder()
+                .setName(mIndexedName)
+                .setUrl(Uri.parse(mIndexedURL))
+                .build();
+
+
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .build();
+    }
 
     @Override
     public void onLoaderReset(Loader<Object> loader) {

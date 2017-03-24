@@ -29,6 +29,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
+    public static final String URL_PATTERN = "https://www.delicatessences.fr/articles/carnet/";
+    public static final String URL_EXTENSION = ".html";
     private static final String DATABASE_NAME = "delicatessences.db";
     private static final int DATABASE_VERSION = 3;
     private static final String VERSION = "version";

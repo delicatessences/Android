@@ -23,6 +23,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.appindexing.FirebaseAppIndex;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -53,7 +56,6 @@ import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.EssentialIndication;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.EssentialProperty;
-import fr.delicatessences.delicatessences.utils.ImageUtils;
 
 public class DetailEOFragment extends DetailFragment  {
 
@@ -128,8 +130,18 @@ public class DetailEOFragment extends DetailFragment  {
         return view;
     }
 
+    @Override
+    protected Action getAction() {
+        Thing object = new Thing.Builder()
+                .setName(mIndexedName)
+                .setUrl(Uri.parse(mIndexedURL))
+                .build();
 
 
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .build();
+    }
 
 
     //up button action
@@ -261,6 +273,8 @@ public class DetailEOFragment extends DetailFragment  {
                         return null;
                     }
                 });
+
+        FirebaseAppIndex.getInstance().remove(mIndexedURL);
     }
 
 
@@ -280,11 +294,10 @@ public class DetailEOFragment extends DetailFragment  {
                             int mId = getmId();
                             EssentialOil essentialOil = oilDao.queryForId(mId);
                             if (essentialOil != null) {
-                                if (essentialOil.getUrl() != null) {
-                                    mIndexedURL = Uri.parse(essentialOil.getUrl());
-                                    mIndexedTitle = essentialOil.getName();
-                                    mIndexedDescription = essentialOil.getDescription();
-                                }
+
+                                prepareIndex(essentialOil);
+
+
                                 List<Administration> administrations = helper.getAdministrations(mId);
                                 List<String> administrationsImages = new ArrayList<>(administrations.size());
                                 for (Administration administration : administrations){
@@ -323,6 +336,14 @@ public class DetailEOFragment extends DetailFragment  {
         }
 
 
+    }
+
+    private void prepareIndex(EssentialOil essentialOil) {
+        mIndexedURL = essentialOil.getUrl();
+        Resources resources = getResources();
+        String namePrefix = resources.getString(R.string.eo_of);
+        mIndexedName = namePrefix + essentialOil.getName();
+        mIndexedText = essentialOil.getDescription();
     }
 
 

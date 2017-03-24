@@ -1,5 +1,7 @@
 package fr.delicatessences.delicatessences.fragments;
 
+import static android.R.attr.id;
+
 public enum ViewType {
 
 	HOME,
@@ -14,6 +16,9 @@ public enum ViewType {
 
 	public static ViewType fromInt(int id){
         switch(id){
+            case 0:
+                return BOTTLES;
+
             case 1 :
                 return ESSENTIAL_OILS;
 
@@ -25,6 +30,26 @@ public enum ViewType {
 
             default:
                 return HOME;
+        }
+    }
+
+
+    public int getInt(){
+        switch(this){
+            case BOTTLES:
+                return 0;
+
+            case ESSENTIAL_OILS:
+                return 1;
+
+            case VEGETAL_OILS:
+                return 2;
+
+            case RECIPES:
+                return 3;
+
+            default:
+                throw new IllegalStateException("getInt not supported for this enum type");
         }
     }
 

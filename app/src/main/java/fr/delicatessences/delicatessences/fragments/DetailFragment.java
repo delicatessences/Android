@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,8 +29,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.appindexing.FirebaseAppIndex;
+import com.google.firebase.appindexing.Indexable;
+import com.google.firebase.appindexing.builders.Indexables;
 import com.manuelpeinado.fadingactionbar.view.ObservableScrollView;
 import com.manuelpeinado.fadingactionbar.view.OnScrollChangedCallback;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -59,10 +60,10 @@ public abstract class DetailFragment extends Fragment
     private int mId;
     private ObservableScrollView mScrollView;
     private DrawerLayout mDrawerLayout;
+    protected String mIndexedName;
+    protected String mIndexedText;
+    protected String mIndexedURL;
     private GoogleApiClient mClient;
-    protected String mIndexedTitle;
-    protected String mIndexedDescription;
-    protected Uri mIndexedURL;
 
     protected abstract int getLayout();
 
@@ -78,9 +79,9 @@ public abstract class DetailFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        mClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(AppIndex.API).build();
         View view = inflater.inflate(getLayout(), container, false);
-        mClient = new GoogleApiClient.Builder(getContext()).addApi(AppIndex.API).build();
 
         FragmentActivity activity = getActivity();
         mDrawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
@@ -106,23 +107,14 @@ public abstract class DetailFragment extends Fragment
     }
 
 
-    public Action getAction() {
-        Thing object = new Thing.Builder()
-                .setName(mIndexedTitle)
-                .setDescription(mIndexedDescription)
-                .setUrl(mIndexedURL)
-                .build();
-
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
+    protected abstract Action getAction();
 
 
     @Override
     public void onStop() {
-
+        Action viewAction = getAction();
+        AppIndex.AppIndexApi.start(mClient, viewAction);
+        mClient.disconnect();
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -135,12 +127,6 @@ public abstract class DetailFragment extends Fragment
         Resources resources = getResources();
         mActionBarBackgroundDrawable.setColor(resources.getColor(R.color.primary_color));
         mStatusBarManager.setTintColor(resources.getColor(R.color.primary_color));
-
-        if (mIndexedURL != null){
-            AppIndex.AppIndexApi.end(mClient, getAction());
-            mClient.disconnect();
-        }
-
         super.onStop();
     }
 
@@ -229,10 +215,10 @@ public abstract class DetailFragment extends Fragment
                         onScroll(-1, mLastScrollPosition);
                     }
 
-                    if (mIndexedURL != null){
-                        mClient.connect();
-                        AppIndex.AppIndexApi.start(mClient, getAction());
-                    }
+                    updateIndex();
+                    mClient.connect();
+                    Action viewAction = getAction();
+                    AppIndex.AppIndexApi.start(mClient, viewAction);
                 }
                 break;
 
@@ -241,6 +227,18 @@ public abstract class DetailFragment extends Fragment
         }
 
 
+    }
+
+
+
+    private void updateIndex() {
+        Indexable indexable = Indexables.noteDigitalDocumentBuilder()
+                .setName(mIndexedName)
+                .setText(mIndexedText)
+                .setUrl(mIndexedURL)
+                .build();
+
+        FirebaseAppIndex.getInstance().update(indexable);
     }
 
 
@@ -305,6 +303,8 @@ public abstract class DetailFragment extends Fragment
             mToolbar.setLayoutParams(lp);
             updateActionBarTransparency(0);
         }
+
+
     }
 
 

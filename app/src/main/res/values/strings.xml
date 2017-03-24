@@ -164,4 +164,8 @@
     <string name="cancel_modifications">Annuler les modifications?</string>
     <string name="administration_ways">Voies d\'administration :</string>
     <string name="open_helper_classname">fr.delicatessences.delicatessences.model.DatabaseHelper</string>
+    <string name="bottle_of">Flacon:\u0020</string>
+    <string name="eo_of">Huile essentielle:\u0020</string>
+    <string name="vo_of">Huile végétale:\u0020</string>
+    <string name="recipe_of">Recette:\u0020</string>
 </resources>

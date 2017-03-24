@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.appindexing.FirebaseAppIndex;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -33,13 +36,13 @@ import fr.delicatessences.delicatessences.adapters.SheetAdapter;
 import fr.delicatessences.delicatessences.adapters.VegetalOilSheetAdapter;
 import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.loaders.FavoriteWorkerTask;
-import fr.delicatessences.delicatessences.model.VegetalIndication;
-import fr.delicatessences.delicatessences.model.VegetalOil;
-import fr.delicatessences.delicatessences.model.VegetalProperty;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.VOIndication;
 import fr.delicatessences.delicatessences.model.VOProperty;
 import fr.delicatessences.delicatessences.model.VORecipe;
+import fr.delicatessences.delicatessences.model.VegetalIndication;
+import fr.delicatessences.delicatessences.model.VegetalOil;
+import fr.delicatessences.delicatessences.model.VegetalProperty;
 
 public class DetailVOFragment extends DetailFragment {
 
@@ -52,9 +55,6 @@ public class DetailVOFragment extends DetailFragment {
     private TextView mIndications;
     private TextView mIndicationsLabel;
     private boolean mIsReadOnly;
-    private String mIndexedTitle;
-    private String mIndexedDescription;
-    private Uri mIndexedURL;
 
 
     @Override
@@ -158,6 +158,8 @@ public class DetailVOFragment extends DetailFragment {
                         return null;
                     }
                 });
+
+        FirebaseAppIndex.getInstance().remove(mIndexedURL);
     }
 
 
@@ -211,11 +213,9 @@ public class DetailVOFragment extends DetailFragment {
                     int mId = getmId();
                     VegetalOil vegetalOil = oilDao.queryForId(mId);
                     if (vegetalOil != null) {
-                        if (vegetalOil.getUrl() != null) {
-                            mIndexedURL = Uri.parse(vegetalOil.getUrl());
-                            mIndexedTitle = vegetalOil.getName();
-                            mIndexedDescription = vegetalOil.getDescription();
-                        }
+
+                        prepareIndex(vegetalOil);
+
                         List<VegetalProperty> properties = helper.getVegetalProperties(mId);
                         List<String> propertiesName = new ArrayList<>(properties.size());
                         for (VegetalProperty property : properties){
@@ -240,6 +240,29 @@ public class DetailVOFragment extends DetailFragment {
         };
     }
 
+
+    private void prepareIndex(VegetalOil vegetalOil) {
+        mIndexedURL = vegetalOil.getUrl();
+        Resources resources = getResources();
+        String namePrefix = resources.getString(R.string.vo_of);
+        mIndexedName = namePrefix + vegetalOil.getName();
+        mIndexedText = vegetalOil.getDescription();
+    }
+
+
+    @Override
+    protected Action getAction() {
+        Thing object = new Thing.Builder()
+                .setName(mIndexedName)
+                .setUrl(Uri.parse(mIndexedURL))
+                .build();
+
+
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .build();
+
+    }
 
     @Override
     public void onLoadFinished(Loader<Object> loader, Object o) {
