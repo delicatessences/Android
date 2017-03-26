@@ -207,9 +207,12 @@ public class EditBottleActivity extends EditActivity
     }
 
     private void addToIndex(Bottle bottle, EssentialOil essentialOil) {
+
+        String description = essentialOil.getDescription();
+
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(essentialOil.getName(), bottle.getBrand()))
-                .setText(essentialOil.getDescription())
+                .setText(description != null ? description : "")
                 .setUrl(bottle.getUrl())
                 .build();
 
@@ -221,7 +224,7 @@ public class EditBottleActivity extends EditActivity
         Resources resources = getResources();
         String withoutBrand = resources.getString(R.string.without_brand);
         sb.append(resources.getString(R.string.bottle_of));
-        sb.append(name);
+        sb.append(name != null ? name : "");
         sb.append(" " + ((brand != null && brand.length() > 0) ? "(" + brand + ")" : withoutBrand));
         return sb.toString();
     }
@@ -230,9 +233,11 @@ public class EditBottleActivity extends EditActivity
 
     private void updateIndex(EssentialOil essentialOil, String brand){
 
+        String description = essentialOil.getDescription();
+
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(essentialOil.getName(), brand))
-                .setText(essentialOil.getDescription())
+                .setText(description != null ? description : "")
                 .setUrl(mBottle.getUrl())
                 .build();
 
@@ -303,7 +308,8 @@ public class EditBottleActivity extends EditActivity
         setFeedbackMessage(R.string.edit_bottle);
 
         Dao<EssentialOil, Integer> essentialOilDao = helper.getEssentialOilDao();
-        EssentialOil essentialOil = essentialOilDao.queryForId(mEssentialOilId);
+        int essentialOilId = mBottle.getEssentialOil().getId();
+        EssentialOil essentialOil = essentialOilDao.queryForId(essentialOilId);
         updateIndex(essentialOil, mBrandText.getText().toString());
 
     }

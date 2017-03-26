@@ -280,9 +280,12 @@ public class EditRecipeActivity extends EditActivity {
 
 
     private void addToIndex(Recipe recipe) {
+
+        String preparation = recipe.getPreparation();
+
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(recipe.getName(), recipe.getAuthor()))
-                .setText(recipe.getPreparation())
+                .setText(preparation != null ? preparation : "")
                 .setUrl(recipe.getUrl())
                 .build();
 
@@ -294,7 +297,7 @@ public class EditRecipeActivity extends EditActivity {
         StringBuilder sb = new StringBuilder();
         Resources resources = getResources();
         sb.append(resources.getString(R.string.recipe_of));
-        sb.append(name);
+        sb.append(name != null ? name : "");
         if (author != null && author.length() > 0){
             sb.append(" (");
             sb.append(author);
@@ -307,7 +310,7 @@ public class EditRecipeActivity extends EditActivity {
     private void updateIndex(String name, String author, String preparation) {
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(name, author))
-                .setText(preparation)
+                .setText(preparation != null ? preparation : "")
                 .setUrl(mRecipe.getUrl())
                 .build();
     }

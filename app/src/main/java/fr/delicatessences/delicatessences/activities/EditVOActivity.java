@@ -303,9 +303,12 @@ public class EditVOActivity extends EditActivity {
 
 
     private void addToIndex(VegetalOil vegetalOil) {
+
+        String description = vegetalOil.getDescription();
+
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(vegetalOil.getName()))
-                .setText(vegetalOil.getDescription())
+                .setText(description != null ? description : "")
                 .setUrl(vegetalOil.getUrl())
                 .build();
 
@@ -316,14 +319,14 @@ public class EditVOActivity extends EditActivity {
         StringBuilder sb = new StringBuilder();
         Resources resources = getResources();
         sb.append(resources.getString(R.string.vo_of));
-        sb.append(name);
+        sb.append(name != null ? name : "");
         return sb.toString();
     }
 
     private void updateIndex(String name, String description) {
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(name))
-                .setText(description)
+                .setText(description != null ? description : "")
                 .setUrl(mVegetalOil.getUrl())
                 .build();
     }

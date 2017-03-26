@@ -245,15 +245,17 @@ public class DetailVOFragment extends DetailFragment {
         mIndexedURL = vegetalOil.getUrl();
         Resources resources = getResources();
         String namePrefix = resources.getString(R.string.vo_of);
-        mIndexedName = namePrefix + vegetalOil.getName();
-        mIndexedText = vegetalOil.getDescription();
+        String name = vegetalOil.getName();
+        mIndexedName = namePrefix + name != null ? name : "";
+        String description = vegetalOil.getDescription();
+        mIndexedText = description != null ? description : "";
     }
 
 
     @Override
     protected Action getAction() {
         Thing object = new Thing.Builder()
-                .setName(mIndexedName)
+                .setName(mIndexedName != null ? mIndexedName : "")
                 .setUrl(Uri.parse(mIndexedURL))
                 .build();
 

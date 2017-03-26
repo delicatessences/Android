@@ -1,5 +1,5 @@
 {
-      "mId" : 1000001,
+      "mId" : 1001,
       "mName" : "Lavandin Super",
       "mBotanicalName" : "Lavandula hybrida Reverchon clone super",
       "mDistilledOrgan" : "Sommités fleuries",
@@ -8,7 +8,6 @@
       "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez l'enfant de moins de 7 ans. Déconseillée chez les sujets à risque épileptique.",
       "mFavorite" : false,
       "mReadOnly" : true,
-      "mUrl" : "http://www.delicatessences.fr/articles/carnet/lavandin-101.html",
       "mImage" : "lavandin",
        "mColor" : "#6d4452",
   "properties" : [43,76,25,4,109,55,38,42,66,170,58,137,132],

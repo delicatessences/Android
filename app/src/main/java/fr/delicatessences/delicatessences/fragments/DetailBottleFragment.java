@@ -224,14 +224,16 @@ public class DetailBottleFragment extends DetailFragment {
         String withoutBrand = resources.getString(R.string.without_brand);
         String namePrefix = resources.getString(R.string.bottle_of);
         String nameSuffix = " " + ((brand != null && brand.length() > 0) ? "(" + brand + ")" : withoutBrand);
-        mIndexedName = namePrefix + essentialOil.getName() + nameSuffix;
-        mIndexedText = essentialOil.getDescription();
+        String essentialOilName = essentialOil.getName();
+        mIndexedName = namePrefix + (essentialOilName != null ? essentialOilName : "") + nameSuffix;
+        String description = essentialOil.getDescription();
+        mIndexedText = description != null ? description : "";
     }
 
     @Override
     protected Action getAction() {
         Thing object = new Thing.Builder()
-                .setName(mIndexedName)
+                .setName(mIndexedName != null ? mIndexedName : "")
                 .setUrl(Uri.parse(mIndexedURL))
                 .build();
 

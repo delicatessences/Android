@@ -113,7 +113,7 @@ public abstract class DetailFragment extends Fragment
     @Override
     public void onStop() {
         Action viewAction = getAction();
-        AppIndex.AppIndexApi.start(mClient, viewAction);
+        AppIndex.AppIndexApi.end(mClient, viewAction);
         mClient.disconnect();
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -233,8 +233,8 @@ public abstract class DetailFragment extends Fragment
 
     private void updateIndex() {
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
-                .setName(mIndexedName)
-                .setText(mIndexedText)
+                .setName(mIndexedName != null ? mIndexedName : "")
+                .setText(mIndexedText != null ? mIndexedText : "")
                 .setUrl(mIndexedURL)
                 .build();
 

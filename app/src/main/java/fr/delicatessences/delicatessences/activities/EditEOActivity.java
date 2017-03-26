@@ -290,9 +290,12 @@ public class EditEOActivity extends EditActivity {
     }
 
     private void addToIndex(EssentialOil essentialOil) {
+
+        String description = essentialOil.getDescription();
+
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(essentialOil.getName()))
-                .setText(essentialOil.getDescription())
+                .setText(description != null ? description : "")
                 .setUrl(essentialOil.getUrl())
                 .build();
 
@@ -303,14 +306,14 @@ public class EditEOActivity extends EditActivity {
         StringBuilder sb = new StringBuilder();
         Resources resources = getResources();
         sb.append(resources.getString(R.string.eo_of));
-        sb.append(name);
+        sb.append(name != null ? name : "");
         return sb.toString();
     }
 
     private void updateIndex(String name, String description) {
         Indexable indexable = Indexables.noteDigitalDocumentBuilder()
                 .setName(getIndexableName(name))
-                .setText(description)
+                .setText(description != null ? description : "")
                 .setUrl(mEssentialOil.getUrl())
                 .build();
     }

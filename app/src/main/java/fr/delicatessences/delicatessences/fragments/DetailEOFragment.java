@@ -133,7 +133,7 @@ public class DetailEOFragment extends DetailFragment  {
     @Override
     protected Action getAction() {
         Thing object = new Thing.Builder()
-                .setName(mIndexedName)
+                .setName(mIndexedName != null ? mIndexedName : "")
                 .setUrl(Uri.parse(mIndexedURL))
                 .build();
 
@@ -342,8 +342,10 @@ public class DetailEOFragment extends DetailFragment  {
         mIndexedURL = essentialOil.getUrl();
         Resources resources = getResources();
         String namePrefix = resources.getString(R.string.eo_of);
-        mIndexedName = namePrefix + essentialOil.getName();
-        mIndexedText = essentialOil.getDescription();
+        String name = essentialOil.getName();
+        mIndexedName = namePrefix + name != null ? name : "";
+        String description = essentialOil.getDescription();
+        mIndexedText = description != null ? description : "";
     }
 
 

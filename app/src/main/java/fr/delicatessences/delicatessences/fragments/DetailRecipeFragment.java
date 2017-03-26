@@ -265,7 +265,7 @@ public class DetailRecipeFragment extends DetailFragment {
     @Override
     protected Action getAction() {
         Thing object = new Thing.Builder()
-                .setName(mIndexedName)
+                .setName(mIndexedName != null ? mIndexedName : "")
                 .setUrl(Uri.parse(mIndexedURL))
                 .build();
 
@@ -277,10 +277,11 @@ public class DetailRecipeFragment extends DetailFragment {
 
     private void prepareIndex(Recipe recipe) {
         mIndexedURL = recipe.getUrl();
+        String name = recipe.getName();
         StringBuilder sb = new StringBuilder();
         Resources resources = getResources();
         sb.append(resources.getString(R.string.recipe_of));
-        sb.append(recipe.getName());
+        sb.append(name != null ? name : "");
         String author = recipe.getAuthor();
         if (author != null && author.length() > 0){
             sb.append(" (");
@@ -288,7 +289,8 @@ public class DetailRecipeFragment extends DetailFragment {
             sb.append(")");
         }
         mIndexedName = sb.toString();
-        mIndexedText = recipe.getPreparation();
+        String preparation = recipe.getPreparation();
+        mIndexedText = preparation != null ? preparation : "";
     }
 
     @Override
