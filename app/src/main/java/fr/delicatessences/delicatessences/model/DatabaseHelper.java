@@ -49,7 +49,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String PATH_TO_USES = PATH_TO_JSON + "/uses.json";
     private static final String PATH_TO_CATEGORIES = PATH_TO_JSON + "/categories.json";
     private static final String PATH_TO_RECIPES = PATH_TO_JSON + "/recipes.json";
-
+    public static final String VEGETAL_OIL_TABLE_NAME = "vegetal_oils";
+    public static final String VIEWTYPE_COLUMN_NAME = "viewtype";
+    public static final String ESSENTIAL_INDICATIONS_TABLE_NAME = "essential_indications";
+    public static final String EO_INDICATIONS_TABLE_NAME = "eo_indications_join";
+    public static final String ESSENTIAL_PROPERTIES_TABLE_NAME = "essential_properties";
+    public static final String EO_PROPERTIES_TABLE_NAME = "eo_properties_join";
+    public static final String VEGETAL_INDICATIONS_TABLE_NAME = "vegetal_indications";
+    public static final String VO_INDICATIONS_TABLE_NAME = "vo_indications_join";
+    public static final String VEGETAL_PROPERTIES_TABLE_NAME = "vegetal_properties";
+    public static final String VO_PROPERTIES_TABLE_NAME = "vo_properties_join";
+    public static final String EO_RECIPE_TABLE_NAME = "eo_recipes_join";
+    public static final String VO_RECIPE_TABLE_NAME = "vo_recipes_join";
 
 
     // the DAO objects

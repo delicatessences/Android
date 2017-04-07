@@ -222,9 +222,7 @@ public class DetailRecipeFragment extends DetailFragment {
                     Recipe recipe = oilDao.queryForId(mId);
                     if (recipe != null) {
 
-                        mIndexedURL = recipe.getUrl();
-                        mIndexedName = recipe.getName() + " - " + recipe.getAuthor();
-                        mIndexedText = recipe.getPreparation();
+                        prepareIndex(recipe);
 
                         Dao<Category, Integer> categoryDao = helper.getCategoryDao();
                         Category category = null;
@@ -266,7 +264,7 @@ public class DetailRecipeFragment extends DetailFragment {
     protected Action getAction() {
         Thing object = new Thing.Builder()
                 .setName(mIndexedName != null ? mIndexedName : "")
-                .setUrl(Uri.parse(mIndexedURL))
+                .setUrl(mIndexedURL != null ? Uri.parse(mIndexedURL) : Uri.EMPTY)
                 .build();
 
 

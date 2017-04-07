@@ -62,6 +62,8 @@ public class RecipePagerAdpater extends FragmentPagerAdapter {
                     return categories.get(position - 1);
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } catch (IndexOutOfBoundsException e){
+                    e.printStackTrace();
                 }
             }
         }else{

@@ -168,4 +168,14 @@
     <string name="eo_of">Huile essentielle:\u0020</string>
     <string name="vo_of">Huile végétale:\u0020</string>
     <string name="recipe_of">Recette:\u0020</string>
+    <string name="action_search">Rechercher</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="essential_oil">Huile essentielle</string>
+    <string name="vegetal_oil">Huile végétale</string>
+    <string name="recipe">Recette</string>
+    <string name="bottle">Flacon</string>
+    <string name="results_for">résultats pour</string>
+    <string name="no_results">Aucun résultat</string>
+    <string name="search_hint">Ex: citron, toux, relaxant</string>
+    <string name="how_to_search">Essayez avec un nom de propriété, d\'indication, de molécule ou encore de nom botanique par exemple.</string>
 </resources>

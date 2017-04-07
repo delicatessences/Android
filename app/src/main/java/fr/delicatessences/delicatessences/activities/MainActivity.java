@@ -68,6 +68,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private boolean deepLink;
+    private boolean searchResult;
 
 
     @Override
@@ -96,32 +97,50 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
             actionBar.setTitle(titles[ViewType.HOME.ordinal()]);
         }
 
-        if (savedInstanceState == null){
-            // manage intent from deep link
-            Intent intent = getIntent();
-            onDeepLink(intent);
-        }
-
-    }
-
-
-    private void onDeepLink(Intent intent){
+        Intent intent = getIntent();
         if (intent != null){
             String action = intent.getAction();
             String data = intent.getDataString();
 
-            if (Intent.ACTION_VIEW.equals(action) && data != null) {
-                int startOfId = data.lastIndexOf("-") + 1;
-                int endOfId = data.lastIndexOf(".");
-                int id = Integer.parseInt(data.substring(startOfId, endOfId));
-                // split the id in two : a element id and a element type
-                int elementId = (id & ID_MASK) >>> 2;
-                int elementType = id & TYPE_MASK;
-                ViewType viewType = ViewType.fromInt(elementType);
-                this.deepLink = true;
-                showDetail(viewType, elementId);
+            if (Intent.ACTION_VIEW.equals(action)) {
+               onDeepLink(data);
+            } else if (Intent.ACTION_MAIN.equals(action)){
+                // do nothing special
+            } else {
+                onSearchResult(intent);
             }
         }
+
+//        if (savedInstanceState == null){
+            // manage intent from deep link
+
+
+    }
+
+    private void onSearchResult(Intent intent) {
+        this.searchResult = true;
+        int id = intent.getIntExtra(EXTRA_ID, 1);
+        int viewType = intent.getIntExtra(EXTRA_VIEW_TYPE, 1);
+        showDetail(ViewType.fromInt(viewType), id);
+    }
+
+
+    private void onDeepLink(String data){
+
+                int startOfId = data.lastIndexOf("-") + 1;
+                int endOfId = data.lastIndexOf(".");
+        try{
+            int id = Integer.parseInt(data.substring(startOfId, endOfId));
+            // split the id in two : a element id and a element type
+            int elementId = (id & ID_MASK) >>> 2;
+            int elementType = id & TYPE_MASK;
+            ViewType viewType = ViewType.fromInt(elementType);
+            this.deepLink = true;
+            showDetail(viewType, elementId);
+        } catch (NumberFormatException e){
+            //do nothing
+        }
+
 
     }
 
@@ -136,7 +155,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
 
 
     public void showList(ViewType viewType) {
-        if (this.deepLink){
+        if (this.deepLink || this.searchResult){
             return;
         }
 
@@ -259,7 +278,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
             throw new IllegalStateException("Could not create fragment for viewtype " + type + " and id " + primaryId);
         }
 
-        if (deepLink){
+        if (deepLink | searchResult){
             fragmentManager
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)

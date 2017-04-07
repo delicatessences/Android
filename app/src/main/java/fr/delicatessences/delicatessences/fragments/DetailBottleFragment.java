@@ -234,7 +234,7 @@ public class DetailBottleFragment extends DetailFragment {
     protected Action getAction() {
         Thing object = new Thing.Builder()
                 .setName(mIndexedName != null ? mIndexedName : "")
-                .setUrl(Uri.parse(mIndexedURL))
+                .setUrl(mIndexedURL != null ? Uri.parse(mIndexedURL) : Uri.EMPTY)
                 .build();
 
 

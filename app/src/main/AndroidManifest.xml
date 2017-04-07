@@ -2,82 +2,94 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.delicatessences.delicatessences">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Delicatessences">
-
         <activity
-            android:name="fr.delicatessences.delicatessences.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="http"
                     android:host="www.delicatessences.fr"
-                    android:pathPrefix="/articles/carnet"/>
+                    android:pathPrefix="/articles/carnet"
+                    android:scheme="http" />
                 <data
-                    android:scheme="https"
                     android:host="www.delicatessences.fr"
-                    android:pathPrefix="/articles/carnet"/>
+                    android:pathPrefix="/articles/carnet"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="fr.delicatessences.delicatessences.activities.EditEOActivity"
+            android:name=".activities.SearchableActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Delicatessences">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".activities.EditEOActivity"
             android:label="@string/title_new_eo"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName="fr.delicatessences.delicatessences.activities.MainActivity" >
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
         </activity>
-
         <activity
-            android:name="fr.delicatessences.delicatessences.activities.EditVOActivity"
+            android:name=".activities.EditVOActivity"
             android:label="@string/title_new_vo"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName="fr.delicatessences.delicatessences.activities.MainActivity" >
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
         </activity>
-
         <activity
-            android:name="fr.delicatessences.delicatessences.activities.EditRecipeActivity"
+            android:name=".activities.EditRecipeActivity"
             android:label="@string/title_new_recipe"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName="fr.delicatessences.delicatessences.activities.MainActivity" >
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EditBottleActivity"
+            android:label="@string/title_new_bottle"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
         </activity>
 
-        <activity
-            android:name="fr.delicatessences.delicatessences.activities.EditBottleActivity"
-            android:label="@string/title_new_bottle"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName="fr.delicatessences.delicatessences.activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.delicatessences.delicatessences.activities.MainActivity" />
-        </activity>
-        <service android:name="fr.delicatessences.delicatessences.model.index.AppIndexingService"
+        <service
+            android:name=".model.index.AppIndexingService"
             android:exported="true"
             android:permission="com.google.android.gms.permission.APPINDEXING">
             <intent-filter>
                 <action android:name="com.google.firebase.appindexing.UPDATE_INDEX" />
             </intent-filter>
         </service>
-
-
     </application>
+
 </manifest>

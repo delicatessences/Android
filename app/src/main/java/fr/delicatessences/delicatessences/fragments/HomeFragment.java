@@ -1,6 +1,9 @@
 package fr.delicatessences.delicatessences.fragments;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,12 +11,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,13 +35,14 @@ import java.util.Random;
 import fr.delicatessences.delicatessences.R;
 import fr.delicatessences.delicatessences.activities.MainActivity;
 import fr.delicatessences.delicatessences.activities.OrmLiteBaseActionBarActivity;
+import fr.delicatessences.delicatessences.activities.SearchableActivity;
 import fr.delicatessences.delicatessences.adapters.LastRecipesCursorAdapter;
 import fr.delicatessences.delicatessences.decorators.SimpleDividerItemDecoration;
 import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.loaders.LastRecipeCursorLoader;
 import fr.delicatessences.delicatessences.model.Configuration;
-import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.utils.ImageUtils;
 
 public class HomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Object>{
@@ -134,6 +141,15 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.fragment_home_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        ComponentName componentName = new ComponentName(getContext(), SearchableActivity.class);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
         MainActivity activity = (MainActivity) getActivity();
         activity.setDrawerIndicatorEnabled(true);
