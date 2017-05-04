@@ -18,6 +18,125 @@
         android:orientation="vertical"
         tools:context="fr.delicatessences.delicatessences.fragments.HomeFragment" >
 
+
+
+            <net.mediavrog.irr.IrrLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:irr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/irr_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                irr:defaultRuleAppStartCount="5"
+                irr:defaultRuleDismissMaxCount="1"
+                irr:defaultRuleDismissPostponeDays="7"
+                irr:defaultRuleDistinctDays="3">
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/card_view_margin_top"
+                    android:background="@color/primary_color"
+                    card_view:cardCornerRadius="@dimen/card_view_corner_radius">
+
+
+                        <LinearLayout
+                            android:id="@id/irr_nudge_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primary_color"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@id/irr_nudge_text"
+                                style="@style/Irr.Default.Text"
+                                android:text="@string/rating_enjoying_this_app"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@id/irr_nudge_decline_btn"
+                                    style="@style/Irr.Default.Button"
+                                    android:text="@string/rating_not_really"/>
+
+                                <Button
+                                    android:id="@id/irr_nudge_accept_btn"
+                                    style="@style/Irr.Default.Button.Accept"
+                                    android:text="@string/rating_yes"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/irr_rate_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primary_color"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@id/irr_rate_text"
+                                style="@style/Irr.Default.Text"
+                                android:text="@string/rating_how_about_rating_it"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@id/irr_rate_decline_btn"
+                                    style="@style/Irr.Default.Button"
+                                    android:text="@string/rating_no_thanks"/>
+
+                                <Button
+                                    android:id="@id/irr_rate_accept_btn"
+                                    style="@style/Irr.Default.Button.Accept"
+                                    android:text="@string/rating_ok_sure"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@id/irr_feedback_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primary_color"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@id/irr_feedback_text"
+                                style="@style/Irr.Default.Text"
+                                android:text="@string/rating_feedback"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@id/irr_feedback_decline_btn"
+                                    style="@style/Irr.Default.Button"
+                                    android:text="@string/rating_no_thanks"/>
+
+                                <Button
+                                    android:id="@id/irr_feedback_accept_btn"
+                                    style="@style/Irr.Default.Button.Accept"
+                                    android:text="@string/rating_ok_sure"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+                </android.support.v7.widget.CardView>
+
+            </net.mediavrog.irr.IrrLayout>
+
+
+
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view_welcome"
@@ -82,7 +201,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/welcome_card_button_text"
+                        android:text="@string/got_it"
                         android:layout_alignParentRight="true"
                         style="?android:attr/borderlessButtonStyle"
                         android:textColor="@color/deli_rose_color"

@@ -147,6 +147,7 @@ public class DetailEOFragment extends DetailFragment  {
     //up button action
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
 
         MainActivity activity = (MainActivity) getActivity();
         int mId = getmId();
@@ -177,7 +178,7 @@ public class DetailEOFragment extends DetailFragment  {
 
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
 

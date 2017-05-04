@@ -16,6 +16,8 @@
 #   public *;
 #}
 
+-keep class android.support.v7.widget.SearchView { *; }
+
 # OrmLite uses reflection
 -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 -keep class com.j256.**

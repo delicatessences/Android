@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -18,7 +19,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.melnykov.fab.FloatingActionButton;
 
 import fr.delicatessences.delicatessences.R;
 import fr.delicatessences.delicatessences.activities.MainActivity;
@@ -36,6 +43,7 @@ public class ListBottleFragment extends Fragment
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
     private Parcelable mState;
+    private ShowcaseView mShowcaseView;
 
 
     @Override
@@ -59,8 +67,48 @@ public class ListBottleFragment extends Fragment
 
         mEmptyView.setText(Html.fromHtml("<h1>" + title + "</h1><p>" + message + "</p>"));
 
+
         return view;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+
+        Resources resources = getResources();
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fab);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mShowcaseView != null && mShowcaseView.isShown()){
+                    mShowcaseView.hide();
+                }
+                MainActivity activity = (MainActivity) getActivity();
+                activity.newItem(view);
+            }
+        });
+
+        mShowcaseView = new ShowcaseView.Builder(getActivity())
+                .withMaterialShowcase()
+                .setTarget(new ViewTarget(button))
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setContentTitle(resources.getString(R.string.bottle_showcase_title))
+                .setContentText(resources.getString(R.string.bottle_showcase_content))
+                .replaceEndButton(R.layout.view_custom_button)
+                .singleShot(42)
+                .build();
+        mShowcaseView.setButtonPosition(lps);
+
+    }
+
+
 
     @Override
     public void onStart() {

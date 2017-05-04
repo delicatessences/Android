@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,10 +30,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
+
+import net.mediavrog.irr.IrrLayout;
 
 import java.sql.SQLException;
 import java.util.Random;
@@ -40,13 +52,15 @@ import fr.delicatessences.delicatessences.adapters.LastRecipesCursorAdapter;
 import fr.delicatessences.delicatessences.decorators.SimpleDividerItemDecoration;
 import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.loaders.LastRecipeCursorLoader;
-import fr.delicatessences.delicatessences.model.Configuration;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
+import fr.delicatessences.delicatessences.utils.CustomOnUserActionListener;
 import fr.delicatessences.delicatessences.utils.ImageUtils;
 
 public class HomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Object>{
 
+    private static final String HOME_DISPLAY_COUNT_PREF = "homeDisplayCount";
+    private final static int HOME_DISPLAY_COUNT = 2;
     private static final int[] TUTO_IMAGES_ID = new int[]{R.drawable.pic_add_recipe, R.drawable.pic_add_bottle,
             R.drawable.pic_oils, R.drawable.pic_way};
     private static final int[] TUTO_IMAGES_LOW_ID = new int[]{R.drawable.pic_add_recipe_low, R.drawable.pic_add_bottle_low,
@@ -64,6 +78,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     private ViewGroup mLastRecipeCard;
     private ImageView mLastRecipeCardImage;
     private Button mOilCardButton;
+    private ShowcaseView mShowcaseView;
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +111,18 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity().getBaseContext());
+
+        boolean showWelcome = preferences.getBoolean("showWelcome", true);
+
+        if (showWelcome) {
+            mWelcomeCard = (ViewGroup) view.findViewById(R.id.card_view_welcome);
+            mWelcomeCardImage = (ImageView) view.findViewById(R.id.welcome_card_image);
+            ImageUtils.loadDrawable(getActivity(), R.drawable.pic_welcome, mWelcomeCardImage);
+            mWelcomeCard.setVisibility(View.VISIBLE);
+        }
+
         Random ran = new Random();
         boolean showAbout = ran.nextBoolean();
         if (showAbout){
@@ -123,11 +150,63 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         int tutoDrawableId = TUTO_IMAGES_ID[randomTuto];
         ImageUtils.loadDrawable(getActivity(), tutoDrawableId, tutoImageView);
 
+
+        IrrLayout irrLayout = (IrrLayout) view.findViewById(R.id.irr_layout);
+        if (irrLayout != null){
+            irrLayout.setOnUserActionListener(new CustomOnUserActionListener());
+        }
+
+
         return view;
 	}
 
-	
-	public static HomeFragment newInstance() {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+
+        Resources resources = getResources();
+        final Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Target target = new Target(){
+
+            @Override
+            public Point getPoint() {
+
+                return new ViewTarget(toolbar.findViewById(R.id.action_search)).getPoint();
+            }
+        };
+
+
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+
+        int displayCount = preferences.getInt(HOME_DISPLAY_COUNT_PREF, 1);
+
+        if (displayCount == HOME_DISPLAY_COUNT) {
+            mShowcaseView = new ShowcaseView.Builder(getActivity())
+                    .withMaterialShowcase()
+                    .setTarget(target)
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setContentTitle(resources.getString(R.string.home_showcase_title))
+                    .setContentText(resources.getString(R.string.home_showcase_content))
+                    .replaceEndButton(R.layout.view_custom_button)
+                    .build();
+            mShowcaseView.setButtonPosition(lps);
+        }
+        SharedPreferences.Editor e = preferences.edit();
+        e.putInt(HOME_DISPLAY_COUNT_PREF, displayCount + 1);
+        e.apply();
+
+    }
+
+
+    public static HomeFragment newInstance() {
 		HomeFragment fragment = new HomeFragment();
 
 	   Bundle args = new Bundle();
@@ -146,6 +225,14 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mShowcaseView != null && mShowcaseView.isShown()){
+                    mShowcaseView.hide();
+                }
+            }
+        });
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         ComponentName componentName = new ComponentName(getContext(), SearchableActivity.class);
@@ -203,24 +290,24 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                 };
 
 
-            case 1:
-                return new CustomAsyncTaskLoader<Object>(mActivity) {
-                    @Override
-                    public Object loadInBackground() {
-                        Configuration configuration = null;
-
-                        try {
-                            DatabaseHelper helper = (DatabaseHelper) mActivity.getHelper();
-                            Dao<Configuration, Integer> dao = helper.getConfigurationDao();
-                            QueryBuilder<Configuration, Integer> queryBuilder = dao.queryBuilder();
-                            configuration = queryBuilder.queryForFirst();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return configuration;
-                    }
-                };
+//            case 1:
+//                return new CustomAsyncTaskLoader<Object>(mActivity) {
+//                    @Override
+//                    public Object loadInBackground() {
+//                        Configuration configuration = null;
+//
+//                        try {
+//                            DatabaseHelper helper = (DatabaseHelper) mActivity.getHelper();
+//                            Dao<Configuration, Integer> dao = helper.getConfigurationDao();
+//                            QueryBuilder<Configuration, Integer> queryBuilder = dao.queryBuilder();
+//                            configuration = queryBuilder.queryForFirst();
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        return configuration;
+//                    }
+//                };
 
             case 2:
                 return new CustomAsyncTaskLoader<Object>(mActivity) {
@@ -270,16 +357,16 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                 }
                 break;
 
-            case 1:
-                if (o instanceof Configuration){
-                    Configuration configuration = (Configuration) o;
-                    if (configuration.isShowWelcomeMessage()){
-                        ImageUtils.loadDrawable(getActivity(), R.drawable.pic_welcome, mWelcomeCardImage);
-                        mWelcomeCard.setVisibility(View.VISIBLE);
-                    }
-                }
-
-                break;
+//            case 1:
+//                if (o instanceof Configuration){
+//                    Configuration configuration = (Configuration) o;
+//                    if (configuration.isShowWelcomeMessage()){
+//                        ImageUtils.loadDrawable(getActivity(), R.drawable.pic_welcome, mWelcomeCardImage);
+//                        mWelcomeCard.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//
+//                break;
 
             case 3:
                 if (o instanceof Cursor){
@@ -318,7 +405,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onStart() {
         getLoaderManager().restartLoader(0, null, this);
-        getLoaderManager().restartLoader(1, null, this);
+        //getLoaderManager().restartLoader(1, null, this);
         getLoaderManager().restartLoader(2, null, this);
         getLoaderManager().restartLoader(3, null, this);
         super.onStart();

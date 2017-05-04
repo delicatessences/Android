@@ -2,11 +2,13 @@ package fr.delicatessences.delicatessences.fragments;
 
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,11 +24,16 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,6 +54,9 @@ import fr.delicatessences.delicatessences.utils.ImageUtils;
 public abstract class DetailFragment extends Fragment
         implements OnScrollChangedCallback, LoaderManager.LoaderCallbacks<Object>, Reloadable{
 
+    private static final String DETAIL_DISPLAY_COUNT_PREF = "detailDisplayCount";
+    private final static int DETAIL_DISPLAY_COUNT = 2;
+
     private Toolbar mToolbar;
     private ColorDrawable mActionBarBackgroundDrawable;
     private ImageView mHeader;
@@ -64,6 +74,7 @@ public abstract class DetailFragment extends Fragment
     protected String mIndexedText;
     protected String mIndexedURL;
     private GoogleApiClient mClient;
+    private ShowcaseView mShowcaseView;
 
     protected abstract int getLayout();
 
@@ -184,8 +195,69 @@ public abstract class DetailFragment extends Fragment
     }
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
 
 
+        Resources resources = getResources();
+        Target target = new Target(){
+
+            @Override
+            public Point getPoint() {
+                return new ViewTarget(mToolbar.findViewById(R.id.action_edit)).getPoint();
+            }
+        };
+
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+
+        int displayCount = preferences.getInt(DETAIL_DISPLAY_COUNT_PREF, 1);
+
+        if (displayCount == DETAIL_DISPLAY_COUNT) {
+            mShowcaseView = new ShowcaseView.Builder(getActivity())
+                    .withMaterialShowcase()
+                    .setTarget(target)
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setContentTitle(resources.getString(R.string.detail_showcase_title))
+                    .setContentText(resources.getString(R.string.detail_showcase_content))
+                    .replaceEndButton(R.layout.view_custom_button)
+                    .build();
+            mShowcaseView.setButtonPosition(lps);
+        }
+
+        SharedPreferences.Editor e = preferences.edit();
+        e.putInt(DETAIL_DISPLAY_COUNT_PREF, displayCount + 1);
+        e.apply();
+
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_edit:
+                if (mShowcaseView != null && mShowcaseView.isShown()){
+                    mShowcaseView.hide();
+                }
+                updateActionBarTransparency(0);
+                updateStatusBarColor(0);
+                break;
+
+            default:
+                break;
+        }
+
+        return false;
+    }
 
     @Override
     public void onLoadFinished(Loader<Object> loader, Object o) {
@@ -285,10 +357,10 @@ public abstract class DetailFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
+        reload();
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mLastScrollPosition = 0;
         mScrollView.scrollTo(0,0);
-        reload();
         Resources resources = getResources();
         boolean land = resources.getBoolean(R.bool.land);
         if (land){

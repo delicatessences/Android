@@ -1,7 +1,11 @@
 package fr.delicatessences.delicatessences.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -11,7 +15,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.melnykov.fab.FloatingActionButton;
 
 import fr.delicatessences.delicatessences.R;
@@ -20,11 +27,15 @@ import fr.delicatessences.delicatessences.adapters.RecipePagerAdpater;
 import fr.delicatessences.delicatessences.interfaces.Reloadable;
 import fr.delicatessences.delicatessences.views.SlidingTabLayout;
 
+
 public class RecipePagerFragment extends Fragment implements Reloadable{
 
+    private static final String RECIPE_DISPLAY_COUNT_PREF = "recipeDisplayCount";
+    private final static int RECIPE_DISPLAY_COUNT = 2;
     private final static int PAGER_OFFSCREEN_LIMIT = 2;
     private FragmentManager mFragmentManager;
     private boolean needReload;
+    private ShowcaseView mShowcaseView;
 
 
     @Override
@@ -36,6 +47,53 @@ public class RecipePagerFragment extends Fragment implements Reloadable{
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+
+
+        Resources resources = getResources();
+        FloatingActionButton button = (FloatingActionButton) getView().findViewById(R.id.fab);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mShowcaseView != null && mShowcaseView.isShown()){
+                    mShowcaseView.hide();
+                }
+                MainActivity activity = (MainActivity) getActivity();
+                activity.newItem(view);
+            }
+        });
+
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+
+        int displayCount = preferences.getInt(RECIPE_DISPLAY_COUNT_PREF, 1);
+
+        if (displayCount == RECIPE_DISPLAY_COUNT) {
+            mShowcaseView = new ShowcaseView.Builder(getActivity())
+                    .withMaterialShowcase()
+                    .setTarget(new ViewTarget(button))
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setContentTitle(resources.getString(R.string.recipe_showcase_title))
+                    .setContentText(resources.getString(R.string.recipe_showcase_content))
+                    .replaceEndButton(R.layout.view_custom_button)
+                    .build();
+            mShowcaseView.setButtonPosition(lps);
+        }
+
+        SharedPreferences.Editor e = preferences.edit();
+        e.putInt(RECIPE_DISPLAY_COUNT_PREF, displayCount + 1);
+        e.apply();
+
+
+    }
 
 
     @Override

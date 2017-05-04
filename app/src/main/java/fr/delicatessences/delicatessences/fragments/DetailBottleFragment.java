@@ -102,6 +102,7 @@ public class DetailBottleFragment extends DetailFragment {
     //up button action
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
 
         MainActivity activity = (MainActivity) getActivity();
         int mId = getmId();
@@ -122,7 +123,7 @@ public class DetailBottleFragment extends DetailFragment {
                 return true;
 
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
     }
 

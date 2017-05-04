@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -14,7 +15,12 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -85,6 +91,11 @@ public class ListRecipeFragment extends Fragment
     }
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        reload();
+    }
 
     @Override
     public void reload(){
@@ -133,7 +144,7 @@ public class ListRecipeFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        reload();
+
     }
 
     public static ListRecipeFragment newInstance(int position, boolean onlyFavorites) {

@@ -2,10 +2,12 @@ package fr.delicatessences.delicatessences.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,8 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.appindexing.FirebaseUserActions;
-import com.google.firebase.appindexing.builders.Actions;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -111,9 +111,18 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
             }
         }
 
-//        if (savedInstanceState == null){
-            // manage intent from deep link
+        /*SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getBaseContext());
 
+        boolean isFirstStart = true;// preferences.getBoolean("firstLaunch", true);
+
+        if (isFirstStart) {
+            Intent i = new Intent(this, IntroActivity.class);
+            startActivity(i);
+            SharedPreferences.Editor e = preferences.edit();
+            e.putBoolean("firstLaunch", false);
+            e.apply();
+        }*/
 
     }
 
@@ -332,8 +341,14 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.container);
         if (currentFragment instanceof HomeFragment){
             HomeFragment homeFragment = (HomeFragment) currentFragment;
-            HideWelcomeWorkerTask task = new HideWelcomeWorkerTask(this, homeFragment);
-            task.execute();
+            //HideWelcomeWorkerTask task = new HideWelcomeWorkerTask(this, homeFragment);
+            //task.execute();
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(getBaseContext());
+            SharedPreferences.Editor e = preferences.edit();
+            e.putBoolean("showWelcome", false);
+            e.apply();
+            homeFragment.hideWelcomeCard();
         }
 
     }

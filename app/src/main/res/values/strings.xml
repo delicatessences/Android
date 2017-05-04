@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Delicatessences</string>
+    <string name="app_name">Aromathèque</string>
     <string name="title_new_eo">Ajouter une huile essentielle</string>
     <string name="title_new_vo">Ajouter une huile végétale</string>
     <string name="title_new_recipe">Ajouter une recette</string>
@@ -24,13 +24,13 @@
     </string-array>
 
     <string-array name="drawer_items">
-        <item>Mon Carnet</item>
-        <item>Mes Recettes</item>
-        <item>Mes Flacons</item>
+        <item>Sommaire</item>
+        <item>Recettes</item>
+        <item>Flacons</item>
         <item>Huiles Essentielles</item>
         <item>Huiles Végétales</item>
         <item>Favoris</item>
-        <item>Explorer Delicatessences</item>
+        <item>Aide</item>
         <item>Site web</item>
     </string-array>
 
@@ -133,25 +133,25 @@
     <string name="no_bottle">Aucun flacon</string>
     <string name="how_to_add_bottle">Pour ajouter un flacon, appuyez sur le bouton + ci-dessous.</string>
     <string name="how_to_add_bottle_when_no_essential_oil">Pour ajouter un flacon, il faut au préalable avoir ajouté au moins une huile essentielle. Pour ajouter une huile essentielle, ouvrez la section Huiles Essentielles puis appuyez sur le bouton +.</string>
-    <string name="welcome_card_title">Bienvenue dans Delicatessences</string>
-    <string name="welcome_card_content">Véritable carnet personnel, cette application est conçue pour vous faciliter l\'aromathérapie au quotidien. Vous y trouverez des fiches d\'huiles essentielles et végétales ainsi qu\'une sélection de recettes. Mais l\'essence même de cette application est de devenir la vôtre : ajoutez vos recettes préférées, les flacons que vous possédez ou encore des informations sur les huiles que vous aimez.</string>
-    <string name="welcome_card_button_text">Compris</string>
+    <string name="welcome_card_title">Bienvenue</string>
+    <string name="welcome_card_content">Merci d\'avoir installé cette application. Elle propose des fiches d\'aromathérapie qui vous aideront au quotidien (huiles essentielles, huiles végétales, recettes). Sachez que vos flacons peuvent être enregistrés dans l\'application, pour un meilleur suivi. Enfin, l\'outil de recherche intégré vous permet de trouver rapidement une fiche.</string>
+    <string name="got_it">Compris</string>
     <string name="about_card_title">A Propos</string>
-    <string name="about_card_content">Vous est-il déjà arrivé de trouver une bonne recette dans un livre, un magazine ou sur le net et de ne pas réussir à remettre la main dessus? Nous oui, et c\'est pourquoi nous avons imaginé cette application pour saisir nos recettes favorites dans un carnet numérique et par la même occasion gérer notre aromathèque plus simplement.</string>
+    <string name="about_card_content">Nous sommes deux à faire vivre cette application: Sophie s\'occupe du contenu et Thomas du développement mobile. C\'est un projet personnel qui nous tient à coeur et qui a trouvé sa place à coté de vie de famille et vie professionnelle.</string>
     <string name="helpus_card_title">Aidez-nous!</string>
-    <string name="helpus_card_content">Cette application a été pensée initialement pour répondre à nos besoins, mais peut être ne répond-elle pas à vos attentes? Dans ce cas, n\'hésitez pas à nous le dire, cela nous aidera à améliorer Delicatessences.</string>
-    <string name="about_card_button_text">Visiter le site web</string>
+    <string name="helpus_card_content">Vous pensez qu\'il manque une fonctionnalité ou des fiches? Dites-le nous, nous tenons compte de vos remarques dans les mises à jour.</string>
+    <string name="about_card_button_text">Visiter le site</string>
     <string name="helpus_card_button_text">Réagir par mail</string>
     <string name="oil_card_button_text">Voir la fiche</string>
     <string name="tuto_card_button_text">Autres astuces</string>
-    <string name="tuto1_title">Ajouter des recettes</string>
-    <string name="tuto2_title">Ajouter des flacons</string>
-    <string name="tuto3_title">Ajouter des huiles</string>
+    <string name="tuto1_title">Ajouter une recette</string>
+    <string name="tuto2_title">Ajouter un flacon</string>
+    <string name="tuto3_title">Ajouter une huile</string>
     <string name="tuto4_title">Voies d\'administrations</string>
-    <string name="tuto1_content">Vous pouvez ajouter des recettes à celles déjà présentes dans Delicatessences. Pour chaque nouvelle recette, renseignez les huiles qui la composent ainsi que le mode de préparation. Précisez la catégorie (santé, bien-être, beauté, etc.) et le mode d\'utilisation (bain, massage, diffusion, etc.) pour la retrouver facilement.</string>
-    <string name="tuto2_content">Pour bien gérer votre aromathèque, ajoutez les flacons que vous possédez dans Delicatessences. Cela vous permettra par exemple de voir en un clin d\'oeil les flacons que vous possédez et donc les recettes que vous pouvez faire. L\'application vous indique également lorsqu\'un de vos flacons expire. Enfin, toutes les informations de vos flacons peuvent être saisies (marque, prix, volume, qualité, etc.) ce qui est utile pour s\'y retrouver.</string>
-    <string name="tuto4_content">Pour chaque huile essentielle, il y a des voies d\'administrations privilégiées. Retrouvez-les sous forme de pictogramme sur chaque fiche.</string>
-    <string name="tuto3_content">Il existe des centaines d\'huiles essentielles, il est donc possible que celles que vous utilisez ne soient pas présentes dans l\'application. Si c\'est le cas, vous pouvez l\'enrichir en créant aisément de nouvelles fiches à partir des informations disponibles sur internet ou dans les ouvrages spécialisés.</string>
+    <string name="tuto1_content">Dans la vue \"Recettes\", appuyez sur le bouton + pour ajouter une nouvelle recette puis saisissez sa composition et les étapes de préparation. Pensez à lui donner une catégorie et une utilisation, il sera plus facile de la retrouver par la suite.</string>
+    <string name="tuto2_content">Dans la vue \"Flacons\", appuyez sur le bouton + pour ajouter un nouveau flacon puis saisissez toutes ses caractéristiques. Une fois vos flacons enregistrés, toute votre aromathèque sera à portée de main: avant de réaliser une recette pour pourrez vérifier rapidement la disponibilité et la validité d\'une huile essentielle.</string>
+    <string name="tuto4_content">Pour une huile essentielle, il y a jusqu\'à trois voies d\'administrations possibles. Retrouvez-les sous forme de pictogramme sur chaque fiche.</string>
+    <string name="tuto3_content">Nous ne référençons malheureusement pas toutes les huiles essentielles disponibles sur le marché. L\'application est relativement jeune et nous avons privilégié dans un premier temps les huiles les plus communément utilisées. Nous ajouterons spontanément ou sur demande de nouvelles fiches. Vous pouvez malgré tout enrichir vous-même la base en créant de nouvelles fiches. Dans la vue \"Huiles Essentielles\", appuyez sur le bouton + pour ajouter une nouvelle fiche puis saisissez toutes ses caractéristiques.</string>
     <string name="recipe_card_title">Dernières recettes</string>
     <string name="general">Général</string>
     <string name="mail_action">Envoyer un email</string>
@@ -176,6 +176,31 @@
     <string name="bottle">Flacon</string>
     <string name="results_for">résultats pour</string>
     <string name="no_results">Aucun résultat</string>
-    <string name="search_hint">Ex: citron, toux, relaxant</string>
-    <string name="how_to_search">Essayez avec un nom de propriété, d\'indication, de molécule ou encore de nom botanique par exemple.</string>
+    <string name="search_hint">Ex: citron, rhume, calmante, ...</string>
+    <string name="how_to_search">Essayez avec un nom de propriété, d\'indication, de molécule ou encore de nom botanique...</string>
+    <string name="bottle_showcase_title">Ajouter un flacon</string>
+    <string name="bottle_showcase_content">Gérez vos flacons d\'huile essentielle depuis cette vue. Pour commencer, appuyez sur le bouton + pour ajouter un nouveau flacon puis saisissez toutes ses caractéristiques. Une fois vos flacons enregistrés, toute votre aromathèque sera à portée de main: avant de réaliser une recette vous pourrez rapidement vérifier la disponibilité et la validité d\'une huile essentielle.</string>
+    <string name="later">Plus tard</string>
+    <string name="recipe_showcase_title">Ajouter une recette</string>
+    <string name="recipe_showcase_content">Utilisez l\'application pour enregistrer vos recettes préférées. Pour commencer, appuyez sur le bouton + pour ajouter une nouvelle recette puis saisissez sa composition et les étapes de préparation.</string>
+    <string name="detail_showcase_title">Personnaliser le contenu</string>
+    <string name="detail_showcase_content">Vous pouvez enrichir le contenu des fiches de l\'application très simplement. Pour commencer, appuyez sur le bouton d\'édition pour modifier la fiche.</string>
+    <string name="home_showcase_title">Rechercher du contenu</string>
+    <string name="home_showcase_content">Trouvez rapidement une information avec l\'outil de recherche. Essayez par exemple une recherche par indication, par propriété, par nom botanique ou encore par molécule.</string>
+    <string name="slide_oils_title">Fiches d\'aromathérapie</string>
+    <string name="slide_oils_content">Consultez de nombreuses fiches d\'aromathérapie\n(recettes, huiles essentielles, huiles végétales).</string>
+    <string name="slide_recipes_title">Contenu personnalisé</string>
+    <string name="slide_recipes_content">Ajoutez vos recettes préférées et des notes personnelles.</string>
+    <string name="slide_bottles_title">Suivi de vos flacons</string>
+    <string name="slide_bottles_content">Réalisez le suivi de vos flacons depuis l\'application.</string>
+    <string name="slide_search_title">Recherche facile</string>
+    <string name="slide_search_content">Trouvez rapidement une fiche avec l\'outil de recherche.</string>
+    <string name="rating_enjoying_this_app">Aimez-vous cette application ?</string>
+    <string name="rating_not_really">Pas vraiment</string>
+    <string name="rating_yes">Oui!</string>
+    <string name="rating_how_about_rating_it">Que diriez-vous de la noter ?</string>
+    <string name="rating_no_thanks">Non, merci</string>
+    <string name="rating_ok_sure">D\'accord</string>
+    <string name="rating_feedback">Souhaitez-vous nous dire pourquoi ?</string>
+    <string name="rating_url">https://play.google.com/store/apps/details?id=fr.delicatessences.delicatessences</string>
 </resources>
