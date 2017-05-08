@@ -123,9 +123,14 @@ public abstract class DetailFragment extends Fragment
 
     @Override
     public void onStop() {
-        Action viewAction = getAction();
-        AppIndex.AppIndexApi.end(mClient, viewAction);
-        mClient.disconnect();
+        try{
+            Action viewAction = getAction();
+            AppIndex.AppIndexApi.end(mClient, viewAction);
+            mClient.disconnect();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -211,7 +216,12 @@ public abstract class DetailFragment extends Fragment
 
             @Override
             public Point getPoint() {
-                return new ViewTarget(mToolbar.findViewById(R.id.action_edit)).getPoint();
+                View view = mToolbar.findViewById(R.id.action_edit);
+                if (view != null){
+                    return new ViewTarget(view).getPoint();
+                }
+
+                return null;
             }
         };
 
@@ -287,10 +297,15 @@ public abstract class DetailFragment extends Fragment
                         onScroll(-1, mLastScrollPosition);
                     }
 
+
                     updateIndex();
-                    mClient.connect();
-                    Action viewAction = getAction();
-                    AppIndex.AppIndexApi.start(mClient, viewAction);
+                    try {
+                        mClient.connect();
+                        Action viewAction = getAction();
+                        AppIndex.AppIndexApi.start(mClient, viewAction);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
                 break;
 

@@ -78,6 +78,8 @@ public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
                     return favorite ? 1 : 0;
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } catch (IllegalStateException e){
+                    e.printStackTrace();
                 }
                 break;
         }

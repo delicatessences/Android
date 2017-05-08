@@ -73,6 +73,8 @@ public class RecipeCursorLoader extends AsyncTaskLoader<Cursor> {
                 cursor = results.getRawCursor();
             } catch (SQLException e) {
                 e.printStackTrace();
+            } catch (IllegalStateException e){
+                e.printStackTrace();
             }
         }
         else{

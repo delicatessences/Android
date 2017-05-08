@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -36,7 +35,10 @@ import android.widget.TextView;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.logger.Logger;
+import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import net.mediavrog.irr.IrrLayout;
@@ -65,6 +67,8 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
             R.drawable.pic_oils, R.drawable.pic_way};
     private static final int[] TUTO_IMAGES_LOW_ID = new int[]{R.drawable.pic_add_recipe_low, R.drawable.pic_add_bottle_low,
             R.drawable.pic_oils_low, R.drawable.pic_way_low};
+
+    private static final Logger logger = LoggerFactory.getLogger(HomeFragment.class);
 
     private OrmLiteBaseActionBarActivity mActivity;
     private TextView mOilCardTitle;
@@ -283,6 +287,8 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                             essentialOil = queryBuilder.queryForFirst();
                         } catch (SQLException e) {
                             e.printStackTrace();
+                        } catch (IllegalStateException e){
+                            logger.trace(e.getMessage());
                         }
 
                         return essentialOil;
@@ -319,6 +325,8 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                             helper.loadCategories();
                         } catch (SQLException e) {
                             e.printStackTrace();
+                        } catch (IllegalStateException e){
+                            logger.trace(e.getMessage());
                         }
 
                         return null;
