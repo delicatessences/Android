@@ -181,8 +181,12 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
             @Override
             public Point getPoint() {
+                View view = toolbar.findViewById(R.id.action_search);
+                if (view != null){
+                    return new ViewTarget(view).getPoint();
+                }
 
-                return new ViewTarget(toolbar.findViewById(R.id.action_search)).getPoint();
+                return null;
             }
         };
 
