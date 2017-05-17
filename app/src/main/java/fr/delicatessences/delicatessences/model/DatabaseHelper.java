@@ -32,7 +32,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String URL_PATTERN = "https://www.delicatessences.fr/articles/carnet/";
     public static final String URL_EXTENSION = ".html";
     private static final String DATABASE_NAME = "delicatessences.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String VERSION = "version";
     public static final String BOTTLE_TABLE_NAME = "bottles";
     public static final String ESSENTIAL_OIL_TABLE_NAME = "essential_oils";

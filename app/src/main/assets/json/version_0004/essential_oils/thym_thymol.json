@@ -1,0 +1,16 @@
+{
+      "mId" : 2001,
+      "mName" : "Thym à thymol",
+      "mBotanicalName" : "Thymus vulgaris L. thymoliferum",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "thymol, paracymène, γ-terpinène",
+      "mDescription" : "Puissante antiseptique, l'huile essentielle de thym à thymol est préconisée pour soigner les infections de la sphère ORL et des systèmes digestif et urinaire. C'est aussi une excellente antiparasitaire et stimulante générale.",
+      "mPrecautions" : "Dermocaustique, ne jamais utiliser pure sur la peau (dilution à 5% maximum dans une huile végétale). Ne pas utiliser chez l'enfant de moins de 6 ans et chez la femme enceinte ou allaitante. Ne pas diffuser pure (dilution à 10% maximum dans d'autres huiles essentielles).",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "thym_thymol",
+       "mColor" : "#593a4c",
+  "properties" : [10,94,36,49,146,157,142,80,62,51],
+  "indications" : [32,190,13,199,175,212,21,70,168,169,98,231,67,61,217,132,89,90],
+  "administrations" : [1,2]
+}

@@ -1,0 +1,16 @@
+{
+      "mId" : 2002,
+      "mName" : "Thym à thujanol",
+      "mBotanicalName" : "Thymus vulgaris L. thujanoliferum",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "thuyanol, linalol, terpinène-4-ol",
+      "mDescription" : "Antivirale puissante, l'huile essentielle de thym à thujanol est particulièrement conseillée contre les infections de la sphère ORL. Les personnes aux extrémités froides (maladie de Reynaud) apprécieront sa propriété réchauffante circulatoire.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse et chez l'enfant de moins de 3 mois.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "thym_thujanol",
+       "mColor" : "#89717e",
+  "properties" : [10,94,49,104,144,121,115],
+  "indications" : [13,140,175,214,32,165,199,190,234,103,130,132,154,68,109,61],
+  "administrations" : [1,2,3]
+}
