@@ -1,0 +1,16 @@
+{
+      "mId" : 3002,
+      "mName" : "Thym à feuilles de sarriette",
+      "mBotanicalName" : "Thymus satureioides",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "bornéol, thymol, α-terpinèol, carvacrol",
+      "mDescription" : "Antibactérienne à large spectre d'action, cette huile essentielle sera très précieuse pendant la saison hivernale notamment pour lutter contre les infections respiratoires. Tonique physique, mentale et sexuelle, elle est également efficace en cas d'asthénie et de fatigue passsagère.",
+      "mPrecautions" : "Déconseillée chez la femme enceinte et chez l'enfant de moins de 6 ans. Dermocaustique à l'état pur (dilution à 15% maximum dans une huile végétale). Ne pas diffuser pure (dilution à 30% maximum dans d'autres huiles essentielles).",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "thym_sarriette",
+       "mColor" : "#8b4d5a",
+  "properties" : [10,103,130,157,161,36,23,8,165,52],
+  "indications" : [129,168,169,61,141,36,3,19,191,22,23,25],
+  "administrations" : [1,2]
+}

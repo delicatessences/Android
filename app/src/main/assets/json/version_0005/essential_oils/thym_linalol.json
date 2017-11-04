@@ -1,0 +1,16 @@
+{
+      "mId" : 3001,
+      "mName" : "Thym à linalol",
+      "mBotanicalName" : "Thymus vulgaris L. linaloliferum",
+      "mDistilledOrgan" : "Sommités fleuries",
+      "mChemotype" : "linalol, terpinène-4-ol",
+      "mDescription" : "Une huile essentielle pour toute la famille qui aidera à lutter contre les infections de la sphère ORL et la fatigue.",
+      "mPrecautions" : "Déconseillée dans les 3 premiers mois de la grossesse.",
+      "mFavorite" : false,
+      "mReadOnly" : true,
+      "mImage" : "thym_linalol",
+       "mColor" : "#847f95",
+  "properties" : [10,20,49,168,160,115,155,159,36],
+  "indications" : [100,81,61,32,89,90,183,224],
+  "administrations" : [1,2,3]
+}
