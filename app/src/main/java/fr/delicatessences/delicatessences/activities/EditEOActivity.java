@@ -33,6 +33,7 @@ import fr.delicatessences.delicatessences.model.EOProperty;
 import fr.delicatessences.delicatessences.model.EssentialIndication;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.EssentialProperty;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class EditEOActivity extends EditActivity {
 
@@ -282,6 +283,9 @@ public class EditEOActivity extends EditActivity {
                             eoAdministrationDao.create(eoAdministration);
                         }
 
+                        SynchronizationHelper.saveLastUpdateTime(EditEOActivity.this, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(EditEOActivity.this);
+
                         return null;
                     }
                 });
@@ -422,6 +426,8 @@ public class EditEOActivity extends EditActivity {
                             deleteBuilder.where().eq(EOAdministration.OIL_ID, id).and().in(EOAdministration.ADMINISTRATION_ID, removed);
                             deleteBuilder.delete();
 
+                            SynchronizationHelper.saveLastUpdateTime(EditEOActivity.this, System.currentTimeMillis());
+                            SynchronizationHelper.uploadDatabase(EditEOActivity.this);
                         }
 
                         return null;

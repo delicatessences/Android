@@ -34,6 +34,7 @@ import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.Use;
 import fr.delicatessences.delicatessences.model.VORecipe;
 import fr.delicatessences.delicatessences.model.VegetalOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class EditRecipeActivity extends EditActivity {
 
@@ -249,8 +250,6 @@ public class EditRecipeActivity extends EditActivity {
         final List<EssentialOil> essentialOils = helper.getEssentialOils(essentialOilIds);
         final List<VegetalOil> vegetalOils = helper.getVegetalOils(vegetalOilIds);
 
-        setFeedbackMessage(R.string.save_recipe);
-
         TransactionManager.callInTransaction(helper.getConnectionSource(),
                 new Callable<Void>() {
                     public Void call() throws Exception {
@@ -270,6 +269,10 @@ public class EditRecipeActivity extends EditActivity {
                             voRecipeDao.create(voRecipe);
                         }
 
+                        SynchronizationHelper.saveLastUpdateTime(EditRecipeActivity.this, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(EditRecipeActivity.this);
+
+                        setFeedbackMessage(R.string.save_recipe);
 
                         return null;
                     }
@@ -428,6 +431,9 @@ public class EditRecipeActivity extends EditActivity {
                             DeleteBuilder<VORecipe, Integer> deleteBuilder = voRecipeDao.deleteBuilder();
                             deleteBuilder.where().in(VORecipe.OIL_ID, removed).and().eq(VORecipe.RECIPE_ID, mId);
                             deleteBuilder.delete();
+
+                            SynchronizationHelper.saveLastUpdateTime(EditRecipeActivity.this, System.currentTimeMillis());
+                            SynchronizationHelper.uploadDatabase(EditRecipeActivity.this);
 
                         }
 

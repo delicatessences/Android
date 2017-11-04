@@ -47,6 +47,7 @@ import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.Use;
 import fr.delicatessences.delicatessences.model.VORecipe;
 import fr.delicatessences.delicatessences.model.VegetalOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class DetailRecipeFragment extends DetailFragment {
 
@@ -178,7 +179,7 @@ public class DetailRecipeFragment extends DetailFragment {
 
 
     private void deleteRecipe() throws SQLException {
-        MainActivity activity = (MainActivity) getActivity();
+        final MainActivity activity = (MainActivity) getActivity();
         final DatabaseHelper helper = activity.getHelper();
 
         TransactionManager.callInTransaction(helper.getConnectionSource(),
@@ -199,6 +200,9 @@ public class DetailRecipeFragment extends DetailFragment {
                         DeleteBuilder<Recipe, Integer> recipeDeleteBuilder = recipeDao.deleteBuilder();
                         recipeDeleteBuilder.where().eq(Recipe.ID_FIELD_NAME, mId);
                         recipeDeleteBuilder.delete();
+
+                        SynchronizationHelper.saveLastUpdateTime(activity, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(activity);
 
                         return null;
                     }

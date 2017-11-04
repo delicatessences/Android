@@ -24,6 +24,8 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,7 +130,12 @@ public class NavigationDrawerFragment extends Fragment {
         TypedArray images = resources.obtainTypedArray(R.array.navigation_drawer_images_white);
         String[] menuItems = resources.getStringArray(R.array.drawer_items);
         List<NavigationDrawerArrayAdapter.NavigationRowItem> items = new ArrayList<>();
-        for (int i = 0; i < NB_MENU_ITEMS; i++){
+		int nbMenuItems = NB_MENU_ITEMS;
+		FirebaseAuth auth = FirebaseAuth.getInstance();
+		if (auth.getCurrentUser() != null) {
+			nbMenuItems++;
+		}
+		for (int i = 0; i < nbMenuItems; i++){
             String title = menuItems[i];
             int imageId = images.getResourceId(i, -1);
             NavigationDrawerArrayAdapter.NavigationRowItem item =

@@ -31,6 +31,7 @@ import fr.delicatessences.delicatessences.model.VOProperty;
 import fr.delicatessences.delicatessences.model.VegetalIndication;
 import fr.delicatessences.delicatessences.model.VegetalOil;
 import fr.delicatessences.delicatessences.model.VegetalProperty;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class EditVOActivity extends EditActivity {
 
@@ -192,7 +193,6 @@ public class EditVOActivity extends EditActivity {
         final VegetalOil vegetalOil = new VegetalOil(name, description);
         final List<VegetalProperty> vegetalProperties = helper.getVegetalProperties(properties);
         final List<VegetalIndication> vegetalIndications = helper.getVegetalIndications(indications);
-        setFeedbackMessage(R.string.save_vegetal_oil);
 
         TransactionManager.callInTransaction(helper.getConnectionSource(),
                 new Callable<Void>() {
@@ -212,6 +212,11 @@ public class EditVOActivity extends EditActivity {
                             VOIndication voIndication = new VOIndication(vegetalOil, vegetalIndication);
                             voIndicationDao.create(voIndication);
                         }
+
+                        SynchronizationHelper.saveLastUpdateTime(EditVOActivity.this, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(EditVOActivity.this);
+
+                        setFeedbackMessage(R.string.save_vegetal_oil);
 
                         return null;
                     }
@@ -289,6 +294,8 @@ public class EditVOActivity extends EditActivity {
                             deleteBuilder.where().eq(VOIndication.OIL_ID, id).and().in(VOIndication.INDICATION_ID, removed);
                             deleteBuilder.delete();
 
+                            SynchronizationHelper.saveLastUpdateTime(EditVOActivity.this, System.currentTimeMillis());
+                            SynchronizationHelper.uploadDatabase(EditVOActivity.this);
                         }
 
                         return null;

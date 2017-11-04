@@ -7,6 +7,19 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/accent_color</item>
+        <item name="android:windowBackground">@color/primary_color</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+    </style>
+
+    <style name="LoginTheme" parent="FirebaseUI">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_dark_color</item>
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/primary_color</item>
+        <item name="colorControlActivated">@color/primary_dark_color</item>
+        <item name="colorControlHighlight">@color/primary_color</item>
+        <item name="android:windowBackground">@color/primary_color</item>
     </style>
 </resources>

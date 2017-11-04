@@ -12,10 +12,11 @@ import java.sql.SQLException;
 import fr.delicatessences.delicatessences.R;
 import fr.delicatessences.delicatessences.activities.OrmLiteBaseActionBarActivity;
 import fr.delicatessences.delicatessences.fragments.ViewType;
+import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.VegetalOil;
-import fr.delicatessences.delicatessences.model.DatabaseHelper;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
     private final WeakReference<MenuItem> menuItemReference;
@@ -44,6 +45,7 @@ public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
                     updateBuilder.where().eq(EssentialOil.ID_FIELD_NAME, id);
                     updateBuilder.updateColumnValue(EssentialOil.FAVORITE_FIELD_NAME, favorite);
                     updateBuilder.update();
+                    uploadDatabase();
                     return favorite ? 1 : 0;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -59,6 +61,7 @@ public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
                     updateBuilder.where().eq(VegetalOil.ID_FIELD_NAME, id);
                     updateBuilder.updateColumnValue(VegetalOil.FAVORITE_FIELD_NAME, favorite);
                     updateBuilder.update();
+                    uploadDatabase();
                     return favorite ? 1 : 0;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -75,6 +78,7 @@ public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
                     updateBuilder.where().eq(Recipe.ID_FIELD_NAME, id);
                     updateBuilder.updateColumnValue(Recipe.FAVORITE_FIELD_NAME, favorite);
                     updateBuilder.update();
+                    uploadDatabase();
                     return favorite ? 1 : 0;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -94,5 +98,11 @@ public class FavoriteWorkerTask extends AsyncTask<Integer, Void, Integer> {
         if (menuItem != null) {
             menuItem.setIcon(result > 0 ? R.drawable.ic_star_24dp : R.drawable.ic_star_outline_24dp);
         }
+    }
+
+    private void uploadDatabase(){
+        // upload database
+        SynchronizationHelper.saveLastUpdateTime(mActivity, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(mActivity);
     }
 }

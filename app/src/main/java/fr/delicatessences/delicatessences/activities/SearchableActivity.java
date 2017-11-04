@@ -156,6 +156,7 @@ public class SearchableActivity extends OrmLiteBaseActionBarActivity<DatabaseHel
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.EXTRA_ID, primaryId);
         intent.putExtra(MainActivity.EXTRA_VIEW_TYPE, type.getInt());
+        intent.putExtra(MainActivity.EXTRA_CLASS, MainActivity.TAG_SEARCH);
         startActivity(intent);
     }
 

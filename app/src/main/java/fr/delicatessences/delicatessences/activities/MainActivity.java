@@ -1,5 +1,6 @@
 package fr.delicatessences.delicatessences.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +18,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.appindexing.Action;
+import com.google.firebase.appindexing.FirebaseUserActions;
+import com.google.firebase.appindexing.builders.Actions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -45,11 +55,11 @@ import fr.delicatessences.delicatessences.fragments.ViewType;
 import fr.delicatessences.delicatessences.interfaces.FavoriteSelectionListener;
 import fr.delicatessences.delicatessences.interfaces.Reloadable;
 import fr.delicatessences.delicatessences.listeners.ItemSelectedListener;
-import fr.delicatessences.delicatessences.loaders.HideWelcomeWorkerTask;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.Recipe;
 import fr.delicatessences.delicatessences.model.VegetalOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 @SuppressWarnings("UnusedParameters")
 public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> implements
@@ -58,13 +68,16 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
 
     private static final String WEBSITE_ADRESS = "http://www.delicatessences.fr";
     public static final String EXTRA_ID = "id";
+    public static final String EXTRA_CLASS = "class";
     public static final String EXTRA_ESSENTIAL_OIL_ID = "essential_oil_id";
     public static final String EXTRA_VIEW_TYPE = "essential_oil_id";
     public static final String EXTRA_ONLY_FAVORITES = "favorites";
     private static final String MAIL_ADDRESS = "contact@delicatessences.fr";
     private static final String MAIL_MESSAGE_TYPE = "message/rfc822";
-    private static final int TYPE_MASK = 0x3;
-    private static final int ID_MASK = 0xFFFFFFFC;
+    public static final String TAG_DEEP_LINK = "deeplink";
+    public static final String TAG_SEARCH = "search";
+    public static final String TAG_DEFAULT = "default";
+    public static final String EXTRA_UPLOAD = "upload";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private boolean deepLink;
@@ -74,6 +87,11 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser == null){
+            logout();
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -99,14 +117,14 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
 
         Intent intent = getIntent();
         if (intent != null){
-            String action = intent.getAction();
-            String data = intent.getDataString();
 
-            if (Intent.ACTION_VIEW.equals(action)) {
-               onDeepLink(data);
-            } else if (Intent.ACTION_MAIN.equals(action)){
-                // do nothing special
-            } else {
+            boolean upload = intent.getBooleanExtra(EXTRA_UPLOAD, false);
+
+
+            String tag = intent.getStringExtra(EXTRA_CLASS);
+            if (TAG_DEEP_LINK.equals(tag)){
+               onDeepLink(intent);
+            } else if (TAG_SEARCH.equals(tag)){
                 onSearchResult(intent);
             }
         }
@@ -134,33 +152,40 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     }
 
 
-    private void onDeepLink(String data){
-
-                int startOfId = data.lastIndexOf("-") + 1;
-                int endOfId = data.lastIndexOf(".");
-        try{
-            int id = Integer.parseInt(data.substring(startOfId, endOfId));
-            // split the id in two : a element id and a element type
-            int elementId = (id & ID_MASK) >>> 2;
-            int elementType = id & TYPE_MASK;
-            ViewType viewType = ViewType.fromInt(elementType);
-            this.deepLink = true;
-            showDetail(viewType, elementId);
-        } catch (NumberFormatException e){
-            //do nothing
-        }
-
-
+    private void onDeepLink(Intent intent) {
+        this.deepLink = true;
+        int id = intent.getIntExtra(EXTRA_ID, 1);
+        int viewType = intent.getIntExtra(EXTRA_VIEW_TYPE, 1);
+        showDetail(ViewType.fromInt(viewType), id);
     }
 
 
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        ViewType viewType = ViewType.values()[position];
-        showList(viewType);
+        ViewType[] viewTypes = ViewType.values();
+        if (position >= viewTypes.length){
+            logout();
+        } else {
+            ViewType viewType = viewTypes[position];
+            showList(viewType);
+        }
+
     }
 
+
+    private void logout(){
+        //logout
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // user is now signed out
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+    }
 
 
     public void showList(ViewType viewType) {
@@ -204,7 +229,6 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
             }
 
             case WEBSITE:
-                //exportDB();
                 visitWebsite(null);
                 return;
 
@@ -383,7 +407,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
         i.putExtra(Intent.EXTRA_EMAIL, new String[]{MAIL_ADDRESS});
         try {
             startActivity(Intent.createChooser(i, getString(R.string.mail_action)));
-        } catch (android.content.ActivityNotFoundException ex) {
+        } catch (ActivityNotFoundException ex) {
             Toast.makeText(this, getString(R.string.email_no_client), Toast.LENGTH_SHORT).show();
         }
     }
@@ -394,7 +418,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE_ADRESS));
         try {
             startActivity(browserIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
+        } catch (ActivityNotFoundException ex) {
             Toast.makeText(this, getString(R.string.browser_no_client), Toast.LENGTH_SHORT).show();
         }
     }
@@ -464,6 +488,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
                     if (fragment instanceof Reloadable) {
                         ((Reloadable)fragment).reload();
                     }
+                    uploadDatabase();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -480,6 +505,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
                     if (fragment instanceof Reloadable) {
                         ((Reloadable)fragment).reload();
                     }
+                    uploadDatabase();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -497,6 +523,7 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
                     if (fragment instanceof Reloadable) {
                         ((Reloadable)fragment).reload();
                     }
+                    uploadDatabase();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -514,7 +541,38 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     }
 
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        return Actions.newView("Main", "http://[ENTER-YOUR-URL-HERE]");
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().start(getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().end(getIndexApiAction());
+        super.onStop();
+    }
+
+
+    private void uploadDatabase(){
+        // upload database
+        SynchronizationHelper.saveLastUpdateTime(this, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(this);
+    }
 }
 
 

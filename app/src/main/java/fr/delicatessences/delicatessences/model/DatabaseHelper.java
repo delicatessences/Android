@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -26,13 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
+
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public static final String URL_PATTERN = "https://www.delicatessences.fr/articles/carnet/";
     public static final String URL_EXTENSION = ".html";
-    private static final String DATABASE_NAME = "delicatessences.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String VERSION = "version";
     public static final String BOTTLE_TABLE_NAME = "bottles";
     public static final String ESSENTIAL_OIL_TABLE_NAME = "essential_oils";
@@ -108,7 +110,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, SynchronizationHelper.getLocalDatabaseName(), null, DATABASE_VERSION);
         this.context = context;
     }
 
@@ -177,10 +179,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, VOProperty.class);
             TableUtils.createTable(connectionSource, VORecipe.class);
 
+            Log.i(DatabaseHelper.class.getName(), "Tables created");
+
             //populating tables
             initializeDatabase();
 
-            Log.i(DatabaseHelper.class.getName(), "created new entries in onCreate");
+            Log.i(DatabaseHelper.class.getName(), "Tables populated");
+
+            SynchronizationHelper.saveLastUpdateTime(this.context, System.currentTimeMillis());
+            SynchronizationHelper.uploadDatabase(this.context);
+
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -197,6 +205,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         updateEssentialOils(oldVersion, newVersion);
         updateVegetalOils(oldVersion, newVersion);
+
+        SynchronizationHelper.saveLastUpdateTime(this.context, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(this.context);
+
     }
 
 

@@ -4,39 +4,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.j256.ormlite.android.AndroidDatabaseResults;
-import com.j256.ormlite.dao.CloseableIterator;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.misc.TransactionManager;
-import com.j256.ormlite.stmt.DeleteBuilder;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.SelectArg;
-import com.j256.ormlite.stmt.UpdateBuilder;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 import fr.delicatessences.delicatessences.R;
-import fr.delicatessences.delicatessences.editor.CustomEditText;
-import fr.delicatessences.delicatessences.editor.MembershipView;
-import fr.delicatessences.delicatessences.model.VegetalIndication;
-import fr.delicatessences.delicatessences.model.VegetalOil;
-import fr.delicatessences.delicatessences.model.VegetalProperty;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
-import fr.delicatessences.delicatessences.model.VOIndication;
-import fr.delicatessences.delicatessences.model.VOProperty;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public abstract class EditActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> {
 
@@ -118,6 +99,7 @@ public abstract class EditActivity extends OrmLiteBaseActionBarActivity<Database
             } else {
                 saveNew();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             mFeedbackMessage = getResources().getString(R.string.save_failed);

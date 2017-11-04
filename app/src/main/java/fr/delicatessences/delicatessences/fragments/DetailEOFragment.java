@@ -56,6 +56,7 @@ import fr.delicatessences.delicatessences.model.EORecipe;
 import fr.delicatessences.delicatessences.model.EssentialIndication;
 import fr.delicatessences.delicatessences.model.EssentialOil;
 import fr.delicatessences.delicatessences.model.EssentialProperty;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class DetailEOFragment extends DetailFragment  {
 
@@ -235,7 +236,7 @@ public class DetailEOFragment extends DetailFragment  {
 
 
     private void deleteEssentialOil() throws SQLException {
-        MainActivity activity = (MainActivity) getActivity();
+        final MainActivity activity = (MainActivity) getActivity();
         final DatabaseHelper helper = activity.getHelper();
 
         TransactionManager.callInTransaction(helper.getConnectionSource(),
@@ -271,8 +272,13 @@ public class DetailEOFragment extends DetailFragment  {
                         oilDeleteBuilder.where().eq(EssentialOil.ID_FIELD_NAME, mId);
                         oilDeleteBuilder.delete();
 
+                        SynchronizationHelper.saveLastUpdateTime(activity, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(activity);
+
                         return null;
                     }
+
+
                 });
 
         FirebaseAppIndex.getInstance().remove(mIndexedURL);

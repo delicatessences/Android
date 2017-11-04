@@ -2,6 +2,7 @@ package fr.delicatessences.delicatessences;
 
 import android.app.Application;
 
+
 import net.mediavrog.irr.DefaultRuleEngine;
 
 /**

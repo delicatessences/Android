@@ -24,6 +24,7 @@ import fr.delicatessences.delicatessences.editor.DateView;
 import fr.delicatessences.delicatessences.model.Bottle;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class EditBottleActivity extends EditActivity
         implements DatePickerDialog.OnDateSetListener {
@@ -202,6 +203,9 @@ public class EditBottleActivity extends EditActivity
         Dao<Bottle, Integer> dao = helper.getBottleDao();
         dao.create(bottle);
 
+        SynchronizationHelper.saveLastUpdateTime(EditBottleActivity.this, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(EditBottleActivity.this);
+
         addToIndex(bottle, essentialOil);
 
     }
@@ -306,6 +310,9 @@ public class EditBottleActivity extends EditActivity
         }
 
         setFeedbackMessage(R.string.edit_bottle);
+
+        SynchronizationHelper.saveLastUpdateTime(EditBottleActivity.this, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(EditBottleActivity.this);
 
         Dao<EssentialOil, Integer> essentialOilDao = helper.getEssentialOilDao();
         int essentialOilId = mBottle.getEssentialOil().getId();

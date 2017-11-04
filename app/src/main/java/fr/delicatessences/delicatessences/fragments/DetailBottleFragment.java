@@ -40,6 +40,7 @@ import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.model.Bottle;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class DetailBottleFragment extends DetailFragment {
 
@@ -178,6 +179,10 @@ public class DetailBottleFragment extends DetailFragment {
         DeleteBuilder<Bottle, Integer> deleteBuilder = dao.deleteBuilder();
         deleteBuilder.where().eq(Bottle.ID_FIELD_NAME, mId);
         deleteBuilder.delete();
+
+        // upload database
+        SynchronizationHelper.saveLastUpdateTime(activity, System.currentTimeMillis());
+        SynchronizationHelper.uploadDatabase(activity);
 
         FirebaseAppIndex.getInstance().remove(mIndexedURL);
 

@@ -43,6 +43,7 @@ import fr.delicatessences.delicatessences.model.VORecipe;
 import fr.delicatessences.delicatessences.model.VegetalIndication;
 import fr.delicatessences.delicatessences.model.VegetalOil;
 import fr.delicatessences.delicatessences.model.VegetalProperty;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 
 public class DetailVOFragment extends DetailFragment {
 
@@ -130,7 +131,7 @@ public class DetailVOFragment extends DetailFragment {
     }
 
     private void deleteVegetalOil() throws SQLException {
-        MainActivity activity = (MainActivity) getActivity();
+        final MainActivity activity = (MainActivity) getActivity();
         final DatabaseHelper helper = activity.getHelper();
 
         TransactionManager.callInTransaction(helper.getConnectionSource(),
@@ -155,6 +156,9 @@ public class DetailVOFragment extends DetailFragment {
                         DeleteBuilder<VegetalOil, Integer> oilDeleteBuilder = oilDao.deleteBuilder();
                         oilDeleteBuilder.where().eq(VegetalOil.ID_FIELD_NAME, mId);
                         oilDeleteBuilder.delete();
+
+                        SynchronizationHelper.saveLastUpdateTime(activity, System.currentTimeMillis());
+                        SynchronizationHelper.uploadDatabase(activity);
 
                         return null;
                     }
