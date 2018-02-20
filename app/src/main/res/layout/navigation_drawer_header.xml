@@ -14,4 +14,53 @@
         android:src="@drawable/ic_logo_header"
         tools:ignore="ContentDescription" />
 
+    <RelativeLayout
+        android:id="@+id/user_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/navigation_drawer_list_item_padding_left"
+        android:paddingRight="@dimen/navigation_drawer_list_item_padding_right"
+        android:paddingBottom="@dimen/navigation_drawer_padding_bottom"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/username_text_size"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:id="@+id/usermail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/username_text_size"
+                android:textColor="@color/mail_color"
+                android:duplicateParentState="true" />
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:duplicateParentState="true"
+            android:src="@drawable/ic_action_popup_white"/>
+
+
+        </RelativeLayout>
+
 </LinearLayout>

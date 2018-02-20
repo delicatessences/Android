@@ -2,9 +2,11 @@ package fr.delicatessences.delicatessences.model.persistence;
 
 
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -13,9 +15,22 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.credentials.CredentialRequest;
+import com.google.android.gms.auth.api.credentials.CredentialRequestResult;
+import com.google.android.gms.auth.api.credentials.IdentityProviders;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -113,10 +128,11 @@ public class SynchronizationHelper {
             Bundle extras = new Bundle();
             extras.putLong(UploadJobService.LAST_UPDATE_TIME_EXTRA, lastUpdateTime);
             extras.putString(UploadJobService.USER_ID_EXTRA, userId);
+            String tag = UploadJobService.UPLOAD_JOB_TAG + userId;
 
             Job job = dispatcher.newJobBuilder()
                     .setService(UploadJobService.class)
-                    .setTag(UploadJobService.UPLOAD_JOB_TAG)
+                    .setTag(tag)
                     .setRecurring(false)
                     .setLifetime(Lifetime.FOREVER)
                     .setTrigger(Trigger.executionWindow(10, 30))
@@ -134,6 +150,12 @@ public class SynchronizationHelper {
         }
     }
 
+
+    public static void cancelUploadJob(Context context){
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+        int result = dispatcher.cancel(UploadJobService.UPLOAD_JOB_TAG);
+        Log.i(SynchronizationHelper.class.getName(), "Cancel upload returned " + result);
+    }
 
     public static Task<StorageMetadata> getDatabaseMetaData(String userId){
         StorageReference databaseReference = getDatabaseReference(userId);
@@ -192,5 +214,79 @@ public class SynchronizationHelper {
     public static String getLocalDatabaseName() {
         String userId = getUserId();
         return getLocalDatabaseName(userId);
+    }
+
+    public static Task<Void> deleteRemoteDatabase(String userId){
+        StorageReference databaseReference = getDatabaseReference(userId);
+        return databaseReference.delete();
+    }
+
+    public static void deleteLocalDatabase(String userId){
+        File file = getLocalDatabaseFile(userId);
+        file.delete();
+    }
+
+    public static void reautheticate(GoogleApiClient credentialsClient, CredentialRequest credentialRequest){
+        Auth.CredentialsApi.request(credentialsClient, credentialRequest).setResultCallback(
+                new ResultCallback<CredentialRequestResult>() {
+                    @Override
+                    public void onResult(CredentialRequestResult credentialRequestResult) {
+                        if (credentialRequestResult.getStatus().isSuccess()) {
+                            // See "Handle successful credential requests"
+                            Credential credential = credentialRequestResult.getCredential();
+                            System.out.println("name : "  + credential.getName());
+                            System.out.println("password : "  + credential.getPassword());
+                            onCredentialRetrieved(credential);
+                            Log.i(SynchronizationHelper.class.getName(), "success credential");
+                        } else {
+                            // See "Handle unsuccessful and incomplete credential requests"
+                            //resolveResult(credentialRequestResult.getStatus());
+                            Log.i(SynchronizationHelper.class.getName(), "failure credential");
+                        }
+                    }
+                });
+
+
+    }
+
+
+    private static void onCredentialRetrieved(Credential credential) {
+        String accountType = credential.getAccountType();
+        if (accountType == null) {
+            // Sign the user in with information from the Credential.
+            //signInWithPassword(credential.getId(), credential.getPassword());
+        } else if (accountType.equals(IdentityProviders.GOOGLE)) {
+            Log.i(SynchronizationHelper.class.getName(), "google credential");
+            // The user has previously signed in with Google Sign-In. Silently
+            // sign in the user with the same ID.
+            // See https://developers.google.com/identity/sign-in/android/
+            /*GoogleSignInOptions gso =
+                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestEmail()
+                            .build();
+            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .setAccountName(credential.getId())
+                    .build();
+            OptionalPendingResult<GoogleSignInResult> opr =
+                    Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);*/
+            //
+        }
+    }
+
+    private void resolveResult(Status status) {
+        if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
+            // Prompt the user to choose a saved credential; do not show the hint
+            // selector.
+           /* try {
+                //status.startResolutionForResult(this, 0);
+            } catch (IntentSender.SendIntentException e) {
+                Log.e(SynchronizationHelper.class.getName(), "STATUS: Failed to send resolution.", e);
+            }*/
+        } else {
+            // The user must create an account or sign in manually.
+            Log.e(SynchronizationHelper.class.getName(), "STATUS: Unsuccessful credential request.");
+        }
     }
 }

@@ -31,6 +31,7 @@
     <dimen name="navigation_drawer_list_item_padding_right">16dp</dimen>
     <dimen name="navigation_drawer_text_size">16sp</dimen>
     <dimen name="navigation_drawer_padding_top">8dp</dimen>
+    <dimen name="navigation_drawer_padding_bottom">8dp</dimen>
     <dimen name="navigation_drawer_text_padding_left">24dp</dimen>
     <dimen name="navigation_drawer_title_size">20sp</dimen>
     <dimen name="navigation_drawer_logo_size">48dp</dimen>
@@ -92,4 +93,5 @@
     <dimen name="bottle_quality_spacing">3dp</dimen>
     <dimen name="bottle_property_size">24dp</dimen>
     <dimen name="bottle_image_size">300dp</dimen>
+    <dimen name="username_text_size">14sp</dimen>
 </resources>

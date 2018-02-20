@@ -28,4 +28,5 @@
     <color name="list_border_color">#d7d7d7</color>
     <color name="gray">#666</color>
     <color name="gray_light">#fefefe</color>
+    <color name="mail_color">#bfc8cd</color>
 </resources>

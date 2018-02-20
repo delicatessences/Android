@@ -1,22 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/navigation_drawer_background"
-    android:orientation="vertical">
+ <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/navigation_drawer_background"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/navigation_drawer_padding_top"
+                android:dividerHeight="0dp"
+                android:divider="@android:color/transparent"
+                android:background="?android:attr/activatedBackgroundIndicator"
+                android:choiceMode="singleChoice" />
+
+            <ListView
+                android:id="@+id/account_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/navigation_drawer_padding_top"
+                android:dividerHeight="0dp"
+                android:divider="@android:color/transparent"
+                android:choiceMode="singleChoice"
+                android:visibility="gone"/>
 
 
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/navigation_drawer_padding_top"
-        android:dividerHeight="0dp"
-        android:divider="@android:color/transparent"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:choiceMode="singleChoice"
-        tools:context="fr.delicatessences.delicatessences.fragments.NavigationDrawerFragment" />
+        </LinearLayout>
 
-
-</LinearLayout>

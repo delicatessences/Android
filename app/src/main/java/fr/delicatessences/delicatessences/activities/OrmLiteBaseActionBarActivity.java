@@ -2,8 +2,8 @@ package fr.delicatessences.delicatessences.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import com.firebase.ui.auth.ui.HelperActivityBase;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -25,7 +25,7 @@ import com.j256.ormlite.support.ConnectionSource;
  *
  * @author graywatson, kevingalligan
  */
-public abstract class OrmLiteBaseActionBarActivity<H extends OrmLiteSqliteOpenHelper> extends AppCompatActivity {
+public abstract class OrmLiteBaseActionBarActivity<H extends OrmLiteSqliteOpenHelper> extends HelperActivityBase {
 
     private volatile H helper;
     private volatile boolean created = false;

@@ -10,15 +10,20 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.appindexing.Action;
@@ -64,7 +69,8 @@ import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelpe
 @SuppressWarnings("UnusedParameters")
 public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> implements
         NavigationDrawerFragment.NavigationDrawerCallbacks, ItemSelectedListener,
-        ChooseOilDialogFragment.NoticeDialogListener, FavoriteSelectionListener {
+        ChooseOilDialogFragment.NoticeDialogListener, FavoriteSelectionListener,
+        ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private static final String WEBSITE_ADRESS = "http://www.delicatessences.fr";
     public static final String EXTRA_ID = "id";
@@ -172,6 +178,8 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
         }
 
     }
+
+
 
 
     private void logout(){
@@ -572,6 +580,21 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
         // upload database
         SynchronizationHelper.saveLastUpdateTime(this, System.currentTimeMillis());
         SynchronizationHelper.uploadDatabase(this);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.w(MainActivity.class.getName(), "onConnectionFailed:" + connectionResult);
     }
 }
 

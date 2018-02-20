@@ -22,7 +22,7 @@ import fr.delicatessences.delicatessences.model.DatabaseHelper;
 
 public class UploadJobService extends JobService {
 
-    public static final String UPLOAD_JOB_TAG = "upload-tag";
+    public static final String UPLOAD_JOB_TAG = "upload-";
 
     public static final String LAST_UPDATE_TIME_EXTRA = "LastUpdateTime";
     public static final String USER_ID_EXTRA = "UserID";

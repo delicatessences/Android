@@ -1,36 +1,79 @@
 package fr.delicatessences.delicatessences.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ui.ProgressDialogHolder;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.credentials.CredentialRequest;
+import com.google.android.gms.auth.api.credentials.CredentialRequestResult;
+import com.google.android.gms.auth.api.credentials.IdentityProviders;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.delicatessences.delicatessences.R;
+import fr.delicatessences.delicatessences.activities.LoginActivity;
 import fr.delicatessences.delicatessences.adapters.NavigationDrawerArrayAdapter;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -39,9 +82,14 @@ import fr.delicatessences.delicatessences.adapters.NavigationDrawerArrayAdapter;
  * > design guidelines</a> for a complete explanation of the behaviors
  * implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements ResultCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int NB_MENU_ITEMS= 8;
+
+    private static final int NB_ACCOUNT_ITEMS= 1;
+
+    private static final int RC_READ = 18;
 
 	/**
 	 * Remember the position of the selected item.
@@ -66,25 +114,35 @@ public class NavigationDrawerFragment extends Fragment {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerListView;
+	private ListView mDrawerAccountListView;
 	private View mFragmentContainerView;
 
 	private int mCurrentSelectedPosition = 1;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
+    private ImageView mArrowView;
+    private ProgressDialogHolder mProgressHolder;
+    private GoogleApiClient mCredentialsApiClient;
+    private GoogleApiClient mSigninApiClient;
 
 
-	public NavigationDrawerFragment() {
+    public NavigationDrawerFragment() {
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+        FragmentActivity activity = getActivity();
+
+
+
+
 		// Read in the flag indicating whether or not the user has demonstrated
 		// awareness of the
 		// drawer. See PREF_USER_LEARNED_DRAWER for details.
 		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(getActivity());
+				.getDefaultSharedPreferences(activity);
 		mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
 		if (savedInstanceState != null) {
@@ -92,6 +150,8 @@ public class NavigationDrawerFragment extends Fragment {
 					.getInt(STATE_SELECTED_POSITION);
 			mFromSavedInstanceState = true;
 		}
+
+        mProgressHolder = new ProgressDialogHolder(activity);
 	}
 
 	@Override
@@ -108,12 +168,11 @@ public class NavigationDrawerFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-        FragmentActivity activity = getActivity();
+        final FragmentActivity activity = getActivity();
         View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         mDrawerListView = (ListView) view.findViewById(R.id.list);
-		mDrawerListView
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
@@ -121,34 +180,244 @@ public class NavigationDrawerFragment extends Fragment {
 					}
 				});
 
-		LinearLayout listHeaderView = (LinearLayout)inflater.inflate(
-				R.layout.navigation_drawer_header, container, false);
 
-		mDrawerListView.addHeaderView(listHeaderView, null, false);
 
+        mDrawerAccountListView = (ListView) view.findViewById(R.id.account_list);
+        mDrawerAccountListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (position == 1){
+                            showConfirmDeleteDialog(activity);
+                        }
+                    }
+                });
+
+        populateList(activity);
+        populateAccountList(activity);
+        addHeader(inflater, container);
+
+		return view;
+	}
+
+    private void showConfirmDeleteDialog(final FragmentActivity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        builder.setMessage(getResources().getString(R.string.delete_essential_oil_warning));
+        final Resources resources = getResources();
+        builder.setPositiveButton(resources.getString(R.string.action_ok),
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mSigninApiClient != null){
+                            mSigninApiClient.disconnect();
+                            mSigninApiClient.stopAutoManage(getActivity());
+                        }
+                        mCredentialsApiClient = new GoogleApiClient.Builder(activity)
+                                .addConnectionCallbacks(NavigationDrawerFragment.this)
+                                .enableAutoManage(activity, NavigationDrawerFragment.this)
+                                .addApi(Auth.CREDENTIALS_API)
+                                .build();
+                        CredentialRequest credentialRequest = new CredentialRequest.Builder()
+                                .setPasswordLoginSupported(true)
+                                .setAccountTypes(IdentityProviders.GOOGLE)
+                                .build();
+                        Auth.CredentialsApi.request(mCredentialsApiClient, credentialRequest)
+                                .setResultCallback(NavigationDrawerFragment.this);
+
+                    }
+                }
+        );
+        builder.setNegativeButton(resources.getString(R.string.action_cancel), null);
+        builder.show();
+    }
+
+
+    private void showPasswordPromptDialog(final FragmentActivity activity){
+        LayoutInflater li = LayoutInflater.from(activity);
+        View promptsView = li.inflate(R.layout.prompt, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                String password = userInput.getText().toString();
+                                FirebaseAuth instance = FirebaseAuth.getInstance();
+                                FirebaseUser currentUser = instance.getCurrentUser();
+                                deleteAccount(getMailCredential(currentUser, password));
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+	private void deleteAccount(AuthCredential credential){
+        final FragmentActivity activity = getActivity();
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if (currentUser != null & isConnected){
+            final String userId = currentUser.getUid();
+            currentUser.reauthenticate(credential)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(NavigationDrawerFragment.class.getName(), "User re-authenticated.");
+                            mProgressHolder.showLoadingDialog(R.string.synchronization);
+                            SynchronizationHelper.deleteRemoteDatabase(userId)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            AuthUI.getInstance()
+                                                    .delete(activity)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            SynchronizationHelper.cancelUploadJob(activity);
+                                                            SynchronizationHelper.deleteLocalDatabase(userId);
+                                                            mProgressHolder.dismissDialog();
+                                                            startActivity(new Intent(activity, LoginActivity.class));
+                                                            activity.finish();
+
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    mProgressHolder.dismissDialog();
+                                                    Toast toast = Toast.makeText(activity, R.string.unknown_error, Toast.LENGTH_LONG);
+                                                    toast.show();
+                                                }
+                                            });
+                                        }
+                                    });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            Toast toast = Toast.makeText(activity, R.string.error_incorrect_password, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    });
+        } else {
+            Toast toast = Toast.makeText(activity, R.string.no_internet_connection, Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+    }
+
+
+	private void addHeader(LayoutInflater inflater, ViewGroup container){
+        LinearLayout listHeaderView = (LinearLayout)inflater.inflate(
+                R.layout.navigation_drawer_header, container, false);
+        FirebaseAuth.getInstance();
+        View userButton = listHeaderView.findViewById(R.id.user_button);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null){
+            TextView usernameTextView = listHeaderView.findViewById(R.id.username);
+            usernameTextView.setText(currentUser.getDisplayName());
+            TextView usermailTextView = listHeaderView.findViewById(R.id.usermail);
+            usermailTextView.setText(currentUser.getEmail());
+            mArrowView = listHeaderView.findViewById(R.id.arrow);
+
+            userButton.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                        mArrowView.setRotation(mArrowView.getRotation() + 180);
+                        if (mDrawerAccountListView.getVisibility() == View.GONE){
+                            mDrawerAccountListView.setVisibility(View.VISIBLE);
+                            mDrawerListView.setVisibility(View.GONE);
+                        } else {
+                            mDrawerAccountListView.setVisibility(View.GONE);
+                            mDrawerListView.setVisibility(View.VISIBLE);
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        } else {
+            userButton.setVisibility(View.GONE);
+        }
+        mDrawerAccountListView.addHeaderView(listHeaderView, null, false);
+        mDrawerListView.addHeaderView(listHeaderView, null, false);
+    }
+
+	private void populateList(Context context) {
         Resources resources = getResources();
         TypedArray images = resources.obtainTypedArray(R.array.navigation_drawer_images_white);
         String[] menuItems = resources.getStringArray(R.array.drawer_items);
         List<NavigationDrawerArrayAdapter.NavigationRowItem> items = new ArrayList<>();
-		int nbMenuItems = NB_MENU_ITEMS;
-		FirebaseAuth auth = FirebaseAuth.getInstance();
-		if (auth.getCurrentUser() != null) {
-			nbMenuItems++;
-		}
-		for (int i = 0; i < nbMenuItems; i++){
-            String title = menuItems[i];
-            int imageId = images.getResourceId(i, -1);
-            NavigationDrawerArrayAdapter.NavigationRowItem item =
-                    new NavigationDrawerArrayAdapter.NavigationRowItem(title, imageId);
-            items.add(item);
-        }
-		images.recycle();
+        int nbMenuItems = NB_MENU_ITEMS;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            if (currentUser != null) {
+                nbMenuItems++;
+            }
+            for (int i = 0; i < nbMenuItems; i++) {
+                String title = menuItems[i];
+                int imageId = images.getResourceId(i, -1);
+                NavigationDrawerArrayAdapter.NavigationRowItem item =
+                        new NavigationDrawerArrayAdapter.NavigationRowItem(title, imageId);
+                items.add(item);
+            }
+            images.recycle();
 
-		NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(activity, items);
-        mDrawerListView.setAdapter(adapter);
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-		return view;
-	}
+            NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(context, items);
+            mDrawerListView.setAdapter(adapter);
+            mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        }
+    }
+
+
+    private void populateAccountList(Context context) {
+        Resources resources = getResources();
+        TypedArray images = resources.obtainTypedArray(R.array.navigation_drawer_account_images);
+        String[] menuItems = resources.getStringArray(R.array.drawer_account_items);
+        List<NavigationDrawerArrayAdapter.NavigationRowItem> items = new ArrayList<>();
+        int nbMenuItems = NB_ACCOUNT_ITEMS;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            for (int i = 0; i < nbMenuItems; i++) {
+                String title = menuItems[i];
+                int imageId = images.getResourceId(i, -1);
+                NavigationDrawerArrayAdapter.NavigationRowItem item =
+                        new NavigationDrawerArrayAdapter.NavigationRowItem(title, imageId);
+                items.add(item);
+            }
+            images.recycle();
+
+            NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(context, items);
+            mDrawerAccountListView.setAdapter(adapter);
+        }
+    }
+
 
 	private boolean isDrawerOpen() {
 		return mDrawerLayout != null
@@ -167,6 +436,34 @@ public class NavigationDrawerFragment extends Fragment {
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
 		mDrawerLayout = drawerLayout;
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                if (mDrawerListView != null){
+                    if (mDrawerListView.getVisibility() == View.GONE){
+                        mArrowView.setRotation(mArrowView.getRotation() + 180);
+                    }
+                    mDrawerListView.setVisibility(View.VISIBLE);
+                }
+                if (mDrawerAccountListView != null){
+                    mDrawerAccountListView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
 
 		// set a custom shadow that overlays the main content when the drawer
 		// opens
@@ -275,9 +572,13 @@ public class NavigationDrawerFragment extends Fragment {
 	public void onDetach() {
 		super.onDetach();
 		mCallbacks = null;
+
+
+
 	}
 
-	@Override
+
+    @Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
@@ -326,7 +627,152 @@ public class NavigationDrawerFragment extends Fragment {
         return activity.getSupportActionBar();
 	}
 
-	/**
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onResult(@NonNull Result result) {
+        Status status = result.getStatus();
+        if (result instanceof CredentialRequestResult){
+            if (mCredentialsApiClient != null){
+                mCredentialsApiClient.disconnect();
+                mCredentialsApiClient.stopAutoManage(getActivity());
+            }
+            CredentialRequestResult crResult = (CredentialRequestResult) result;
+            if (status.isSuccess()) {
+                System.out.println("success credential");
+                onCredentialRetrieved(crResult.getCredential());
+            } else {
+                System.out.println("failure credential ");
+                resolveResult(status);
+            }
+        } else if (result instanceof GoogleSignInResult){
+            if (mSigninApiClient != null){
+                mSigninApiClient.disconnect();
+                mSigninApiClient.stopAutoManage(getActivity());
+            }
+            if (status.isSuccess()){
+                System.out.println("success silent signin");
+                GoogleSignInResult gsResult = (GoogleSignInResult) result;
+                String idToken = gsResult.getSignInAccount().getIdToken();
+                System.out.println("token " + idToken);
+                AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+                deleteAccount(credential);
+            } else {
+                Toast toast = Toast.makeText(getActivity(), R.string.unknown_error, Toast.LENGTH_LONG);
+            }
+
+        }
+
+    }
+
+    private void resolveResult(Status status) {
+        System.out.println("resolve result " + status.getStatusCode());
+        switch (status.getStatusCode()){
+            case CommonStatusCodes.RESOLUTION_REQUIRED:
+                try {
+                    status.startResolutionForResult(getActivity(), RC_READ);
+                } catch (IntentSender.SendIntentException e) {
+                    Log.e(NavigationDrawerFragment.class.getName(), "STATUS: Failed to send resolution.", e);
+                }
+                break;
+
+            case CommonStatusCodes.SIGN_IN_REQUIRED:
+                Log.e(NavigationDrawerFragment.class.getName(), "Signin required.");
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                if (EmailAuthProvider.PROVIDER_ID.equals(currentUser.getProviders().get(0))){
+                    Log.e(NavigationDrawerFragment.class.getName(), "password");
+                    showPasswordPromptDialog(getActivity());
+                } else {
+                    Log.e(NavigationDrawerFragment.class.getName(), "google.com");
+                    GoogleSignInOptions gso =
+                            new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                    .requestEmail()
+                                    .requestIdToken(getString(R.string.default_web_client_id))
+                                    .build();
+
+                    mSigninApiClient = new GoogleApiClient.Builder(getActivity())
+                            .enableAutoManage(getActivity(), this)
+                            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                            .build();
+                    OptionalPendingResult<GoogleSignInResult> opr =
+                            Auth.GoogleSignInApi.silentSignIn(mSigninApiClient);
+                    opr.setResultCallback(this);
+                }
+
+
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_READ) {
+            if (resultCode == RESULT_OK) {
+                Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+                onCredentialRetrieved(credential);
+            } else {
+                Log.e(NavigationDrawerFragment.class.getName(), "Credential Read: NOT OK");
+            }
+        }
+    }
+
+    private void onCredentialRetrieved(Credential credential) {
+        String accountType = credential.getAccountType();
+        System.out.println("id " + credential.getId());
+        System.out.println("password " + credential.getPassword());
+        AuthCredential authCredential = null;
+        if (accountType == null) {
+            System.out.println("mail");
+            authCredential = EmailAuthProvider.getCredential(credential.getId(), credential.getPassword());
+            deleteAccount(authCredential);
+        } else if (accountType.equals(IdentityProviders.GOOGLE)) {
+            System.out.println("google");
+            GoogleSignInOptions gso =
+                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestEmail()
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .setAccountName(credential.getId())
+                            .build();
+            if (mCredentialsApiClient != null){
+                mCredentialsApiClient.disconnect();
+                mCredentialsApiClient.stopAutoManage(getActivity());
+            }
+            mSigninApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+            OptionalPendingResult<GoogleSignInResult> opr =
+                    Auth.GoogleSignInApi.silentSignIn(mSigninApiClient);
+            opr.setResultCallback(this);
+
+        }
+
+
+    }
+
+
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    /**
 	 * Callbacks interface that all activities using this fragment must
 	 * implement.
 	 */
@@ -335,10 +781,22 @@ public class NavigationDrawerFragment extends Fragment {
 		 * Called when an item in the navigation drawer is selected.
 		 */
 		void onNavigationDrawerItemSelected(int position);
+
 	}
 	
 	
 	public void setDrawerIndicatorEnabled(boolean b){
 		mDrawerToggle.setDrawerIndicatorEnabled(b);
 	}
+
+	private AuthCredential getMailCredential(FirebaseUser user, String password){
+        if (password.isEmpty()){
+            password ="1234";
+        }
+
+        return EmailAuthProvider.getCredential(user.getEmail(), password);
+
+    }
+
+
 }

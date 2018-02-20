@@ -19,20 +19,12 @@
 -keep class android.support.v7.widget.SearchView { *; }
 
 # OrmLite uses reflection
--keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
 -keep class com.j256.**
 -keepclassmembers class com.j256.** { *; }
 -keep enum com.j256.**
 -keepclassmembers enum com.j256.** { *; }
 -keep interface com.j256.**
 -keepclassmembers interface com.j256.** { *; }
-
--keep class fr.delicatessences.delicatessences.model.**
--keepclassmembers class fr.delicatessences.delicatessences.model.** { *; }
--keep enum fr.delicatessences.delicatessences.model.**
--keepclassmembers enum fr.delicatessences.delicatessences.model.** { *; }
--keep interface fr.delicatessences.delicatessences.model.**
--keepclassmembers interface fr.delicatessences.delicatessences.model.** { *; }
 
 # Keep the helper class and its constructor
 -keep class * extends com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper
@@ -49,3 +41,14 @@
     # Add the ormlite field annotations that your model uses here
     <init>();
 }
+
+# Recommended flags for Firebase Auth
+-keepattributes Signature
+-keepattributes *Annotation*
+
+
+-keep class com.firebase.** { *; }
+-keep class org.apache.** { *; }
+-keepnames class com.fasterxml.jackson.** { *; }
+-keepnames class javax.servlet.** { *; }
+-keepnames class org.ietf.jgss.** { *; }

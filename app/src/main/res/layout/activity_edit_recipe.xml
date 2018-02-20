@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     tools:context="fr.delicatessences.delicatessences.activities.EditRecipeActivity">
 
     <include layout="@layout/toolbar" />

@@ -36,6 +36,14 @@
         <item>Déconnexion</item>
     </string-array>
 
+    <string-array name="navigation_drawer_account_images">
+        <item>@drawable/ic_book_white</item>
+    </string-array>
+
+    <string-array name="drawer_account_items">
+        <item>Supprimer le compte</item>
+    </string-array>
+
     <string-array name="favorites">
         <item>Recettes</item>
         <item>Huiles essentielles</item>
@@ -223,6 +231,7 @@
     <string name="no_internet_connection">Impossible de se connecter, veuillez réessayer ultérieurement.</string>
     <string name="unknown_error">Une erreur est survenue, veuillez réessayer ultérieurement.</string>
     <string name="synchronization">Synchronization</string>
+    <string name="password_required">Mot de passe requis</string>
 </resources>
 
 
