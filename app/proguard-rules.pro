@@ -25,6 +25,16 @@
 -keepclassmembers enum com.j256.** { *; }
 -keep interface com.j256.**
 -keepclassmembers interface com.j256.** { *; }
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+
+-keep class fr.delicatessences.delicatessences.model.**
+-keepclassmembers class fr.delicatessences.delicatessences.model.** { *; }
+-keep enum fr.delicatessences.delicatessences.model.**
+-keepclassmembers enum fr.delicatessences.delicatessences.model.** { *; }
+-keep interface fr.delicatessences.delicatessences.model.**
+-keepclassmembers interface fr.delicatessences.delicatessences.model.** { *; }
+
 
 # Keep the helper class and its constructor
 -keep class * extends com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper

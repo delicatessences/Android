@@ -135,7 +135,7 @@ public class SynchronizationHelper {
                     .setTag(tag)
                     .setRecurring(false)
                     .setLifetime(Lifetime.FOREVER)
-                    .setTrigger(Trigger.executionWindow(10, 30))
+                    .setTrigger(Trigger.executionWindow(0, 5))
                     .setReplaceCurrent(true)
                     .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                     .setConstraints(
