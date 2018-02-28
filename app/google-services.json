@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "454312994677",
+    "firebase_url": "https://delicatessences.firebaseio.com",
+    "project_id": "delicatessences",
+    "storage_bucket": "delicatessences.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454312994677:android:114731868dba4b8a",
+        "android_client_info": {
+          "package_name": "fr.delicatessences.delicatessences"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454312994677-c9l77hr1tmca3ocat0c7or862n3gr8dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.delicatessences.delicatessences",
+            "certificate_hash": "20d0578a3f82aabb550ec42c2ae7b2feb778c9b4"
+          }
+        },
+        {
+          "client_id": "454312994677-7om9vt8j7gl6k565entfcpv772pfo7pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWHH2YYRzpeRin3tYwD1H7gzvrdS9aGrM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454312994677-7om9vt8j7gl6k565entfcpv772pfo7pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
