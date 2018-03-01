@@ -182,8 +182,7 @@ public class SynchronizationHelper {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             String key = LAST_UPDATE_PREF_BASE_NAME + userId;
             editor.putLong(key, timeMillis);
-
-            editor.commit();
+            editor.apply();
         } else {
             FirebaseCrash.report(new IllegalStateException("SynchronizationHelper#saveLastUpdateTime - current user is null, cannot save update time."));
         }
@@ -226,67 +225,5 @@ public class SynchronizationHelper {
         file.delete();
     }
 
-    public static void reautheticate(GoogleApiClient credentialsClient, CredentialRequest credentialRequest){
-        Auth.CredentialsApi.request(credentialsClient, credentialRequest).setResultCallback(
-                new ResultCallback<CredentialRequestResult>() {
-                    @Override
-                    public void onResult(CredentialRequestResult credentialRequestResult) {
-                        if (credentialRequestResult.getStatus().isSuccess()) {
-                            // See "Handle successful credential requests"
-                            Credential credential = credentialRequestResult.getCredential();
-                            System.out.println("name : "  + credential.getName());
-                            System.out.println("password : "  + credential.getPassword());
-                            onCredentialRetrieved(credential);
-                            Log.i(SynchronizationHelper.class.getName(), "success credential");
-                        } else {
-                            // See "Handle unsuccessful and incomplete credential requests"
-                            //resolveResult(credentialRequestResult.getStatus());
-                            Log.i(SynchronizationHelper.class.getName(), "failure credential");
-                        }
-                    }
-                });
 
-
-    }
-
-
-    private static void onCredentialRetrieved(Credential credential) {
-        String accountType = credential.getAccountType();
-        if (accountType == null) {
-            // Sign the user in with information from the Credential.
-            //signInWithPassword(credential.getId(), credential.getPassword());
-        } else if (accountType.equals(IdentityProviders.GOOGLE)) {
-            Log.i(SynchronizationHelper.class.getName(), "google credential");
-            // The user has previously signed in with Google Sign-In. Silently
-            // sign in the user with the same ID.
-            // See https://developers.google.com/identity/sign-in/android/
-            /*GoogleSignInOptions gso =
-                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestEmail()
-                            .build();
-            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .setAccountName(credential.getId())
-                    .build();
-            OptionalPendingResult<GoogleSignInResult> opr =
-                    Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);*/
-            //
-        }
-    }
-
-    private void resolveResult(Status status) {
-        if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
-            // Prompt the user to choose a saved credential; do not show the hint
-            // selector.
-           /* try {
-                //status.startResolutionForResult(this, 0);
-            } catch (IntentSender.SendIntentException e) {
-                Log.e(SynchronizationHelper.class.getName(), "STATUS: Failed to send resolution.", e);
-            }*/
-        } else {
-            // The user must create an account or sign in manually.
-            Log.e(SynchronizationHelper.class.getName(), "STATUS: Unsuccessful credential request.");
-        }
-    }
 }
