@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "454312994677-c9l77hr1tmca3ocat0c7or862n3gr8dk.apps.googleusercontent.com",
+          "client_id": "454312994677-f63l27nauvob5hp96qtak69cucs8uuk8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "fr.delicatessences.delicatessences",
-            "certificate_hash": "20d0578a3f82aabb550ec42c2ae7b2feb778c9b4"
+            "certificate_hash": "82e6a0ba4da5a1721b91ebd3bb2c2f05305510fb"
+          }
+        },
+        {
+          "client_id": "454312994677-sl7b4a1lnavh311ti7sn5nn6vbq1i3lb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.delicatessences.delicatessences",
+            "certificate_hash": "0e05f0e3e4bfe4e5e736ea901974b3e8126981cc"
           }
         },
         {

@@ -62,3 +62,20 @@
 -keepnames class com.fasterxml.jackson.** { *; }
 -keepnames class javax.servlet.** { *; }
 -keepnames class org.ietf.jgss.** { *; }
+
+-dontwarn retrofit2.**
+
+-keep class org.apache.harmony.lang.annotation.**
+
+-dontnote android.net.http.*
+-dontnote org.apache.commons.codec.**
+-dontnote org.apache.http.**
+
+-keep class android.arch.lifecycle.** { *; }
+-keep class android.arch.core.** { *; }
+-keep class com.github.amlcurran.showcaseview.** { *; }
+-keep class com.manuelpeinado.fadingactionbar.** { *; }
+-keep class com.melnykov.fab.** { *; }
+-keep class fr.delicatessences.delicatessences.** { *; }
+-keep class net.mediavrog.irr.** { *; }
+-keep class net.mediavrog.ruli.** { *; }

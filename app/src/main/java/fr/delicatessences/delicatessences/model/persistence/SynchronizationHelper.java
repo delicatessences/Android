@@ -1,6 +1,8 @@
 package fr.delicatessences.delicatessences.model.persistence;
 
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -83,6 +85,12 @@ public class SynchronizationHelper {
         return new File(databaseName);
     }
 
+    public static File getTempDatabaseFile(Context context, String userId){
+        String filename = userId != null ? userId : OLD_DB_NAME;
+        return new File(context.getCacheDir(), filename);
+    }
+
+
     public static void moveToFinalFilename(String userId){
         File oldLocalDbFile = getOldDatabaseFile();
         if (oldLocalDbFile.exists()){
@@ -112,11 +120,18 @@ public class SynchronizationHelper {
 
 
     public static FileDownloadTask downloadRemoteDatabase(String userId){
-        File file = getLocalDatabaseFile(userId);
+        return downloadRemoteDatabase(userId, getLocalDatabaseFile(userId));
+    }
 
+    public static FileDownloadTask downloadRemoteDatabaseToTempFile(Context context, String userId){
+        return downloadRemoteDatabase(userId, getTempDatabaseFile(context, userId));
+    }
+
+    private static FileDownloadTask downloadRemoteDatabase(String userId, File file){
         StorageReference databaseReference = getDatabaseReference(userId);
         return databaseReference.getFile(file);
     }
+
 
 
     public static void uploadDatabase(Context context){
@@ -208,6 +223,7 @@ public class SynchronizationHelper {
 
         return OLD_DB_NAME;
     }
+
 
     @NonNull
     public static String getLocalDatabaseName() {

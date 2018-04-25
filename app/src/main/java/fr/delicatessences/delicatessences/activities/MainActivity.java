@@ -93,11 +93,6 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser == null){
-            logout();
-        }
 
         setContentView(R.layout.activity_main);
 
@@ -170,30 +165,10 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         ViewType[] viewTypes = ViewType.values();
-        if (position >= viewTypes.length){
-            logout();
-        } else {
-            ViewType viewType = viewTypes[position];
-            showList(viewType);
-        }
-
+        ViewType viewType = viewTypes[position];
+        showList(viewType);
     }
 
-
-
-
-    private void logout(){
-        //logout
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // user is now signed out
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                });
-    }
 
 
     public void showList(ViewType viewType) {

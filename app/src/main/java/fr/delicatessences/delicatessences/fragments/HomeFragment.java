@@ -8,10 +8,15 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
@@ -21,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,9 +38,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.ui.ProgressDialogHolder;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageMetadata;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.logger.Logger;
@@ -43,6 +60,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 import net.mediavrog.irr.IrrLayout;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Random;
 
@@ -56,10 +74,15 @@ import fr.delicatessences.delicatessences.loaders.CustomAsyncTaskLoader;
 import fr.delicatessences.delicatessences.loaders.LastRecipeCursorLoader;
 import fr.delicatessences.delicatessences.model.DatabaseHelper;
 import fr.delicatessences.delicatessences.model.EssentialOil;
+import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 import fr.delicatessences.delicatessences.utils.CustomOnUserActionListener;
+import fr.delicatessences.delicatessences.utils.FileUtils;
 import fr.delicatessences.delicatessences.utils.ImageUtils;
+import fr.delicatessences.delicatessences.utils.ProgressModalDialogHolder;
 
-public class HomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Object>{
+import static fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper.CUSTOM_METADATA_KEY;
+
+public class HomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Object> {
 
     private static final String HOME_DISPLAY_COUNT_PREF = "homeDisplayCount";
     private final static int HOME_DISPLAY_COUNT = 2;
@@ -83,12 +106,14 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     private ImageView mLastRecipeCardImage;
     private Button mOilCardButton;
     private ShowcaseView mShowcaseView;
+    private ProgressModalDialogHolder mProgressHolder;
 
     @Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_home,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home,
                 container, false);
+        mProgressHolder = new ProgressModalDialogHolder(getActivity());
 
         Resources resources = getResources();
 
@@ -106,7 +131,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         mAdapter = new LastRecipesCursorAdapter(mActivity);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recipes_card_content);
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -129,12 +154,12 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
         Random ran = new Random();
         boolean showAbout = ran.nextBoolean();
-        if (showAbout){
+        if (showAbout) {
             ViewGroup card = (ViewGroup) view.findViewById(R.id.card_view_about);
             ImageView imageView = (ImageView) view.findViewById(R.id.about_card_image);
             ImageUtils.loadDrawable(getActivity(), R.drawable.pic_about, imageView);
             card.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ViewGroup card = (ViewGroup) view.findViewById(R.id.card_view_helpus);
             ImageView imageView = (ImageView) view.findViewById(R.id.helpus_card_image);
             ImageUtils.loadDrawable(getActivity(), R.drawable.pic_help, imageView);
@@ -156,13 +181,13 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
 
         IrrLayout irrLayout = (IrrLayout) view.findViewById(R.id.irr_layout);
-        if (irrLayout != null){
+        if (irrLayout != null) {
             irrLayout.setOnUserActionListener(new CustomOnUserActionListener());
         }
 
 
         return view;
-	}
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -177,12 +202,12 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
         Resources resources = getResources();
         final Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        Target target = new Target(){
+        Target target = new Target() {
 
             @Override
             public Point getPoint() {
                 View view = toolbar.findViewById(R.id.action_search);
-                if (view != null){
+                if (view != null) {
                     return new ViewTarget(view).getPoint();
                 }
 
@@ -215,18 +240,18 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
 
     public static HomeFragment newInstance() {
-		HomeFragment fragment = new HomeFragment();
+        HomeFragment fragment = new HomeFragment();
 
-	   Bundle args = new Bundle();
-	    args.putInt(MainActivity.EXTRA_VIEW_TYPE, ViewType.HOME.ordinal());
-	   fragment.setArguments(args);
+        Bundle args = new Bundle();
+        args.putInt(MainActivity.EXTRA_VIEW_TYPE, ViewType.HOME.ordinal());
+        fragment.setArguments(args);
 
-	    return fragment;
-	}
-	
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        return fragment;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.fragment_home_menu, menu);
@@ -236,7 +261,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mShowcaseView != null && mShowcaseView.isShown()){
+                if (mShowcaseView != null && mShowcaseView.isShown()) {
                     mShowcaseView.hide();
                 }
             }
@@ -249,12 +274,28 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         MainActivity activity = (MainActivity) getActivity();
         activity.setDrawerIndicatorEnabled(true);
         ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
             String[] titles = getResources().getStringArray(R.array.drawer_items);
             actionBar.setTitle(titles[ViewType.HOME.ordinal()]);
         }
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_sync:
+                synchronize();
+                break;
+
+            default:
+                break;
+        }
+
+        return false;
     }
 
 
@@ -276,12 +317,12 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     @SuppressWarnings("unchecked")
     @Override
     public Loader<Object> onCreateLoader(int id, Bundle args) {
-        switch (id){
+        switch (id) {
             case 0:
                 return new CustomAsyncTaskLoader<Object>(mActivity) {
                     @Override
                     public Object loadInBackground() {
-                       EssentialOil essentialOil = null;
+                        EssentialOil essentialOil = null;
 
                         try {
                             DatabaseHelper helper = (DatabaseHelper) mActivity.getHelper();
@@ -291,7 +332,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                             essentialOil = queryBuilder.queryForFirst();
                         } catch (SQLException e) {
                             e.printStackTrace();
-                        } catch (IllegalStateException e){
+                        } catch (IllegalStateException e) {
                             logger.trace(e.getMessage());
                         }
 
@@ -329,7 +370,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                             helper.loadCategories();
                         } catch (SQLException e) {
                             e.printStackTrace();
-                        } catch (IllegalStateException e){
+                        } catch (IllegalStateException e) {
                             logger.trace(e.getMessage());
                         }
 
@@ -345,7 +386,6 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
         }
     }
-
 
 
     @Override
@@ -364,7 +404,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                     int resId = resources.getIdentifier("pic_" + essentialOil.getImage(), "drawable", mActivity.getPackageName());
                     ImageUtils.loadDrawable(getActivity(), resId, mOilCardImage);
                     mOilCard.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     mOilCard.setVisibility(View.GONE);
                 }
                 break;
@@ -381,7 +421,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 //                break;
 
             case 3:
-                if (o instanceof Cursor){
+                if (o instanceof Cursor) {
                     Cursor data = (Cursor) o;
                     int nbRecipes = data.getCount();
                     if (nbRecipes > 0) {
@@ -395,7 +435,8 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                 }
                 break;
 
-            default:break;
+            default:
+                break;
 
 
         }
@@ -404,14 +445,13 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoaderReset(Loader<Object> loader) {
-        switch (loader.getId()){
+        switch (loader.getId()) {
             case 3:
                 mAdapter.changeCursor(null);
                 mLastRecipeCard.setVisibility(View.GONE);
                 break;
         }
     }
-
 
 
     @Override
@@ -424,16 +464,15 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
 
-
-    public void hideWelcomeCard(){
+    public void hideWelcomeCard() {
         mWelcomeCard.setVisibility(View.GONE);
     }
 
 
-    public int getEssentialOil(){
-        if (mOilCardButton != null){
+    public int getEssentialOil() {
+        if (mOilCardButton != null) {
             Object tag = mOilCardButton.getTag();
-            if (tag instanceof Integer){
+            if (tag instanceof Integer) {
                 return (Integer) tag;
             }
         }
@@ -441,4 +480,127 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
         return -1;
     }
 
+    private void synchronize() {
+
+
+        final FragmentActivity activity = getActivity();
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            mProgressHolder.showLoadingDialog(R.string.synchronization);
+
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = auth.getCurrentUser();
+            if (currentUser != null) {
+                final String userId = currentUser.getUid();
+                Task<StorageMetadata> metadataTask = SynchronizationHelper.getDatabaseMetaData(userId);
+                metadataTask.addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                    @Override
+                    public void onSuccess(final StorageMetadata metadata) {
+                        Log.i(HomeFragment.class.getName(), "Metadata ok: compare update times.");
+                        final String value = metadata.getCustomMetadata(CUSTOM_METADATA_KEY);
+                        final long remoteTimeMillis = value != null ? Long.parseLong(value) : 0L;
+                        long localTimeMillis = SynchronizationHelper.getLastUpdateTime(activity, userId);
+
+                        // compare local and remote last update time
+                        if (remoteTimeMillis > localTimeMillis) {
+                            Log.i(HomeFragment.class.getName(), "Remote database is newer than local one: download.");
+                            FileDownloadTask downloadTask = SynchronizationHelper.downloadRemoteDatabaseToTempFile(activity, userId);
+                            downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    // remote base is newer than local one.
+                                    // remote update time becomes new local update time.
+                                    File tempDatabaseFile = SynchronizationHelper.getTempDatabaseFile(activity, userId);
+                                    File localDatabaseFile = SynchronizationHelper.getLocalDatabaseFile(userId);
+                                    FileUtils.copy(tempDatabaseFile, localDatabaseFile);
+                                    tempDatabaseFile.deleteOnExit();
+                                    Log.i(HomeFragment.class.getName(), "Local database replaced with remote.");
+                                    Log.i(HomeFragment.class.getName(), "Database downloaded: save update time.");
+                                    SynchronizationHelper.saveLastUpdateTime(activity, remoteTimeMillis);
+                                    mProgressHolder.dismissDialog();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    int errorCode = ((StorageException) exception).getErrorCode();
+                                    switch (errorCode) {
+                                        case StorageException.ERROR_OBJECT_NOT_FOUND:
+                                        case StorageException.ERROR_BUCKET_NOT_FOUND:
+                                        case StorageException.ERROR_PROJECT_NOT_FOUND:
+                                        case StorageException.ERROR_NOT_AUTHORIZED:
+                                        case StorageException.ERROR_NOT_AUTHENTICATED:
+                                        case StorageException.ERROR_CANCELED:
+                                        case StorageException.ERROR_QUOTA_EXCEEDED:
+                                        case StorageException.ERROR_INVALID_CHECKSUM:
+                                        case StorageException.ERROR_UNKNOWN:
+                                            // should not happen: log it
+                                            showSnackbar(R.id.scrollview, R.string.unknown_error);
+                                            FirebaseCrash.report(new IllegalStateException("HomeFragment#synchronize - error code " + errorCode + " while downloading database."));
+                                            break;
+
+                                        case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
+                                            // no internet?
+                                            showSnackbar(R.id.scrollview, R.string.unknown_error);
+                                            Log.i(HomeFragment.class.getName(), "Failed to download database.");
+                                            break;
+                                    }
+                                    mProgressHolder.dismissDialog();
+                                }
+                            });
+                        } else {
+                            if (localTimeMillis > remoteTimeMillis) {
+                                // local base is newer than remote one, upload!
+                                Log.i(HomeFragment.class.getName(), "Local database is newer than remote one: upload.");
+                                SynchronizationHelper.uploadDatabase(activity);
+                            }
+                            mProgressHolder.dismissDialog();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        int errorCode = ((StorageException) e).getErrorCode();
+                        switch (errorCode) {
+                            case StorageException.ERROR_OBJECT_NOT_FOUND:
+                                Log.i(HomeFragment.class.getName(), "No remote database. Upload for the first time.");
+                                // a local base but no remote base : upload!
+                                SynchronizationHelper.uploadDatabase(activity);
+                                break;
+
+                            case StorageException.ERROR_BUCKET_NOT_FOUND:
+                            case StorageException.ERROR_PROJECT_NOT_FOUND:
+                            case StorageException.ERROR_NOT_AUTHORIZED:
+                            case StorageException.ERROR_NOT_AUTHENTICATED:
+                            case StorageException.ERROR_CANCELED:
+                            case StorageException.ERROR_QUOTA_EXCEEDED:
+                            case StorageException.ERROR_INVALID_CHECKSUM:
+                            case StorageException.ERROR_UNKNOWN:
+                                // should not happen
+                                showSnackbar(R.id.scrollview, R.string.unknown_error);
+                                FirebaseCrash.report(new IllegalStateException("HomeFragment#startFlow - error code " + errorCode + " while downloading metadata."));
+                                break;
+
+                            case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
+                                // no internet?
+                                showSnackbar(R.id.scrollview, R.string.unknown_error);
+                                Log.i(HomeFragment.class.getName(), "Failed to get metadata.");
+                                break;
+                        }
+                        mProgressHolder.dismissDialog();
+                    }
+                });
+            }
+
+        }
+    }
+
+
+
+    private void showSnackbar(int viewId, int messageId){
+        Snackbar mySnackbar = Snackbar.make(getActivity().findViewById(viewId), messageId, Snackbar.LENGTH_SHORT);
+    }
 }

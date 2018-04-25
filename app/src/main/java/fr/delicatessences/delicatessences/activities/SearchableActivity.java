@@ -178,7 +178,7 @@ public class SearchableActivity extends OrmLiteBaseActionBarActivity<DatabaseHel
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.fragment_home_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));

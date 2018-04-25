@@ -18,7 +18,7 @@ public class FileUtils {
         OutputStream out = null;
         try {
             in = new FileInputStream(src);
-            out = new FileOutputStream(dst);
+            out = new FileOutputStream(dst, false);
 
             byte[] buf = new byte[1024];
             int len;
@@ -26,6 +26,7 @@ public class FileUtils {
                 out.write(buf, 0, len);
             }
             in.close();
+            out.flush();
             out.close();
             return true;
         } catch (FileNotFoundException e) {

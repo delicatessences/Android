@@ -36,6 +36,7 @@ import java.util.Arrays;
 import fr.delicatessences.delicatessences.BuildConfig;
 import fr.delicatessences.delicatessences.R;
 import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
+import fr.delicatessences.delicatessences.utils.ProgressModalDialogHolder;
 
 import static fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper.CUSTOM_METADATA_KEY;
 
@@ -52,13 +53,13 @@ public class LoginActivity extends AppCompatActivity {
     private int extraType;
     private String extraTag;
 
-    private ProgressDialogHolder mProgressHolder;
+    private ProgressModalDialogHolder mProgressHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mProgressHolder = new ProgressDialogHolder(this);
+        mProgressHolder = new ProgressModalDialogHolder(this);
 
         Intent intent = getIntent();
         if (intent != null){
@@ -140,8 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         // compare local and remote last update time
                         if (remoteTimeMillis > localTimeMillis){
-                            Log.i(LoginActivity.class.getName(), "Remote database is newer than remote one: download.");
-                            File localFile = SynchronizationHelper.getLocalDatabaseFile(userId);
+                            Log.i(LoginActivity.class.getName(), "Remote database is newer than local one: download.");
                             FileDownloadTask downloadTask = SynchronizationHelper.downloadRemoteDatabase(userId);
                             downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
