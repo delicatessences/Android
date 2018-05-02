@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -33,7 +34,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
@@ -161,7 +161,7 @@ public class SynchronizationHelper {
 
             dispatcher.mustSchedule(job);
         } else {
-            FirebaseCrash.report(new IllegalStateException("SynchronizationHelper#uploadDatabase - current user is null, cannot upload."));
+            Crashlytics.log(Log.WARN, "Synchronization", "current user is null, cannot upload.");
         }
     }
 
@@ -199,7 +199,7 @@ public class SynchronizationHelper {
             editor.putLong(key, timeMillis);
             editor.apply();
         } else {
-            FirebaseCrash.report(new IllegalStateException("SynchronizationHelper#saveLastUpdateTime - current user is null, cannot save update time."));
+            Crashlytics.log(Log.WARN, "Synchronization", "current user is null, cannot save update time.");
         }
     }
 

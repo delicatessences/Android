@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;

@@ -79,3 +79,9 @@
 -keep class fr.delicatessences.delicatessences.** { *; }
 -keep class net.mediavrog.irr.** { *; }
 -keep class net.mediavrog.ruli.** { *; }
+
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**

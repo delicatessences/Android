@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;

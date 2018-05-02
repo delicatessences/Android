@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.ui.ProgressDialogHolder;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
@@ -47,7 +48,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
@@ -539,7 +539,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                                         case StorageException.ERROR_UNKNOWN:
                                             // should not happen: log it
                                             showSnackbar(R.id.scrollview, R.string.unknown_error);
-                                            FirebaseCrash.report(new IllegalStateException("HomeFragment#synchronize - error code " + errorCode + " while downloading database."));
+                                            Crashlytics.log(Log.WARN, "Manual Synchronization", "Error code " + errorCode + " while downloading database.");
                                             break;
 
                                         case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -581,7 +581,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
                             case StorageException.ERROR_UNKNOWN:
                                 // should not happen
                                 showSnackbar(R.id.scrollview, R.string.unknown_error);
-                                FirebaseCrash.report(new IllegalStateException("HomeFragment#startFlow - error code " + errorCode + " while downloading metadata."));
+                                Crashlytics.log(Log.WARN, "Manual Synchronization", "Error code " + errorCode + " while downloading metadata.");
                                 break;
 
                             case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:

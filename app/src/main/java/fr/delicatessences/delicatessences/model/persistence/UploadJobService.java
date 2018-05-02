@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -34,12 +34,12 @@ public class UploadJobService extends JobService {
         Bundle extras = job.getExtras();
         final long localUpdateTime = extras.getLong(LAST_UPDATE_TIME_EXTRA, 0);
         if (localUpdateTime == 0){
-            FirebaseCrash.report(new IllegalStateException("UploadJobService#onStartJob Invalid local update time."));
+            Crashlytics.log(Log.WARN, "Synchronization", "Invalid local update time.");
             jobFinished(job, false);
         }
         final String userId = extras.getString(USER_ID_EXTRA);
         if (userId == null){
-            FirebaseCrash.report(new IllegalStateException("UploadJobService#onStartJob User ID is null."));
+            Crashlytics.log(Log.WARN, "Synchronization", "User ID is null.");
             jobFinished(job, false);
         }
 
@@ -80,7 +80,7 @@ public class UploadJobService extends JobService {
                     case StorageException.ERROR_QUOTA_EXCEEDED:
                         // should not happen
                         jobFinished(job, false);
-                        FirebaseCrash.report(new IllegalStateException("UploadJobService#onStartJob - error code " + errorCode + " while downloading metadata."));
+                        Crashlytics.log(Log.WARN, "Synchronization", "Error code " + errorCode + " while downloading metadata.");
                         break;
 
                     case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -137,7 +137,7 @@ public class UploadJobService extends JobService {
                                         case StorageException.ERROR_CANCELED:
                                             // should not happen
                                             jobFinished(job, false);
-                                            FirebaseCrash.report(new IllegalStateException("UploadJobService#upload - error code " + errorCode + " while updating metadata."));
+                                            Crashlytics.log(Log.WARN, "Synchronization", "Error code " + errorCode + " while updating metadata.");
                                             break;
 
                                         case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -165,7 +165,7 @@ public class UploadJobService extends JobService {
                         case StorageException.ERROR_QUOTA_EXCEEDED:
                         case StorageException.ERROR_CANCELED:
                             // should not happen: log it
-                            FirebaseCrash.report(new IllegalStateException("UploadJobService#upload - error code " + errorCode + " while uploading database."));
+                            Crashlytics.log(Log.WARN, "Synchronization", "Error code " + errorCode + " while updating database.");
                             jobFinished(job, false);
                             break;
 
@@ -180,7 +180,7 @@ public class UploadJobService extends JobService {
                 }
             });
         } else {
-            FirebaseCrash.report(new IllegalStateException("UploadJobService#upload - databse file does not exist."));
+            Crashlytics.log(Log.WARN, "Synchronization", "Databse file does not exist.");
         }
 
     }

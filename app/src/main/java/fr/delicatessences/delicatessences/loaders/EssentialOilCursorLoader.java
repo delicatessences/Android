@@ -83,6 +83,7 @@ public class EssentialOilCursorLoader extends AsyncTaskLoader<Cursor> {
     /* Runs on the UI thread */
     @Override
     public void deliverResult(Cursor cursor) {
+        System.out.println("deliverResult");
         if (isReset()) {
 // An async query came in while the loader is stopped
             if (cursor != null) {
@@ -141,6 +142,7 @@ public class EssentialOilCursorLoader extends AsyncTaskLoader<Cursor> {
 
     @Override
     public void onCanceled(Cursor cursor) {
+        System.out.println("onCanceled");
         if (cursor != null && !cursor.isClosed()) {
             cursor.close();
         }
@@ -151,6 +153,7 @@ public class EssentialOilCursorLoader extends AsyncTaskLoader<Cursor> {
 
     @Override
     protected void onReset() {
+        System.out.println("onReset");
         super.onReset();
 // Ensure the loader is stopped
         onStopLoading();

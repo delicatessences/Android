@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -23,7 +24,6 @@ import com.google.firebase.appindexing.FirebaseUserActions;
 import com.google.firebase.appindexing.builders.Actions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                                         case StorageException.ERROR_INVALID_CHECKSUM:
                                         case StorageException.ERROR_UNKNOWN:
                                             // should not happen: log it
-                                            FirebaseCrash.report(new IllegalStateException("LoginActivity#startFlow - error code " + errorCode + " while downloading database."));
+                                            Crashlytics.log(Log.WARN, "Login", "Error code " + errorCode + " while downloading database.");
                                             break;
 
                                         case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -207,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                             case StorageException.ERROR_INVALID_CHECKSUM:
                             case StorageException.ERROR_UNKNOWN:
                                 // should not happen
-                                FirebaseCrash.report(new IllegalStateException("LoginActivity#startFlow - error code " + errorCode + " while downloading metadata."));
+                                Crashlytics.log(Log.WARN, "Login", "Error code " + errorCode + " while downloading metadata.");
                                 break;
 
                             case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
                                         case StorageException.ERROR_INVALID_CHECKSUM:
                                         case StorageException.ERROR_UNKNOWN:
                                             // should not happen
-                                            FirebaseCrash.report(new IllegalStateException("LoginActivity#startFlow - error code " + errorCode + " while downloading metadata (no local db)."));
+                                            Crashlytics.log(Log.WARN, "Login", "Error code " + errorCode + " while downloading metadata (no local db).");
                                             break;
 
                                         case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -285,7 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                                 case StorageException.ERROR_INVALID_CHECKSUM:
                                 case StorageException.ERROR_UNKNOWN:
                                     // should not happen
-                                    FirebaseCrash.report(new IllegalStateException("LoginActivity#startFlow - error code " + errorCode + " while downloading database (no local db)."));
+                                    Crashlytics.log(Log.WARN, "Login", "Error code " + errorCode + " while downloading database (no local db).");
                                     break;
 
                                 case StorageException.ERROR_RETRY_LIMIT_EXCEEDED:
@@ -296,7 +296,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 } catch (IOException e) {
-                    FirebaseCrash.report(new IllegalStateException("LoginActivity#startFlow - error creating database file."));
+                    Crashlytics.log(Log.WARN, "Login", "Error creating database file..");
                     startMainActivity();
                 }
             }
