@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,7 +16,6 @@ import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.ui.ProgressDialogHolder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +46,7 @@ import static fr.delicatessences.delicatessences.model.persistence.Synchronizati
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 3103;
+    private static final int RC_SIGN_IN = 100;
     private static final int TYPE_MASK = 0x3;
     private static final int ID_MASK = 0xFFFFFFFC;
     private int extraId;
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.w(LoginActivity.class.getName(), "onCreate.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mProgressHolder = new ProgressModalDialogHolder(this);
@@ -92,16 +93,23 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
+            Log.w(LoginActivity.class.getName(), "current user != null.");
             // already signed in: start main activity
             startFlow(currentUser.getUid());
             return;
         } else {
             // not signed in, start sign in flow
+            int mode = AppCompatDelegate.MODE_NIGHT_YES;
+            AppCompatDelegate.setDefaultNightMode(mode);
+            getDelegate().setLocalNightMode(mode);
+
+
             AuthUI authUI = AuthUI.getInstance();
             // create the intent
             AuthUI.SignInIntentBuilder builder = authUI.createSignInIntentBuilder();
-            builder.setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()));
+            builder.setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
+                    new AuthUI.IdpConfig.GoogleBuilder().build()));
+            builder.setIsSmartLockEnabled(false);
             builder.setTheme(R.style.LoginTheme);
             builder.setLogo(R.drawable.logo_login);
             intent = builder.build();
@@ -112,6 +120,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startFlow(final String userId){
+        Log.w(LoginActivity.class.getName(), "Start flow.");
+        int mode = AppCompatDelegate.MODE_NIGHT_NO;
+        AppCompatDelegate.setDefaultNightMode(mode);
+        getDelegate().setLocalNightMode(mode);
         mProgressHolder.showLoadingDialog(R.string.synchronization);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storage.setMaxDownloadRetryTimeMillis(20000);
@@ -308,8 +320,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void startMainActivity(){
-        Log.i(LoginActivity.class.getName(), "Main activity started.");
-        mProgressHolder.dismissDialog();
+        Log.w(LoginActivity.class.getName(), "Main activity started.");
         startActivity(createIntent());
         finish();
     }
@@ -327,6 +338,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.w(LoginActivity.class.getName(), "onActivityResult " + requestCode + " " + resultCode);
 
         // sign in ?
         if (requestCode == RC_SIGN_IN) {
@@ -347,12 +360,12 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     showSnackbar(viewId, R.string.no_internet_connection);
                     return;
                 }
 
-                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     showSnackbar(viewId, R.string.unknown_error);
                     return;
                 }
@@ -367,7 +380,21 @@ public class LoginActivity extends AppCompatActivity {
         Snackbar mySnackbar = Snackbar.make(findViewById(viewId), messageId, Snackbar.LENGTH_SHORT);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mProgressHolder.dismissDialog();
+    }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            startFlow(currentUser.getUid());
+        }
+    }
 }
 

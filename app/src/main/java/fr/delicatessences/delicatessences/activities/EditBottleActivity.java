@@ -354,4 +354,14 @@ public class EditBottleActivity extends EditActivity
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         mDateView.setDate(dayOfMonth, monthOfYear, year);
     }
+
+    @Override
+    public void showProgress(int message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }

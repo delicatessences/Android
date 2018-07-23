@@ -448,4 +448,13 @@ public class EditRecipeActivity extends EditActivity {
 
     }
 
+    @Override
+    public void showProgress(int message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }

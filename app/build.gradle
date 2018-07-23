@@ -10,8 +10,8 @@ android {
         applicationId "fr.delicatessences.delicatessences"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 16
-        versionName "2.1.1"
+        versionCode 17
+        versionName "2.1.2"
         resConfigs "fr"
     }
     buildTypes {
@@ -33,14 +33,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.1'
     implementation 'com.github.manuelpeinado.fadingactionbar:fadingactionbar:3.1.2'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    implementation 'com.firebaseui:firebase-ui-auth:3.3.1'
-    implementation 'com.google.firebase:firebase-core:15.0.0'
-    implementation 'com.google.firebase:firebase-appindexing:15.0.0'
-    implementation 'com.google.firebase:firebase-storage:15.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+    implementation 'com.google.firebase:firebase-appindexing:16.0.1'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
     implementation 'net.mediavrog:integrated-rating-request:1.1.2'
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.4'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
 }
 

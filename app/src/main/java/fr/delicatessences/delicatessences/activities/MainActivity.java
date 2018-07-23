@@ -572,6 +572,16 @@ public class MainActivity extends OrmLiteBaseActionBarActivity<DatabaseHelper> i
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.w(MainActivity.class.getName(), "onConnectionFailed:" + connectionResult);
     }
+
+    @Override
+    public void showProgress(int message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }
 
 

@@ -357,4 +357,13 @@ public class EditVOActivity extends EditActivity {
     }
 
 
+    @Override
+    public void showProgress(int message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }

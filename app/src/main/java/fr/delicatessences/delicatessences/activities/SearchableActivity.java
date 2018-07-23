@@ -202,5 +202,15 @@ public class SearchableActivity extends OrmLiteBaseActionBarActivity<DatabaseHel
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void showProgress(int message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }
 
