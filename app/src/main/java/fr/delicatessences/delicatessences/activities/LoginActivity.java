@@ -309,7 +309,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startMainActivity(){
         Log.i(LoginActivity.class.getName(), "Main activity started.");
-        mProgressHolder.dismissDialog();
         startActivity(createIntent());
         finish();
     }
@@ -367,7 +366,10 @@ public class LoginActivity extends AppCompatActivity {
         Snackbar mySnackbar = Snackbar.make(findViewById(viewId), messageId, Snackbar.LENGTH_SHORT);
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        mProgressHolder.dismissDialog();
+        super.onDestroy();
+    }
 }
 

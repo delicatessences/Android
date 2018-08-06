@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -41,13 +40,9 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.credentials.Credential;
-import com.google.android.gms.auth.api.credentials.CredentialRequestResult;
-import com.google.android.gms.auth.api.credentials.IdentityProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.Result;
@@ -61,7 +56,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.ArrayList;
@@ -72,8 +66,6 @@ import fr.delicatessences.delicatessences.activities.LoginActivity;
 import fr.delicatessences.delicatessences.adapters.NavigationDrawerArrayAdapter;
 import fr.delicatessences.delicatessences.model.persistence.SynchronizationHelper;
 import fr.delicatessences.delicatessences.utils.ProgressModalDialogHolder;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -115,8 +107,8 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerListView;
-	private ListView mDrawerAccountListView;
+	private ListView mMainMenuList;
+	private ListView mAccountList;
 	private View mFragmentContainerView;
 
 	private int mCurrentSelectedPosition = 1;
@@ -172,8 +164,8 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
         final FragmentActivity activity = getActivity();
         View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
-        mDrawerListView = (ListView) view.findViewById(R.id.list);
-		mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mMainMenuList = (ListView) view.findViewById(R.id.list);
+		mMainMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
@@ -183,8 +175,8 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
 
 
 
-        mDrawerAccountListView = (ListView) view.findViewById(R.id.account_list);
-        mDrawerAccountListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAccountList = (ListView) view.findViewById(R.id.account_list);
+        mAccountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (position == 1){
@@ -195,9 +187,9 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
                     }
                 });
 
+        addHeader(inflater, container);
         populateList(activity);
         populateAccountList(activity);
-        addHeader(inflater, container);
 
 		return view;
 	}
@@ -380,28 +372,24 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
             usermailTextView.setText(currentUser.getEmail());
             mArrowView = listHeaderView.findViewById(R.id.arrow);
 
-            userButton.setOnTouchListener(new View.OnTouchListener() {
+            userButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-                        mArrowView.setRotation(mArrowView.getRotation() + 180);
-                        if (mDrawerAccountListView.getVisibility() == View.GONE){
-                            mDrawerAccountListView.setVisibility(View.VISIBLE);
-                            mDrawerListView.setVisibility(View.GONE);
-                        } else {
-                            mDrawerAccountListView.setVisibility(View.GONE);
-                            mDrawerListView.setVisibility(View.VISIBLE);
-                        }
-                        return true;
+                public void onClick(View v) {
+                    mArrowView.setRotation(mArrowView.getRotation() + 180);
+                    if (mAccountList.getVisibility() == View.GONE){
+                        mMainMenuList.setVisibility(View.GONE);
+                        mAccountList.setVisibility(View.VISIBLE);
+                    } else {
+                        mAccountList.setVisibility(View.GONE);
+                        mMainMenuList.setVisibility(View.VISIBLE);
                     }
-                    return false;
                 }
             });
         } else {
             userButton.setVisibility(View.GONE);
         }
-        mDrawerAccountListView.addHeaderView(listHeaderView, null, false);
-        mDrawerListView.addHeaderView(listHeaderView, null, false);
+        mAccountList.addHeaderView(listHeaderView, null, false);
+        mMainMenuList.addHeaderView(listHeaderView, null, false);
     }
 
 	private void populateList(Context context) {
@@ -419,8 +407,8 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
         images.recycle();
 
         NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(context, items);
-        mDrawerListView.setAdapter(adapter);
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        mMainMenuList.setAdapter(adapter);
+        mMainMenuList.setItemChecked(mCurrentSelectedPosition, true);
 
     }
 
@@ -444,7 +432,7 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
             images.recycle();
 
             NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(context, items);
-            mDrawerAccountListView.setAdapter(adapter);
+            mAccountList.setAdapter(adapter);
         }
     }
 
@@ -478,14 +466,14 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                if (mDrawerListView != null){
-                    if (mDrawerListView.getVisibility() == View.GONE){
+                if (mMainMenuList != null){
+                    if (mMainMenuList.getVisibility() == View.GONE){
                         mArrowView.setRotation(mArrowView.getRotation() + 180);
                     }
-                    mDrawerListView.setVisibility(View.VISIBLE);
+                    mMainMenuList.setVisibility(View.VISIBLE);
                 }
-                if (mDrawerAccountListView != null){
-                    mDrawerAccountListView.setVisibility(View.GONE);
+                if (mAccountList != null){
+                    mAccountList.setVisibility(View.GONE);
                 }
             }
 
@@ -573,8 +561,8 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
 
 	private void selectItem(int position) {
 
-		if (mDrawerListView != null) {
-			mDrawerListView.setItemChecked(position, true);
+		if (mMainMenuList != null) {
+			mMainMenuList.setItemChecked(position, true);
 
 		}
 		position--;
@@ -719,6 +707,12 @@ public class NavigationDrawerFragment extends Fragment implements ResultCallback
 
         return EmailAuthProvider.getCredential(user.getEmail(), password);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        mProgressHolder.dismissDialog();
+        super.onDestroy();
     }
 
 

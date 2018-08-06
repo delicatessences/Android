@@ -603,4 +603,10 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     private void showSnackbar(int viewId, int messageId){
         Snackbar mySnackbar = Snackbar.make(getActivity().findViewById(viewId), messageId, Snackbar.LENGTH_SHORT);
     }
+
+    @Override
+    public void onDestroy() {
+        mProgressHolder.dismissDialog();
+        super.onDestroy();
+    }
 }
